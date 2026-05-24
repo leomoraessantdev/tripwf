@@ -83,54 +83,54 @@ export default function CidadeRoteiro({ dados, indice }) {
         </div>
       )}
 
-      <div className="p-5 sm:p-6 grid lg:grid-cols-2 gap-5">
-        <section className="flex flex-col">
+      <div className="p-5 sm:p-6 space-y-5">
+        <section>
           <h4 className="font-display font-bold text-primary-900 dark:text-ink-50 mb-3 flex items-center gap-2">
             <BedDouble className="w-4 h-4 text-primary-500" />
             Hospedagem
           </h4>
           {hospedagem ? (
-            <div className="flex gap-3 p-3 rounded-xl bg-cream-100 dark:bg-ink-800/60 flex-1">
+            <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-2xl bg-cream-100 dark:bg-ink-800/60">
               <Imagem
                 src={hospedagem.imagem}
                 alt={hospedagem.nome}
-                className="w-20 h-20 rounded-lg flex-shrink-0"
+                className="w-full sm:w-56 h-48 sm:h-44 rounded-xl flex-shrink-0"
               />
               <div className="flex-1 min-w-0 flex flex-col">
-                <div className="font-semibold text-primary-900 dark:text-ink-50 line-clamp-2 leading-tight">
+                <div className="font-display font-bold text-xl sm:text-2xl text-primary-900 dark:text-ink-50 leading-tight">
                   {hospedagem.nome}
                 </div>
-                <div className="text-xs text-primary-500 dark:text-ink-300 flex items-center gap-2 mt-1">
-                  <span>{hospedagem.tipo}</span>
-                  <Avaliacao valor={hospedagem.avaliacao} tamanho={11} />
+                <div className="text-sm text-primary-500 dark:text-ink-300 flex items-center gap-3 mt-2">
+                  <span className="font-semibold">{hospedagem.tipo}</span>
+                  <Avaliacao valor={hospedagem.avaliacao} tamanho={14} />
                 </div>
-                <div className="text-xs text-primary-500 dark:text-ink-300 flex items-center gap-1 mt-0.5">
-                  <MapPin className="w-3 h-3" /> {hospedagem.bairro}
+                <div className="text-sm text-primary-500 dark:text-ink-300 flex items-center gap-1.5 mt-1">
+                  <MapPin className="w-4 h-4" /> {hospedagem.bairro}
                 </div>
-                <div className="mt-auto pt-2">
-                  <div className="text-sm font-bold text-accent-600 dark:text-accent-300">
+                <div className="mt-auto pt-3">
+                  <div className="text-2xl font-display font-extrabold text-accent-600 dark:text-accent-300 leading-none">
                     {formatarEUR(custoHospedagem)}
                   </div>
-                  <div className="text-[10px] text-primary-500 dark:text-ink-300">
-                    {formatarBRL(custoHospedagem)} · {formatarEUR(hospedagem.precoNoite)} × {dias}
+                  <div className="text-xs text-primary-500 dark:text-ink-300 mt-1">
+                    {formatarBRL(custoHospedagem)} · {formatarEUR(hospedagem.precoNoite)} × {dias} {dias === 1 ? 'noite' : 'noites'}
                   </div>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="text-sm text-primary-500 dark:text-ink-300 italic p-3 rounded-xl bg-cream-100 dark:bg-ink-800/60 flex-1">
+            <div className="text-sm text-primary-500 dark:text-ink-300 italic p-4 rounded-2xl bg-cream-100 dark:bg-ink-800/60">
               Nenhuma hospedagem selecionada
             </div>
           )}
         </section>
 
-        <section className="flex flex-col">
+        <section>
           <h4 className="font-display font-bold text-primary-900 dark:text-ink-50 mb-3 flex items-center gap-2">
             <Camera className="w-4 h-4 text-accent-500" />
             Atrações ({atracoes.length})
           </h4>
           {atracoes.length > 0 ? (
-            <ul className="space-y-2 flex-1">
+            <ul className="grid sm:grid-cols-2 gap-2">
               {atracoes.map((a) => (
                 <li key={a.id} className="flex gap-3 p-2 rounded-lg bg-cream-100/50 dark:bg-ink-800/50">
                   <Imagem
@@ -158,7 +158,7 @@ export default function CidadeRoteiro({ dados, indice }) {
               ))}
             </ul>
           ) : (
-            <div className="text-sm text-primary-500 dark:text-ink-300 italic p-3 rounded-xl bg-cream-100 dark:bg-ink-800/60 flex-1">
+            <div className="text-sm text-primary-500 dark:text-ink-300 italic p-3 rounded-xl bg-cream-100 dark:bg-ink-800/60">
               Nenhuma atração selecionada
             </div>
           )}

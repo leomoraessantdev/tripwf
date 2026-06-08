@@ -14,6 +14,11 @@
 //   3. Cada transição vira metrô ou caminhada conforme `propMetro`.
 //   4. Caminhada base/dia (perambulação + hotel ↔ pontos) = 2.5 km.
 //   5. Caminhada extra por atração (rondar a região) = 0.5 km.
+//   6. Baseline diário de metrô em cidades metropolitanas/mistas:
+//      mesmo sem transições suficientes, o turista usa metrô para ir
+//      do hotel a um ponto turístico e voltar (ida + volta = 2 trechos
+//      por dia em metropolitana com atração). Sem esse piso, Paris
+//      com 3 atrações em 3 dias retornava 0 trechos — fora da realidade.
 //
 // Veja sanity-checks em comentários ao final do arquivo.
 
@@ -35,6 +40,14 @@ const PROP_METRO = {
   caminhavel: 0.10,
   misto:      0.40,
   metro:      0.70
+}
+
+// Piso diário de trechos de metrô quando há ao menos 1 atração no dia.
+// Modela ida/volta hotel↔região turística que o modelo linear ignora.
+const TRECHOS_METRO_MIN_POR_DIA = {
+  caminhavel: 0,   // cidade compacta a pé — sem piso
+  misto:      1,   // 1 trecho/dia (ida OU volta no transporte público)
+  metro:      2    // ida + volta de metrô como padrão urbano
 }
 
 // Perfil por slug. Classificação baseada no diâmetro real do centro
@@ -85,8 +98,16 @@ export function estimarDeslocamento(dadosViagem, totalDias) {
     // Transições por cidade: percurso linear entre atrações (1 → N).
     const transicoesCidade = Math.max(0, nAtracoes - 1)
 
-    const trechosMetroCidade = Math.round(transicoesCidade * propMetro)
-    const trechosCaminhadaCidade = transicoesCidade - trechosMetroCidade
+    const trechosMetroLinear = Math.round(transicoesCidade * propMetro)
+    const trechosCaminhadaCidade = transicoesCidade - trechosMetroLinear
+
+    // Piso diário de metrô (apenas se há atrações no roteiro da cidade).
+    // Garante que cidade com perfil metro/misto não retorne 0 quando o
+    // usuário escolhe poucas atrações em muitos dias.
+    const pisoMetroCidade = nAtracoes > 0
+      ? TRECHOS_METRO_MIN_POR_DIA[perfil.modal] * dias
+      : 0
+    const trechosMetroCidade = Math.max(trechosMetroLinear, pisoMetroCidade)
 
     const kmMetroCidade = trechosMetroCidade * dist
     const kmCaminhadaCidade =

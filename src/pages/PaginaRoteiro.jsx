@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
-  Download, RotateCcw, Sparkles, MapPin, ArrowRight, Share2, Check, Pencil, Save
+  Download, RotateCcw, Sparkles, MapPin, ArrowRight, Share2, Check, Pencil, Save, Bookmark
 } from 'lucide-react'
 import { useViagem } from '../context/ViagemContext.jsx'
 import { exportarRoteiroPdf } from '../utils/exportarPdf.js'
 import { gerarLinkCompartilhamento, compartilharLink } from '../utils/compartilhar.js'
 import { emitirSalvamento } from '../utils/saveTracker.js'
+import { salvarRoteiro, sugerirNomeRoteiro } from '../utils/roteirosSalvos.js'
 import HeroRoteiro from '../components/roteiro/HeroRoteiro.jsx'
 import ResumoRapido from '../components/roteiro/ResumoRapido.jsx'
 import ResumoViagem from '../components/roteiro/ResumoViagem.jsx'
@@ -25,10 +26,31 @@ export default function PaginaRoteiro() {
   const {
     dadosViagem, limparViagem, totais,
     orcamentoDiario, viajantes, cidadesSelecionadas,
-    origem, dataIda, dataVolta, estilo
+    origem, dataIda, dataVolta, estilo, checklistConcluidos
   } = useViagem()
+  const navigate = useNavigate()
   const [exportando, setExportando] = useState(false)
   const [feedbackShare, setFeedbackShare] = useState(null)
+  const [salvando, setSalvando] = useState(false)
+
+  const salvarERedirecionar = () => {
+    if (salvando || dadosViagem.length === 0) return
+    setSalvando(true)
+    try {
+      const estado = {
+        orcamentoDiario, viajantes, origem, dataIda, dataVolta, estilo,
+        cidadesSelecionadas, checklistConcluidos
+      }
+      const nomeSugerido = sugerirNomeRoteiro(estado, dadosViagem)
+      const nome = window.prompt('Dê um nome ao roteiro:', nomeSugerido) ?? nomeSugerido
+      salvarRoteiro({ estado, dadosViagem, totais, nome })
+      emitirSalvamento({ texto: 'Roteiro salvo ✓' })
+      navigate('/meus-roteiros')
+    } catch (e) {
+      alert('Erro ao salvar roteiro: ' + e.message)
+      setSalvando(false)
+    }
+  }
 
   const exportar = async () => {
     setExportando(true)
@@ -75,9 +97,10 @@ export default function PaginaRoteiro() {
           </Link>
           <Botao
             variante="secundario"
-            onClick={() => emitirSalvamento({ texto: 'Roteiro salvo ✓' })}
+            onClick={salvarERedirecionar}
+            disabled={salvando}
           >
-            <Save className="w-4 h-4" /> Salvar
+            <Save className="w-4 h-4" /> {salvando ? 'Salvando...' : 'Salvar'}
           </Botao>
           <Botao variante="secundario" onClick={compartilhar}>
             {feedbackShare ? (
@@ -153,12 +176,20 @@ export default function PaginaRoteiro() {
 
           <ChecklistViagem />
 
+          <CardSalvarRoteiro onSalvar={salvarERedirecionar} salvando={salvando} />
+
           <div className="text-center text-xs text-primary-500 dark:text-ink-300 py-4">
             Roteiro gerado por TripWF — TCC · {totais.totalDias} dias · {dadosViagem.length} cidades
           </div>
         </div>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Link
+            to="/meus-roteiros"
+            className="btn-base bg-white hover:bg-cream-200 text-primary-700 dark:bg-ink-900 dark:hover:bg-ink-800 dark:text-ink-100 dark:ring-1 dark:ring-ink-700 px-6 py-3 shadow-soft dark:shadow-none"
+          >
+            <Bookmark className="w-4 h-4" /> Meus roteiros salvos
+          </Link>
           <Link
             to="/planejador"
             className="btn-base bg-white hover:bg-cream-200 text-primary-700 dark:bg-ink-900 dark:hover:bg-ink-800 dark:text-ink-100 dark:ring-1 dark:ring-ink-700 px-6 py-3 shadow-soft dark:shadow-none"
@@ -168,6 +199,45 @@ export default function PaginaRoteiro() {
         </div>
       </div>
     </div>
+  )
+}
+
+function CardSalvarRoteiro({ onSalvar, salvando }) {
+  return (
+    <article className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-500 to-primary-700 dark:from-ink-800 dark:to-ink-900 p-6 sm:p-8 text-white shadow-soft">
+      <div
+        aria-hidden="true"
+        className="absolute -top-12 -right-12 w-56 h-56 rounded-full bg-accent-500/30 blur-3xl"
+      />
+      <div className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+        <div className="flex items-start gap-4">
+          <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center shrink-0">
+            <Bookmark className="w-7 h-7 text-white" />
+          </div>
+          <div>
+            <span className="inline-block text-accent-300 font-semibold text-xs uppercase tracking-wider mb-1">
+              Sua biblioteca de viagens
+            </span>
+            <h2 className="font-display font-extrabold text-2xl sm:text-3xl leading-tight">
+              Salvar este roteiro
+            </h2>
+            <p className="text-sm text-white/80 mt-1 max-w-xl">
+              Guarde esta versão completa (cidades, datas, hospedagens, atrações, orçamento
+              e checklist) para abrir, comparar ou editar quando quiser.
+            </p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={onSalvar}
+          disabled={salvando}
+          className="btn-base bg-accent-500 hover:bg-accent-600 text-white px-6 py-3.5 text-base shadow-hover self-start sm:self-auto shrink-0 disabled:opacity-70"
+        >
+          <Save className="w-5 h-5" />
+          {salvando ? 'Salvando...' : 'Salvar roteiro'}
+        </button>
+      </div>
+    </article>
   )
 }
 

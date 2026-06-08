@@ -15,7 +15,8 @@ export default function Header() {
   const links = [
     { to: '/', label: 'Início' },
     { to: '/planejador', label: 'Planejador' },
-    { to: '/roteiro', label: 'Meu Roteiro' },
+    { to: '/roteiro', label: 'Roteiro' },
+    { to: '/meus-roteiros', label: 'Meus Roteiros' },
     { to: '/sobre', label: 'Sobre o TripWF' }
   ]
 

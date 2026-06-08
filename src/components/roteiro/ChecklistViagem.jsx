@@ -66,7 +66,7 @@ export default function ChecklistViagem() {
         </div>
       </header>
 
-      <div className="relative mb-6">
+      <div className="mb-6">
         <div className="w-full h-2 rounded-full bg-cream-200 dark:bg-ink-800 overflow-hidden">
           <div
             className={`h-full transition-all duration-500 ${
@@ -76,9 +76,11 @@ export default function ChecklistViagem() {
           />
         </div>
         {completo && (
-          <div className="absolute -top-1 right-0 inline-flex items-center gap-1 text-success font-semibold text-xs">
-            <Sparkles className="w-3.5 h-3.5" />
-            Pronto para embarcar
+          <div className="mt-4 flex justify-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-success/30 bg-success/10 text-success font-semibold text-sm shadow-soft">
+              <Sparkles className="w-4 h-4" />
+              Pronto para embarcar
+            </div>
           </div>
         )}
       </div>

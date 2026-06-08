@@ -209,6 +209,25 @@ export function ViagemProvider({ children }) {
     }))
   }, [setEstado])
 
+  // Carrega um roteiro salvo do próprio usuário. Diferente do link
+  // compartilhado, preserva o checklistConcluidos salvo no snapshot.
+  const carregarRoteiroSalvo = useCallback((novoEstado) => {
+    if (!novoEstado) return
+    setEstado((s) => ({
+      ...s,
+      orcamentoDiario: novoEstado.orcamentoDiario ?? s.orcamentoDiario,
+      viajantes: novoEstado.viajantes ?? s.viajantes,
+      origem: novoEstado.origem ?? s.origem,
+      dataIda: novoEstado.dataIda ?? s.dataIda,
+      dataVolta: novoEstado.dataVolta ?? s.dataVolta,
+      estilo: novoEstado.estilo ?? s.estilo,
+      cidadesSelecionadas: novoEstado.cidadesSelecionadas ?? s.cidadesSelecionadas,
+      checklistConcluidos: Array.isArray(novoEstado.checklistConcluidos)
+        ? novoEstado.checklistConcluidos
+        : []
+    }))
+  }, [setEstado])
+
   const cidadeEstaSelecionada = useCallback(
     (slug) => estado.cidadesSelecionadas.some((c) => c.slug === slug),
     [estado.cidadesSelecionadas]
@@ -314,6 +333,7 @@ export function ViagemProvider({ children }) {
     aplicarSugestao,
     aplicarRoteiroSurpresa,
     aplicarRoteiroCompartilhado,
+    carregarRoteiroSalvo,
     cidadeEstaSelecionada,
     toggleChecklistItem,
     resetarChecklist

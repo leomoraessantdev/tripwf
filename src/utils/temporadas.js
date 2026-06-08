@@ -94,7 +94,7 @@ export function mensagemImpactoTemporada(temporada, cidadeNome) {
     const pct = Math.round((1 - temporada.multiplicadorHotel) * 100)
     return `${temporada.mesLabel} é baixa temporada em ${cidadeNome}. Hospedagens costumam ficar ~${pct}% mais baratas que a média.`
   }
-  return `${temporada.mesLabel} é ombro de temporada em ${cidadeNome}. Preços médios sem grandes variações.`
+  return `${temporada.mesLabel} é média temporada em ${cidadeNome}. Preços ficam dentro da média anual, sem grandes oscilações.`
 }
 
 // Para o trecho entre duas cidades, usa a média do voo entre as duas

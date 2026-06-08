@@ -6,6 +6,7 @@ import PaginaInicial from './pages/PaginaInicial.jsx'
 import PaginaCidade from './pages/PaginaCidade.jsx'
 import PaginaPlanejador from './pages/PaginaPlanejador.jsx'
 import PaginaRoteiro from './pages/PaginaRoteiro.jsx'
+import PaginaMeusRoteiros from './pages/PaginaMeusRoteiros.jsx'
 import PaginaSobre from './pages/PaginaSobre.jsx'
 import ToastSalvo from './components/ui/ToastSalvo.jsx'
 import ModalRetomar from './components/ui/ModalRetomar.jsx'
@@ -50,6 +51,7 @@ export default function App() {
           <Route path="/cidade/:slug" element={<PaginaCidade />} />
           <Route path="/planejador" element={<PaginaPlanejador />} />
           <Route path="/roteiro" element={<PaginaRoteiro />} />
+          <Route path="/meus-roteiros" element={<PaginaMeusRoteiros />} />
           <Route path="/sobre" element={<PaginaSobre />} />
         </Routes>
       </main>

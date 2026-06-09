@@ -48,7 +48,7 @@ export const IMAGENS_HOSPEDAGEM = {
   'roma-h4':      enc('hotels', 'hassler-hotel-roma.jpg'),
   // Barcelona
   'barcelona-h1': enc('hotels', 'casa-fuster-barcelona.jpg'),
-  'barcelona-h2': enc('hotels', 'gÒtic-boutique-Barcelona.jpg'),
+  'barcelona-h2': enc('hotels', 'gotic-boutique-barcelona.jpg'),
   'barcelona-h3': enc('hotels', 'kabul-party-barcelona.webp'),
   'barcelona-h4': enc('hotels', 'barceloneta-barcelona.webp'),
   // Amsterdam
@@ -102,10 +102,10 @@ export const IMAGENS_HOSPEDAGEM = {
   'budapeste-h3': enc('hotels', 'district7-apartment-budapeste.avif'),
   'budapeste-h4': enc('hotels', 'Maverick-City-Lodge-in-Budapest.jpg'),
   // Florença
-  'florenca-h1':  enc('hotels', 'four-seasons-firenze-florença.avif'),
-  'florenca-h2':  enc('hotels', 'hotel-lungarno-florença.jpg'),
-  'florenca-h3':  enc('hotels', 'tuscany-styly-apartment-florença.jpg'),
-  'florenca-h4':  enc('hotels', 'plus-florence-florença.webp'),
+  'florenca-h1':  enc('hotels', 'four-seasons-firenze-florenca.avif'),
+  'florenca-h2':  enc('hotels', 'hotel-lungarno-florenca.jpg'),
+  'florenca-h3':  enc('hotels', 'tuscany-styly-apartment-florenca.jpg'),
+  'florenca-h4':  enc('hotels', 'plus-florence-florenca.webp'),
   // Edimburgo
   'edimburgo-h1': enc('hotels', 'balmoral-hotel-edimburgo.jpg'),
   'edimburgo-h2': enc('hotels', 'witchery-castle-edimburgo.jpg'),
@@ -161,7 +161,7 @@ export const IMAGENS_ATRACAO = {
   'viena-stephans':     enc('attractions', 'viena-catedral-santo-estevao.jpg'),
   'viena-belvedere':    enc('attractions', 'viena-palacio-belvedere.jpg'),
   'viena-opera':        enc('attractions', 'viena-noite-opera.jpg'),
-  'viena-cafes':        enc('attractions', 'tour-café-viena.jpg'),
+  'viena-cafes':        enc('attractions', 'tour-cafe-viena.jpg'),
   // Londres
   'londres-bigben':     enc('attractions', 'londres-big-ben.jpg'),
   'londres-british':    enc('attractions', 'londres-british-museum.jpg'),
@@ -173,7 +173,7 @@ export const IMAGENS_ATRACAO = {
   'berlim-muro':         enc('attractions', 'berlim-east-side-gallery.jpg'),
   'berlim-pergamon':     enc('attractions', 'berlim-ilha-dos-museus.jpg'),
   'berlim-reichstag':    enc('attractions', 'cupula-de-vidro-berlim.webp'),
-  'berlim-kreuzberg':    enc('attractions', 'tour-gastronômico-berlim.jpg'),
+  'berlim-kreuzberg':    enc('attractions', 'tour-gastronomico-berlim.jpg'),
   // Madri
   'madri-prado':        enc('attractions', 'madri-Museu-do-Prado.jpg'),
   'madri-palacio':      enc('attractions', 'madri-palacio-real-de-madri.jpg'),
@@ -191,19 +191,19 @@ export const IMAGENS_ATRACAO = {
   'istambul-mesquita':  enc('attractions', 'istambul-mesquita-azul.jpg'),
   'istambul-topkapi':   enc('attractions', 'palacio-topkapi-istambul.jpg'),
   'istambul-bazar':     enc('attractions', 'istambul-bazar-das-especiarias.jpg'),
-  'istambul-bosforo':   enc('attractions', 'cruzeiro-bósforo-istambul.jpg'),
+  'istambul-bosforo':   enc('attractions', 'cruzeiro-bosforo-istambul.jpg'),
   // Budapeste
   'budapeste-parlamento': enc('attractions', 'budapeste-Budapest-Parliament.jpg'),
   'budapeste-bastiao':    enc('attractions', 'budapeste-castelo-buda-bastiao-pecadores.jpg'),
   'budapeste-termas':     enc('attractions', 'termas-szechenyi-budapeste.jpg'),
   'budapeste-ruin':       enc('attractions', 'ruin-bars-budapeste.jpg'),
-  'budapeste-cruzeiro':   enc('attractions', 'cruzeiro-danúbio-budapeste.jpg'),
+  'budapeste-cruzeiro':   enc('attractions', 'cruzeiro-danubio-budapeste.jpg'),
   // Florença
   'florenca-duomo':     enc('attractions', 'florenca-duomo.jpg'),
   'florenca-uffizi':    enc('attractions', 'interior-da-galleria-degli-uffizi-florenca.jpg'),
-  'florenca-david':     enc('attractions', 'galleria-dellaccademia-david-florença.jpg'),
+  'florenca-david':     enc('attractions', 'galleria-dellaccademia-david-florenca.jpg'),
   'florenca-vecchio':   enc('attractions', 'florenca-ponte-veccheio.jpg'),
-  'florenca-toscana':   enc('attractions', 'tour-vinhos-florença.jpg'),
+  'florenca-toscana':   enc('attractions', 'tour-vinhos-florenca.jpg'),
   // Edimburgo
   'edimburgo-castelo':   enc('attractions', 'edimburgo-castelo-edimbugo.jpg'),
   'edimburgo-royalmile': enc('attractions', 'royal-mile-edimburgo.jpg'),
@@ -214,6 +214,6 @@ export const IMAGENS_ATRACAO = {
   'copenhague-nyhavn':       enc('attractions', 'nyhavn-conpenhage.webp'),
   'copenhague-sereia':       enc('attractions', 'copenhagen-pequena-sereia.jpg'),
   'copenhague-tivoli':       enc('attractions', 'jardins-tivoli-copenhagen.jpg'),
-  'copenhague-christiania':  enc('attractions', 'Entrée_de_Christiania-conpenhagen.jpg'),
+  'copenhague-christiania':  enc('attractions', 'Entree_de_Christiania-conpenhagen.jpg'),
   'copenhague-canais':       enc('attractions', 'tour-de-bicicleta-copenhagen.jpg')
 }

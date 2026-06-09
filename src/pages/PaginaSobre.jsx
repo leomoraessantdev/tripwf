@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   Sparkles, ArrowRight, AlertCircle, Compass, Plane, BedDouble, Ticket,
-  Train, Wallet, Map as MapIcon, ListChecks, Wand2, Shield, Globe2,
+  Train, Wallet, Map as MapIcon, ListChecks, Wand2, Shield,
   GraduationCap, Quote
 } from 'lucide-react'
 import Imagem from '../components/ui/Imagem.jsx'
@@ -107,10 +107,9 @@ function HeroSobre() {
               Conhecer o projeto
             </a>
           </div>
-          <div className="mt-12 grid grid-cols-3 gap-6 max-w-xl">
+          <div className="mt-12 grid grid-cols-2 gap-6 max-w-xl">
             <Stat numero="16" label="Cidades europeias" />
             <Stat numero="80+" label="Atrações catalogadas" />
-            <Stat numero="0" label="Backend necessário" />
           </div>
         </motion.div>
 
@@ -132,15 +131,6 @@ function HeroSobre() {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent" />
               </div>
             ))}
-            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white dark:bg-ink-900 dark:ring-1 dark:ring-ink-700 text-primary-900 dark:text-ink-100 rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-accent-500 flex items-center justify-center">
-                <Globe2 className="w-5 h-5 text-white" />
-              </div>
-              <div className="leading-tight">
-                <div className="text-[10px] uppercase tracking-wider font-bold text-primary-500 dark:text-ink-300">TCC 2026</div>
-                <div className="font-display font-extrabold text-sm">Trabalho de Conclusão</div>
-              </div>
-            </div>
           </div>
         </motion.div>
       </div>

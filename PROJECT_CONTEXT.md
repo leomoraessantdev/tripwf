@@ -93,7 +93,7 @@ src/
    ├─ datas.js          computarDatasCidades + formatadores (sem bug de fuso UTC)
    ├─ distancia.js      Haversine (km em linha reta)
    ├─ exportarPdf.js    html2canvas + jsPDF, multi-página
-   ├─ links.js          linkIngresso (GetYourGuide), linkReserva (Booking), linkVoo
+   ├─ links.js          linkIngresso (GetYourGuide), linkReserva (Booking)
    ├─ compartilhar.js   Encode/decode base64url do estado + Web Share API
    ├─ sugestoes.js      Heurística determinística (estilo + orçamento + dias)
    ├─ transportes.js    Estimativas + links Rome2Rio/Trainline/FlixBus/Google
@@ -235,7 +235,6 @@ Estado em 2026-05-16:
 
 - **PDF + Leaflet** ✅ resolvido: `exportarPdf.js` adiciona `body.tripwf-exporting` antes de chamar html2canvas. CSS em `index.css` esconde `.leaflet-container` e revela `.mapa-pdf-fallback` (overlay estático já no DOM de `MapaRoteiro`, com gradient + rota textual `Paris → Roma → Lisboa` + distância total). `requestAnimationFrame` duplo garante que o CSS aplique antes do snapshot. Classe é removida no `finally`. Sem dependência externa, sem tainted canvas.
 - **`Hero.jsx`** ✅ dinâmico: importa `useViagem`. Se `dadosViagem.length > 0`, mostra primeiras 3 cidades reais + total real (`totais.custoTotal`) + badge "Seu roteiro" + CTA "Ver roteiro completo". Senão mostra exemplo Paris/Roma/Lisboa com badge `Exemplo` visível. Usa `formatarEUR`/`formatarBRL` em vez de hardcoded.
-- **`links.js` → `linkVoo`** está exportado mas não é consumido em lugar nenhum.
 - **Sugestão automática só dispara na 1ª abertura** de uma cidade. Se o usuário limpar manualmente uma escolha, não auto-preenche de novo — comportamento intencional, mas pode confundir.
 
 ---

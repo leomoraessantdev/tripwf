@@ -1,4 +1,4 @@
-import { Compass, Mail, Globe, Heart } from 'lucide-react'
+import { Compass, Mail, Globe } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
@@ -39,11 +39,8 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-app py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-cream-100/50">
+        <div className="container-app py-5 flex items-center justify-center text-xs text-cream-100/50">
           <div>© 2026 TripWF — Projeto de TCC</div>
-          <div className="flex items-center gap-1">
-            Feito com <Heart className="w-3 h-3 fill-accent-500 text-accent-500" /> para a banca examinadora
-          </div>
         </div>
       </div>
     </footer>

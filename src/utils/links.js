@@ -44,8 +44,3 @@ export function linkReserva(nome, cidade, opts = {}) {
   }
   return url
 }
-
-export function linkVoo(cidade) {
-  const q = enc(cidade)
-  return `https://www.google.com/travel/flights?q=${q}`
-}

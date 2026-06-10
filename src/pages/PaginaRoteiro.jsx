@@ -179,7 +179,7 @@ export default function PaginaRoteiro() {
           <CardSalvarRoteiro onSalvar={salvarERedirecionar} salvando={salvando} />
 
           <div className="text-center text-xs text-primary-500 dark:text-ink-300 py-4">
-            Roteiro gerado por TripWF — TCC · {totais.totalDias} dias · {dadosViagem.length} cidades
+            Roteiro gerado por TripWF · {totais.totalDias} dias · {dadosViagem.length} cidades
           </div>
         </div>
 

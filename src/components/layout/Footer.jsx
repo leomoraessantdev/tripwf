@@ -40,7 +40,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/10">
         <div className="container-app py-5 flex items-center justify-center text-xs text-cream-100/50">
-          <div>© 2026 TripWF — Projeto de TCC</div>
+          <div>© 2026 TripWF</div>
         </div>
       </div>
     </footer>

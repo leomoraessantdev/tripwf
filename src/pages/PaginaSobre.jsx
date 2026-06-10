@@ -338,7 +338,7 @@ function SecaoTecnologias() {
               </div>
               <div>
                 <div className="font-display font-bold text-sm">Leonardo Moraes</div>
-                <div className="text-xs text-white/60">Trabalho de Conclusão de Curso · 2026</div>
+                <div className="text-xs text-white/60">Criador do TripWF</div>
               </div>
             </div>
           </div>

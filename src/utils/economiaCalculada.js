@@ -20,6 +20,18 @@ const TRANSPORTE_REAL_TRECHO = 80       // EUR — mesma constante do ViagemCont
 const MULT_HOTEL_ALTA = 1.20            // baseline assume sempre alta temporada
 const ECONOMIA_MIN_RELEVANTE = 15       // ignora ganhos menores que isso
 
+// Pacote de agência: baseline + taxa de serviço média de operadoras (10-20%
+// sobre o pacote, fonte: práticas de mercado ABAV/consolidadores 2024).
+const MULT_AGENCIA = 1.15
+
+// Tempo de pesquisa manual estimado (survey Expedia/Skyscanner: viajante
+// médio gasta 10h+ pesquisando). Heurística por tamanho do roteiro:
+const HORAS_BASE_PESQUISA = 2          // comparar destinos, montar planilha
+const HORAS_POR_CIDADE = 1.5           // hotéis + o que fazer em cada cidade
+const HORAS_POR_ATRACAO = 0.2          // achar ingresso, horário, preço
+const HORAS_POR_TRECHO = 0.5           // comparar voo/trem/ônibus por trecho
+const MINUTOS_TRIPWF = 15              // fluxo completo dos 4 passos
+
 // Indicador visual a partir do ratio (economia/baseline):
 // >= 12%  → excelente (verde)
 // 4-12%   → moderado (amarelo)
@@ -34,9 +46,12 @@ export function calcularEconomia({ dadosViagem, totais, dataIda }) {
 
   // Hospedagem baseline: hotel mais caro da cidade × alta temporada × dias.
   // Real: o que o usuário já paga (custoHospedagem).
+  // Só compara cidades COM hospedagem escolhida — sem hotel escolhido não há
+  // economia real a reivindicar (o usuário ainda vai dormir em algum lugar).
   let hospedagemBaseline = 0
   let hospedagemReal = 0
   dadosViagem.forEach((d) => {
+    if (!d.hospedagem) return
     const opcoes = d.cidade.hospedagens || []
     if (opcoes.length === 0) return
     const maisCara = opcoes.reduce((m, h) => (h.precoNoite > m.precoNoite ? h : m), opcoes[0])
@@ -153,10 +168,33 @@ export function calcularEconomia({ dadosViagem, totais, dataIda }) {
     }
   })
 
+  // ---------- Cenários de comparação (gráfico) ----------
+  // agencia: pacote fechado (baseline + taxa de serviço da operadora)
+  // baseline: viajar por conta própria sem planejar/comparar
+  // atual: o roteiro montado no TripWF
+  const agenciaTotal = baselineTotal * MULT_AGENCIA
+
+  // ---------- Tempo de planejamento economizado ----------
+  const totalAtracoes = dadosViagem.reduce((s, d) => s + d.atracoes.length, 0)
+  const horasManual =
+    HORAS_BASE_PESQUISA +
+    HORAS_POR_CIDADE * dadosViagem.length +
+    HORAS_POR_ATRACAO * totalAtracoes +
+    HORAS_POR_TRECHO * nTrechos
+  const horasManualArred = Math.round(horasManual * 2) / 2
+  const horasEconomizadas = Math.max(0, Math.round((horasManual - MINUTOS_TRIPWF / 60) * 2) / 2)
+
   return {
     baselineTotal: Math.round(baselineTotal),
+    agenciaTotal: Math.round(agenciaTotal),
     atualTotal: Math.round(atualTotal),
     economiaTotal: Math.round(economiaTotal),
+    economiaVsAgencia: Math.max(0, Math.round(agenciaTotal - atualTotal)),
+    tempo: {
+      horasManual: horasManualArred,
+      minutosTripwf: MINUTOS_TRIPWF,
+      horasEconomizadas
+    },
     ratio,
     indicador,
     breakdown: {

@@ -1,5 +1,6 @@
 import { MapPin, BedDouble, ExternalLink } from 'lucide-react'
 import Imagem from '../ui/Imagem.jsx'
+import BotaoFavorito from '../ui/BotaoFavorito.jsx'
 import Tag from '../ui/Tag.jsx'
 import Avaliacao from '../ui/Avaliacao.jsx'
 import { formatarEUR, formatarBRL } from '../../utils/formatadores.js'
@@ -30,6 +31,9 @@ export default function HospedagemCard({ hospedagem }) {
           <Tag variante="branco">
             <Avaliacao valor={hospedagem.avaliacao} />
           </Tag>
+        </div>
+        <div className="absolute bottom-3 right-3">
+          <BotaoFavorito tipo="hospedagens" id={hospedagem.id} nome={hospedagem.nome} />
         </div>
       </div>
       <div className="p-5 flex-1 flex flex-col">

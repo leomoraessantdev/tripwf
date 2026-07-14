@@ -8,8 +8,10 @@ import { useViagem } from '../context/ViagemContext.jsx'
 import { listarRoteiros, excluirRoteiro } from '../utils/roteirosSalvos.js'
 import { formatarEUR } from '../utils/formatadores.js'
 import { formatarTempoRelativo } from '../utils/saveTracker.js'
+import { useTituloPagina } from '../hooks/useTituloPagina.js'
 
 export default function PaginaMeusRoteiros() {
+  useTituloPagina('Meus roteiros', 'Seus roteiros de viagem salvos no TripWF.')
   const { carregarRoteiroSalvo } = useViagem()
   const navigate = useNavigate()
   const [roteiros, setRoteiros] = useState(() => listarRoteiros())

@@ -6,6 +6,7 @@ import {
   GraduationCap, Quote
 } from 'lucide-react'
 import Imagem from '../components/ui/Imagem.jsx'
+import { useTituloPagina } from '../hooks/useTituloPagina.js'
 
 const PROBLEMAS = [
   { titulo: 'Custos imprevisíveis', desc: 'Hospedagem, atrações, transportes e alimentação somam de forma diferente em cada cidade.' },
@@ -25,8 +26,8 @@ const SOLUCOES = [
 
 const FUNCIONALIDADES = [
   { icone: Plane, titulo: 'Planejamento de viagem', desc: 'Fluxo guiado em 4 passos. Auto-sugestão de atrações e hospedagens por estilo.' },
-  { icone: BedDouble, titulo: 'Hospedagens', desc: '64 opções (hotel, hostel, apartamento) com avaliação, bairro e link real no Booking.' },
-  { icone: Ticket, titulo: 'Atrações', desc: '80+ atrações em 16 cidades com preço, duração, categoria e link no GetYourGuide.' },
+  { icone: BedDouble, titulo: 'Hospedagens', desc: '100 opções (hotel, hostel, apartamento) com avaliação, bairro e link real no Booking.' },
+  { icone: Ticket, titulo: 'Atrações', desc: '120+ atrações em 16 cidades com preço, duração, categoria, dicas e link no GetYourGuide.' },
   { icone: Train, titulo: 'Transporte', desc: 'Avião, trem, ônibus e carro com estimativa de tempo e preço entre cada par de cidades.' },
   { icone: Wallet, titulo: 'Controle de orçamento', desc: 'Painel flutuante com total/pessoa/dia, breakdown e indicador 🟢🟡🔴 vs orçamento.' },
   { icone: MapIcon, titulo: 'Mapa do roteiro', desc: 'Leaflet + OpenStreetMap com markers numerados, polyline tracejada e popup informativo.' },
@@ -55,6 +56,7 @@ const IMAGENS_MOSAICO = [
 ]
 
 export default function PaginaSobre() {
+  useTituloPagina('Sobre o projeto', 'Como o TripWF foi construído: React, Vite, Tailwind e decisões de engenharia.')
   return (
     <div className="bg-cream-100 dark:bg-ink-950 pt-16 sm:pt-20">
       <HeroSobre />

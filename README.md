@@ -39,6 +39,12 @@ Toda a experiência é guiada por um wizard de 4 etapas que considera orçamento
 - ✅ **Checklist adaptativo** de viagem, ajustado ao roteiro montado
 - 💾 **Múltiplos roteiros salvos** localmente (sem conta, sem backend)
 - 🌐 **Mapa interativo** com marcadores por cidade via Leaflet + OpenStreetMap
+- 💚 **Sistema de favoritos** — marque atrações e hospedagens e filtre por elas
+- 🔍 **Busca e filtros** — busca textual, filtro por país/categoria/tipo e ordenação por preço/avaliação
+- ⏱️ **Economia de tempo e dinheiro** — gráfico comparando agência × sem planejamento × TripWF
+- ♿ **Acessibilidade** — skip-link, navegação por teclado, `prefers-reduced-motion`, ARIA
+- ⚡ **Performance** — code splitting (PDF sob demanda), skeleton loading, imagens locais otimizadas
+- 🧭 **SEO** — meta tags Open Graph/Twitter e título dinâmico por rota + página 404 personalizada
 
 ---
 
@@ -129,21 +135,21 @@ tripwf/
 ├── public/
 │   ├── favicon.svg
 │   └── images/
-│       ├── cities/        # 17 fotos de cidades
-│       ├── attractions/   # 80 fotos de atrações
-│       └── hotels/        # 67 fotos de hospedagens
+│       ├── cities/        # fotos de cidades
+│       ├── attractions/   # fotos das 122 atrações
+│       └── hotels/        # fotos das 100 hospedagens
 └── src/
-    ├── components/        # 38 componentes React
+    ├── components/        # 40+ componentes React
     │   ├── layout/        # Header, Footer
-    │   ├── home/          # Hero, grid de destinos
+    │   ├── home/          # Hero, grid de destinos com busca
     │   ├── cidade/        # Cards de atração e hospedagem
     │   ├── planejador/    # Wizard de planejamento
-    │   ├── roteiro/       # Timeline, mapa, exportação
-    │   └── ui/            # Botões, tags, toast, modal
+    │   ├── roteiro/       # Timeline, mapa, economia, exportação
+    │   └── ui/            # Botões, tags, filtros, favoritos, toast, modal
     ├── context/           # ViagemContext (estado global)
-    ├── data/              # 16 cidades, atrações, hotéis, scores
-    ├── hooks/             # 6 hooks customizados
-    ├── pages/             # 5 rotas (Inicial, Cidade, Planejador, Roteiro, Sobre)
+    ├── data/              # 16 cidades, 122 atrações, 100 hospedagens, scores
+    ├── hooks/             # 8 hooks customizados
+    ├── pages/             # 7 rotas (Inicial, Cidade, Planejador, Roteiro, Meus Roteiros, Sobre, 404)
     └── utils/             # 18 módulos utilitários (PDF, links, datas, cálculos…)
 ```
 
@@ -151,7 +157,9 @@ tripwf/
 
 ## 🌍 Destinos Disponíveis
 
-Lisboa · Porto · Madrid · Barcelona · Paris · Amsterdam · Roma · Florença · Veneza · Praga · Viena · Budapeste · Berlim · Amsterdã · Dubrovnik · Santorini
+Paris · Roma · Barcelona · Amsterdam · Praga · Lisboa · Viena · Londres · Berlim · Madri · Atenas · Istambul · Budapeste · Florença · Edimburgo · Copenhague
+
+> Madri, Barcelona, Florença, Roma, Budapeste e Atenas contam com **catálogo ampliado**: 12 atrações e 10 hospedagens cada, com avaliação, bairro, dica de visita e link oficial.
 
 ---
 

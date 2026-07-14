@@ -6,6 +6,17 @@
   html {
     scroll-behavior: smooth;
   }
+  /* Acessibilidade: respeita usuários que desativam animações no SO */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
   body {
     @apply font-sans bg-cream-100 text-primary-900 antialiased;
   }
@@ -33,6 +44,10 @@
 @layer components {
   .container-app {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  /* Link "pular para o conteúdo" — visível apenas com foco de teclado */
+  .skip-link {
+    @apply absolute left-4 -top-20 z-[100] px-4 py-2.5 rounded-xl bg-primary-900 text-white font-semibold text-sm transition-all focus:top-4 focus:outline-none focus:ring-4 focus:ring-accent-500/40;
   }
   .glass {
     @apply backdrop-blur-md bg-white/70 border border-white/40;

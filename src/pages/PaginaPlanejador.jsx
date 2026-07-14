@@ -10,6 +10,7 @@ import BudgetSummary from '../components/planejador/BudgetSummary.jsx'
 import Botao from '../components/ui/Botao.jsx'
 import { useViagem } from '../context/ViagemContext.jsx'
 import { emitirSalvamento } from '../utils/saveTracker.js'
+import { useTituloPagina } from '../hooks/useTituloPagina.js'
 
 const PASSOS = [
   { titulo: 'Orçamento', componente: PassoOrcamento },
@@ -19,6 +20,7 @@ const PASSOS = [
 ]
 
 export default function PaginaPlanejador() {
+  useTituloPagina('Planejador', 'Monte sua viagem pela Europa em 4 passos: orçamento, cidades, dias e escolhas.')
   const [passo, setPasso] = useState(1)
   const navigate = useNavigate()
   const { cidadesSelecionadas } = useViagem()

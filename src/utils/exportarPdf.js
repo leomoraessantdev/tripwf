@@ -1,11 +1,15 @@
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
-
+// jsPDF + html2canvas somam ~500KB minificados e só são usados no clique de
+// "Exportar PDF" — import dinâmico tira ambos do bundle inicial (code splitting).
 export async function exportarRoteiroPdf(elementoId, nomeArquivo = 'tripwf-roteiro.pdf') {
   const elemento = document.getElementById(elementoId)
   if (!elemento) {
     throw new Error(`Elemento #${elementoId} não encontrado`)
   }
+
+  const [{ default: jsPDF }, { default: html2canvas }] = await Promise.all([
+    import('jspdf'),
+    import('html2canvas')
+  ])
 
   // Leaflet usa tiles de subdomínios sem CORS — quando html2canvas tenta
   // capturar, gera tainted canvas e o mapa sai em branco (ou quebra tudo).

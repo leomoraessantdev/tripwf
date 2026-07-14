@@ -8,6 +8,7 @@ import PaginaPlanejador from './pages/PaginaPlanejador.jsx'
 import PaginaRoteiro from './pages/PaginaRoteiro.jsx'
 import PaginaMeusRoteiros from './pages/PaginaMeusRoteiros.jsx'
 import PaginaSobre from './pages/PaginaSobre.jsx'
+import Pagina404 from './pages/Pagina404.jsx'
 import ToastSalvo from './components/ui/ToastSalvo.jsx'
 import ModalRetomar from './components/ui/ModalRetomar.jsx'
 import { useViagem } from './context/ViagemContext.jsx'
@@ -44,8 +45,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
       <Header />
-      <main className="flex-1">
+      <main id="conteudo" className="flex-1">
         <Routes>
           <Route path="/" element={<PaginaInicial />} />
           <Route path="/cidade/:slug" element={<PaginaCidade />} />
@@ -53,6 +55,8 @@ export default function App() {
           <Route path="/roteiro" element={<PaginaRoteiro />} />
           <Route path="/meus-roteiros" element={<PaginaMeusRoteiros />} />
           <Route path="/sobre" element={<PaginaSobre />} />
+          <Route path="/404" element={<Pagina404 />} />
+          <Route path="*" element={<Pagina404 />} />
         </Routes>
       </main>
       <Footer />

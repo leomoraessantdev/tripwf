@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
+import { motion } from 'framer-motion'
 import {
-  PiggyBank, Check, TrendingDown, ArrowRight,
+  PiggyBank, Check, TrendingDown, ArrowRight, Clock, Zap, Hourglass,
   BedDouble, Ticket, Plane, Thermometer, Lightbulb
 } from 'lucide-react'
 import { useViagem } from '../../context/ViagemContext.jsx'
@@ -109,23 +110,66 @@ export default function CardEconomia() {
           </div>
         </div>
 
-        {/* Comparação visual: viagem média × seu roteiro × economia */}
+        {/* Gráfico comparativo: agência × sem planejar × TripWF */}
+        <div className="rounded-2xl bg-white/10 backdrop-blur border border-white/15 p-4 sm:p-5 mb-6">
+          <div className="text-[11px] uppercase tracking-wider font-bold text-white/80 mb-4">
+            O mesmo roteiro, três formas de comprar
+          </div>
+          <div className="space-y-3.5">
+            <BarraCenario
+              rotulo="Pacote de agência"
+              detalhe="preços de balcão + taxa de serviço"
+              valor={economia.agenciaTotal}
+              maximo={economia.agenciaTotal}
+              cor="bg-white/30"
+            />
+            <BarraCenario
+              rotulo="Por conta, sem comparar"
+              detalhe="hotéis e ingressos mais caros, sempre de avião"
+              valor={economia.baselineTotal}
+              maximo={economia.agenciaTotal}
+              cor="bg-white/45"
+            />
+            <BarraCenario
+              rotulo="Seu roteiro no TripWF"
+              detalhe="escolhas comparadas item a item"
+              valor={economia.atualTotal}
+              maximo={economia.agenciaTotal}
+              cor="bg-success"
+              destaque
+            />
+          </div>
+          {economia.economiaVsAgencia > 0 && (
+            <p className="text-xs text-white/75 mt-4">
+              Em relação a um pacote de agência, seu roteiro custa{' '}
+              <strong className="text-sm font-extrabold text-white">
+                {formatarEUR(economia.economiaVsAgencia)}
+              </strong>{' '}
+              a menos.
+            </p>
+          )}
+        </div>
+
+        {/* Tempo de planejamento economizado */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-          <ComparacaoCard
-            rotulo="Viagem média semelhante"
-            valor={economia.baselineTotal}
-            destaque={false}
+          <TempoTile
+            icone={Hourglass}
+            rotulo="Planejando por conta"
+            valor={`≈ ${formatarHoras(economia.tempo.horasManual)}`}
+            legenda="pesquisando hotéis, ingressos e trechos"
           />
-          <ComparacaoCard
-            rotulo="Seu roteiro"
-            valor={economia.atualTotal}
+          <TempoTile
+            icone={Zap}
+            rotulo="Com o TripWF"
+            valor={`~${economia.tempo.minutosTripwf} min`}
+            legenda="do orçamento ao roteiro completo"
             destaque
           />
-          <ComparacaoCard
-            rotulo="Economia"
-            valor={economia.economiaTotal}
-            destaque={false}
-            verde
+          <TempoTile
+            icone={Clock}
+            rotulo="Tempo economizado"
+            valor={`≈ ${formatarHoras(economia.tempo.horasEconomizadas)}`}
+            legenda="para gastar na viagem, não na planilha"
           />
         </div>
 
@@ -180,38 +224,72 @@ export default function CardEconomia() {
             </div>
           </div>
         )}
+
+        <p className="text-[11px] text-white/50 mt-5 leading-relaxed">
+          Estimativas baseadas em médias de mercado (Booking/Skyscanner 2023-24), na taxa
+          média de serviço de operadoras e nos preços do catálogo TripWF. Valores reais variam
+          conforme datas, disponibilidade e câmbio.
+        </p>
       </div>
     </section>
   )
 }
 
-function ComparacaoCard({ rotulo, valor, destaque, verde }) {
+function formatarHoras(h) {
+  if (h >= 1) {
+    return Number.isInteger(h) ? `${h}h` : `${Math.floor(h)}h30`
+  }
+  return `${Math.round(h * 60)} min`
+}
+
+// Barra horizontal do comparativo de cenários. Largura proporcional ao
+// cenário mais caro; animada na entrada (whileInView, uma vez só).
+function BarraCenario({ rotulo, detalhe, valor, maximo, cor, destaque }) {
+  const pct = maximo > 0 ? Math.max(8, Math.round((valor / maximo) * 100)) : 0
+  return (
+    <div>
+      <div className="flex items-baseline justify-between gap-3 mb-1">
+        <span className={`text-sm leading-tight ${destaque ? 'font-extrabold text-white' : 'font-semibold text-white/85'}`}>
+          {rotulo}
+          <span className="hidden sm:inline text-[11px] font-normal text-white/55"> · {detalhe}</span>
+        </span>
+        <span className={`shrink-0 font-display leading-none ${destaque ? 'font-extrabold text-xl text-white' : 'font-bold text-base text-white/85'}`}>
+          {formatarEUR(valor)}
+        </span>
+      </div>
+      <div className="h-3 rounded-full bg-white/10 overflow-hidden" aria-hidden="true">
+        <motion.div
+          className={`h-full rounded-full ${cor}`}
+          initial={{ width: 0 }}
+          whileInView={{ width: `${pct}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+        />
+      </div>
+    </div>
+  )
+}
+
+function TempoTile({ icone: Icone, rotulo, valor, legenda, destaque }) {
   return (
     <div
-      className={
+      className={`rounded-2xl p-4 border backdrop-blur ${
         destaque
-          ? 'rounded-2xl p-4 sm:p-5 bg-white text-primary-900 shadow-soft'
-          : verde
-            ? 'rounded-2xl p-4 sm:p-5 bg-success text-white shadow-soft'
-            : 'rounded-2xl p-4 sm:p-5 bg-white/10 backdrop-blur border border-white/15 text-white'
-      }
+          ? 'bg-white text-primary-900 border-white shadow-soft'
+          : 'bg-white/10 border-white/15 text-white'
+      }`}
     >
-      <div
-        className={`text-[10px] uppercase tracking-wider font-bold mb-1 ${
-          destaque ? 'text-primary-500' : verde ? 'text-white/85' : 'text-white/70'
-        }`}
-      >
-        {rotulo}
+      <div className="flex items-center gap-2 mb-2">
+        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${destaque ? 'bg-primary-500/10' : 'bg-white/15'}`}>
+          <Icone className={`w-4 h-4 ${destaque ? 'text-accent-500' : 'text-success'}`} aria-hidden="true" />
+        </div>
+        <span className={`text-[10px] uppercase tracking-wider font-bold ${destaque ? 'text-primary-500' : 'text-white/75'}`}>
+          {rotulo}
+        </span>
       </div>
-      <div className="font-display font-extrabold text-2xl sm:text-3xl leading-none">
-        {verde ? '−' : ''}{formatarEUR(valor)}
-      </div>
-      <div
-        className={`text-[10px] mt-1 ${
-          destaque ? 'text-primary-500' : verde ? 'text-white/75' : 'text-white/55'
-        }`}
-      >
-        {formatarBRL(valor)}
+      <div className="font-display font-extrabold text-2xl leading-none">{valor}</div>
+      <div className={`text-[11px] mt-1.5 leading-snug ${destaque ? 'text-primary-700/70' : 'text-white/60'}`}>
+        {legenda}
       </div>
     </div>
   )

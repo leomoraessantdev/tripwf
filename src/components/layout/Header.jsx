@@ -94,14 +94,16 @@ export default function Header() {
             transparente ? 'text-white' : 'text-primary-700'
           )}
           onClick={() => setMenuAberto(!menuAberto)}
-          aria-label="Menu"
+          aria-label={menuAberto ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={menuAberto}
+          aria-controls="menu-mobile"
         >
           {menuAberto ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
       {menuAberto && (
-        <div className="md:hidden glass border-t border-white/30">
+        <div id="menu-mobile" className="md:hidden glass border-t border-white/30">
           <div className="container-app py-4 flex flex-col gap-2">
             {links.map((l) => (
               <NavLink

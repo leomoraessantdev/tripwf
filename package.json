@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "TripWF — TCC: site de planejamento de viagens pela Europa",
+  "description": "TripWF — planejador de viagens pela Europa: roteiro, custos, mapa e PDF sem backend",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

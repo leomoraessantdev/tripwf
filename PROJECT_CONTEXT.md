@@ -2,7 +2,22 @@
 
 > **Para o Claude (e quem mais reabrir o projeto):** **leia este arquivo antes de qualquer alteração futura.** Ele resume o que o TripWF é, como está montado e quais decisões já foram tomadas. Atualize-o sempre que algo estrutural mudar.
 
-Última atualização: 2026-05-16 (Card "Quanto você economizou planejando" — baseline vs atual + breakdown + sugestão extra)
+Última atualização: 2026-07-13 (Expansão de catálogo em 6 cidades, CardEconomia com gráfico de cenários + tempo economizado, favoritos, busca/filtros, 404, SEO por rota, skeleton, code splitting)
+
+> **2026-07-13 — atualização de posicionamento:** o projeto deixou de ser apresentado como TCC e agora é peça de **portfólio profissional**. Onde este documento diz "TCC/banca", leia "portfólio/recrutadores". As regras técnicas continuam valendo.
+
+## Novidades de 2026-07-13 (resumo)
+
+- **Catálogo expandido em 6 cidades** (Madri, Barcelona, Florença, Roma, Budapeste, Atenas): 12 atrações + 10 hospedagens cada. Novos campos opcionais em atração: `avaliacao`, `local` (bairro), `dica` (informação útil), `linkOficial`. `AtracaoCard` renderiza todos condicionalmente — cidades não expandidas continuam funcionando sem eles.
+- **Imagens novas** baixadas uma única vez da Wikipedia/Wikimedia via `scripts/baixar-imagens-novas.mjs` (resumível, backoff p/ 429; normaliza JPEG 1200px via sharp) — continuam 100% locais em runtime.
+- **CardEconomia v2** (`economiaCalculada.js`): corrigido bug de economia fantasma (cidade sem hotel escolhido não gera mais "economia" de hospedagem); novos cenários `agenciaTotal` (baseline × 1.15 de taxa de operadora) e `tempo` (horas de pesquisa manual estimadas vs ~15 min no TripWF). UI ganhou gráfico de barras dos 3 cenários (agência / sem planejar / TripWF) + 3 tiles de tempo + disclaimer de metodologia.
+- **Favoritos** (`hooks/useFavoritos.js` + `ui/BotaoFavorito.jsx`): coração em AtracaoCard/HospedagemCard, localStorage `tripwf-favoritos`, sync entre componentes via CustomEvent; filtro "♥ Favoritas" na PaginaCidade.
+- **Busca e filtros**: DestinosGrid com busca textual + filtro por país + ordenação por custo/dia (e badge ~€X/dia no card); PaginaCidade com chips de categoria (atrações), chips de tipo + ordenação (hospedagens) via `ui/FiltroChips.jsx`.
+- **404 personalizada** (`pages/Pagina404.jsx`) nas rotas `/404` e `*`; slug de cidade inválido redireciona para lá.
+- **SEO**: OG/Twitter meta tags no index.html + `hooks/useTituloPagina.js` (título e description por rota).
+- **Skeleton**: pulso no placeholder do componente `Imagem` enquanto o arquivo local carrega.
+- **A11y**: skip-link "Pular para o conteúdo", `prefers-reduced-motion`, aria-expanded no menu mobile, aria-hidden em ícones decorativos.
+- **Performance**: jsPDF/html2canvas via import dinâmico (só carregam ao exportar) + `manualChunks` (react/mapa/animação) — bundle inicial caiu de ~1,34 MB para ~346 KB.
 
 ---
 

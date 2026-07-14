@@ -45,7 +45,8 @@ export default function Imagem({ src, alt, className, ...props }) {
     <div className={clsx('overflow-hidden bg-cream-200 dark:bg-ink-800', className)}>
       <div className="relative w-full h-full">
         {!carregada && (
-          <div className="absolute inset-0 bg-cream-200 dark:bg-ink-800" />
+          // Skeleton: pulso sutil enquanto o arquivo local carrega
+          <div className="absolute inset-0 bg-cream-200 dark:bg-ink-800 animate-pulse" />
         )}
         <img
           src={lista[indice]}

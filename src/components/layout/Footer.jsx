@@ -27,6 +27,8 @@ export default function Footer() {
             <li><Link to="/" className="hover:text-accent-500 transition">Início</Link></li>
             <li><Link to="/planejador" className="hover:text-accent-500 transition">Planejador</Link></li>
             <li><Link to="/roteiro" className="hover:text-accent-500 transition">Meu Roteiro</Link></li>
+            <li><Link to="/meus-roteiros" className="hover:text-accent-500 transition">Meus Roteiros</Link></li>
+            <li><Link to="/sobre" className="hover:text-accent-500 transition">Sobre o TripWF</Link></li>
           </ul>
         </div>
 

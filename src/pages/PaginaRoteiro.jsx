@@ -21,8 +21,10 @@ import CidadeRoteiro from '../components/roteiro/CidadeRoteiro.jsx'
 import ResumoEscolhas from '../components/roteiro/ResumoEscolhas.jsx'
 import ChecklistViagem from '../components/roteiro/ChecklistViagem.jsx'
 import Botao from '../components/ui/Botao.jsx'
+import { useTituloPagina } from '../hooks/useTituloPagina.js'
 
 export default function PaginaRoteiro() {
+  useTituloPagina('Seu roteiro', 'Roteiro completo com mapa, custos, transportes e checklist de viagem.')
   const {
     dadosViagem, limparViagem, totais,
     orcamentoDiario, viajantes, cidadesSelecionadas,

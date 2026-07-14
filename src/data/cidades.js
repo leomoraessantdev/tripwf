@@ -182,7 +182,56 @@ const WIKI_ATRACAO = {
   'copenhague-sereia': 'The_Little_Mermaid_(statue)',
   'copenhague-tivoli': 'Tivoli_Gardens',
   'copenhague-christiania': 'Freetown_Christiania',
-  'copenhague-canais': 'Cycling_in_Copenhagen'
+  'copenhague-canais': 'Cycling_in_Copenhagen',
+  // ----- Expansão (6 cidades com catálogo ampliado) -----
+  // Madri
+  'madri-reina-sofia': 'Museo_Reina_Sofía',
+  'madri-thyssen': 'Thyssen-Bornemisza_Museum',
+  'madri-plaza-mayor': 'Plaza_Mayor,_Madrid',
+  'madri-bernabeu': 'Santiago_Bernabéu_Stadium',
+  'madri-mercado-san-miguel': 'Mercado_de_San_Miguel',
+  'madri-templo-debod': 'Temple_of_Debod',
+  'madri-gran-via': 'Gran_Vía',
+  // Barcelona
+  'barcelona-pedrera': 'Casa_Milà',
+  'barcelona-picasso': 'Museu_Picasso',
+  'barcelona-montjuic': 'Montjuïc',
+  'barcelona-camp-nou': 'Camp_Nou',
+  'barcelona-boqueria': 'La_Boqueria',
+  'barcelona-tibidabo': 'Tibidabo',
+  'barcelona-palau': 'Palau_de_la_Música_Catalana',
+  // Florença
+  'florenca-pitti': 'Palazzo_Pitti',
+  'florenca-signoria': 'Palazzo_Vecchio',
+  'florenca-michelangelo': 'Piazzale_Michelangelo',
+  'florenca-santa-croce': 'Santa_Croce,_Florence',
+  'florenca-mercato': 'Mercato_Centrale_(Florence)',
+  'florenca-bargello': 'Bargello',
+  'florenca-fiesole': 'Fiesole',
+  // Roma
+  'roma-borghese': 'Galleria_Borghese',
+  'roma-castel': "Castel_Sant'Angelo",
+  'roma-espanha': 'Spanish_Steps',
+  'roma-san-pietro': "St._Peter's_Basilica",
+  'roma-catacumbas': 'Catacomb_of_Callixtus',
+  'roma-campo-fiori': "Campo_de'_Fiori",
+  'roma-appia': 'Appian_Way',
+  // Budapeste
+  'budapeste-matthias': 'Matthias_Church',
+  'budapeste-gellert': 'Gellért_Hill',
+  'budapeste-sinagoga': 'Dohány_Street_Synagogue',
+  'budapeste-basilica': "St._Stephen's_Basilica",
+  'budapeste-mercado': 'Great_Market_Hall_(Budapest)',
+  'budapeste-herois': "Heroes'_Square_(Budapest)",
+  'budapeste-opera': 'Hungarian_State_Opera_House',
+  // Atenas
+  'atenas-museu-acropole': 'Acropolis_Museum',
+  'atenas-agora': 'Ancient_Agora_of_Athens',
+  'atenas-licabeto': 'Mount_Lycabettus',
+  'atenas-zeus': 'Temple_of_Olympian_Zeus,_Athens',
+  'atenas-syntagma': 'Syntagma_Square',
+  'atenas-anafiotika': 'Anafiotika',
+  'atenas-panatenaico': 'Panathenaic_Stadium'
 }
 
 export const cidades = [
@@ -251,17 +300,30 @@ export const cidades = [
     destaques: ['Coliseu', 'Vaticano', 'Fontana di Trevi', 'Pantheon'],
     custoMedioDia: 70,
     atracoes: [
-      { id: 'roma-coliseu', nome: 'Coliseu e Fórum Romano', imagens: aimg('1552832230-c0197dd311b5', 'roma'), preco: 24, duracao: '4 horas', categoria: 'Histórico', descricao: 'O anfiteatro mais famoso do mundo e o coração político da Roma Antiga em uma única visita.' },
-      { id: 'roma-vaticano', nome: 'Museus Vaticanos e Capela Sistina', imagens: aimg('1531572753322-ad063cecc140', 'roma'), preco: 30, duracao: '4-5 horas', categoria: 'Museu', descricao: 'Tesouros papais em galerias intermináveis até chegar ao teto pintado por Michelangelo.' },
-      { id: 'roma-trevi', nome: 'Fontana di Trevi', imagens: aimg('1525874684015-58379d421a52', 'roma'), preco: 0, duracao: '30 minutos', categoria: 'Monumento', descricao: 'Jogue uma moeda e garanta sua volta a Roma diante da fonte barroca mais famosa do mundo.' },
-      { id: 'roma-pantheon', nome: 'Pantheon e Piazza Navona', imagens: aimg('1539037116277-4db20889f2d4', 'roma'), preco: 5, duracao: '2 horas', categoria: 'Histórico', descricao: 'Templo romano perfeitamente preservado e a praça barroca com fontes de Bernini.' },
-      { id: 'roma-trastevere', nome: 'Tour Gastronômico em Trastevere', imagens: aimg('1467003909585-2f8a72700288', 'roma'), preco: 65, duracao: '3 horas', categoria: 'Gastronomia', descricao: 'Caminhada por trattorias autênticas com degustação de cacio e pepe, suppli e vinhos locais.' }
+      { id: 'roma-coliseu', nome: 'Coliseu e Fórum Romano', imagens: aimg('1552832230-c0197dd311b5', 'roma'), preco: 24, duracao: '4 horas', categoria: 'Histórico', avaliacao: 4.8, local: 'Centro Storico', dica: 'Ingresso oficial vale 24h para Coliseu + Fórum + Palatino; compre no site oficial e evite cambistas.', linkOficial: 'https://colosseo.it', descricao: 'O anfiteatro mais famoso do mundo e o coração político da Roma Antiga em uma única visita.' },
+      { id: 'roma-vaticano', nome: 'Museus Vaticanos e Capela Sistina', imagens: aimg('1531572753322-ad063cecc140', 'roma'), preco: 30, duracao: '4-5 horas', categoria: 'Museu', avaliacao: 4.7, local: 'Vaticano', dica: 'Última entrada gratuita: último domingo do mês (filas gigantes). Melhor: 1º horário com reserva.', linkOficial: 'https://www.museivaticani.va', descricao: 'Tesouros papais em galerias intermináveis até chegar ao teto pintado por Michelangelo.' },
+      { id: 'roma-trevi', nome: 'Fontana di Trevi', imagens: aimg('1525874684015-58379d421a52', 'roma'), preco: 0, duracao: '30 minutos', categoria: 'Monumento', avaliacao: 4.7, local: 'Trevi', dica: 'Antes das 8h da manhã você tem a fonte (quase) só para você.', descricao: 'Jogue uma moeda e garanta sua volta a Roma diante da fonte barroca mais famosa do mundo.' },
+      { id: 'roma-pantheon', nome: 'Pantheon e Piazza Navona', imagens: aimg('1539037116277-4db20889f2d4', 'roma'), preco: 5, duracao: '2 horas', categoria: 'Histórico', avaliacao: 4.8, local: 'Centro Storico', dica: 'Se chover, corra para lá: a chuva caindo pelo óculo da cúpula é um espetáculo.', descricao: 'Templo romano perfeitamente preservado e a praça barroca com fontes de Bernini.' },
+      { id: 'roma-trastevere', nome: 'Tour Gastronômico em Trastevere', imagens: aimg('1467003909585-2f8a72700288', 'roma'), preco: 65, duracao: '3 horas', categoria: 'Gastronomia', avaliacao: 4.7, local: 'Trastevere', dica: 'Vá com fome: são 6-8 paradas entre suppli, cacio e pepe e gelato artesanal.', descricao: 'Caminhada por trattorias autênticas com degustação de cacio e pepe, suppli e vinhos locais.' },
+      { id: 'roma-borghese', nome: 'Galleria Borghese', imagens: aimg(), preco: 15, duracao: '2 horas', categoria: 'Museu', avaliacao: 4.7, local: 'Villa Borghese', dica: 'Entrada só com hora marcada em turnos de 2h — reserve com semanas de antecedência.', linkOficial: 'https://galleriaborghese.beniculturali.it', descricao: 'Berninis e Caravaggios na coleção particular mais impressionante de Roma, dentro do parque Borghese.' },
+      { id: 'roma-castel', nome: "Castel Sant'Angelo", imagens: aimg(), preco: 16, duracao: '2 horas', categoria: 'Histórico', avaliacao: 4.5, local: 'Prati', dica: 'O terraço no topo tem uma das melhores vistas de Roma — vá perto do pôr do sol.', descricao: 'Mausoléu de Adriano, fortaleza papal e cenário de ópera: 2 mil anos de história à beira do Tibre.' },
+      { id: 'roma-espanha', nome: 'Piazza di Spagna e Escadaria', imagens: aimg(), preco: 0, duracao: '1 hora', categoria: 'Monumento', avaliacao: 4.5, local: 'Campo Marzio', dica: 'Sentar na escadaria é proibido (multa de €250) — vá cedo para fotos sem multidão.', descricao: 'Os 135 degraus mais famosos do mundo, entre a fonte de Bernini e a igreja Trinità dei Monti.' },
+      { id: 'roma-san-pietro', nome: 'Basílica de São Pedro', imagens: aimg(), preco: 10, duracao: '2-3 horas', categoria: 'Monumento', avaliacao: 4.8, local: 'Vaticano', dica: 'A basílica é gratuita; os €10 valem pela subida à cúpula (551 degraus ou elevador parcial).', descricao: 'A maior igreja do mundo, com a Pietà de Michelangelo e a vista da cúpula sobre a Praça São Pedro.' },
+      { id: 'roma-catacumbas', nome: 'Catacumbas de São Calisto', imagens: aimg(), preco: 10, duracao: '1.5 horas', categoria: 'Histórico', avaliacao: 4.4, local: 'Via Appia', dica: 'Visita apenas guiada (incluída no ingresso); lá embaixo faz ~15°C, leve um casaco.', descricao: 'Vinte quilômetros de galerias subterrâneas onde os primeiros cristãos sepultavam seus mortos.' },
+      { id: 'roma-campo-fiori', nome: "Campo de' Fiori e Judiaria", imagens: aimg(), preco: 0, duracao: '2 horas', categoria: 'Bairro', avaliacao: 4.4, local: 'Centro Storico', dica: 'Mercado de manhã, aperitivo à noite. Na Judiaria, prove o carciofo alla giudia.', descricao: 'O mercado de rua mais antigo de Roma e o bairro judeu com a melhor comida tradicional da cidade.' },
+      { id: 'roma-appia', nome: 'Via Appia Antiga de Bicicleta', imagens: aimg(), preco: 25, duracao: '4 horas', categoria: 'Passeio', avaliacao: 4.6, local: 'Appio Latino', dica: 'Aos domingos a via fecha para carros — o melhor dia para pedalar entre ruínas.', descricao: 'Pedale pela "rainha das estradas" romanas entre aquedutos, túmulos e pedras originais de 2.300 anos.' }
     ],
     hospedagens: [
       { id: 'roma-h1', nome: 'Hotel Artemide', imagens: himg('medio', 'roma'), precoNoite: 165, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Via Nazionale', comodidades: ['Spa', 'Café da manhã', 'Wi-Fi'] },
       { id: 'roma-h2', nome: 'Trastevere Stylish Apartment', imagens: himg('apartamento', 'roma'), precoNoite: 110, avaliacao: 4.5, tipo: 'Apartamento', bairro: 'Trastevere', comodidades: ['Cozinha', 'Wi-Fi', 'Varanda'] },
       { id: 'roma-h3', nome: 'The Beehive Hostel', imagens: himg('hostel', 'roma'), precoNoite: 38, avaliacao: 4.3, tipo: 'Hostel', bairro: 'Termini', comodidades: ['Café da manhã vegano', 'Wi-Fi', 'Jardim'] },
-      { id: 'roma-h4', nome: 'Hassler Roma', imagens: himg('luxo', 'roma'), precoNoite: 380, avaliacao: 4.9, tipo: 'Hotel', bairro: 'Piazza di Spagna', comodidades: ['Vista da cidade', 'Restaurante estrelado', 'Spa'] }
+      { id: 'roma-h4', nome: 'Hassler Roma', imagens: himg('luxo', 'roma'), precoNoite: 380, avaliacao: 4.9, tipo: 'Hotel', bairro: 'Piazza di Spagna', comodidades: ['Vista da cidade', 'Restaurante estrelado', 'Spa'] },
+      { id: 'roma-h5', nome: 'The St. Regis Rome', imagens: himg(), precoNoite: 450, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Repubblica', comodidades: ['Suítes históricas', 'Spa', 'Concierge 24h'] },
+      { id: 'roma-h6', nome: 'Hotel Eden — Dorchester Collection', imagens: himg(), precoNoite: 490, avaliacao: 4.9, tipo: 'Hotel', bairro: 'Via Veneto', comodidades: ['Rooftop estrelado', 'Spa', 'Vista panorâmica'] },
+      { id: 'roma-h7', nome: 'Hotel Quirinale', imagens: himg(), precoNoite: 180, avaliacao: 4.5, tipo: 'Hotel', bairro: 'Via Nazionale', comodidades: ['Jardim interno', 'Café da manhã', 'Wi-Fi'] },
+      { id: 'roma-h8', nome: 'Albergo del Senato', imagens: himg(), precoNoite: 190, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Pantheon', comodidades: ['Vista do Pantheon', 'Terraço', 'Wi-Fi'] },
+      { id: 'roma-h9', nome: 'The Yellow Hostel', imagens: himg(), precoNoite: 35, avaliacao: 4.4, tipo: 'Hostel', bairro: 'Castro Pretorio', comodidades: ['Bar 24h', 'Eventos', 'Wi-Fi'] },
+      { id: 'roma-h10', nome: 'Monti Design Apartment', imagens: himg(), precoNoite: 115, avaliacao: 4.6, tipo: 'Apartamento', bairro: 'Monti', comodidades: ['Cozinha', 'Bairro boêmio', 'Wi-Fi'] }
     ]
   },
   {
@@ -275,17 +337,30 @@ export const cidades = [
     destaques: ['Sagrada Família', 'Park Güell', 'Las Ramblas', 'Bairro Gótico'],
     custoMedioDia: 60,
     atracoes: [
-      { id: 'barcelona-sagrada', nome: 'Sagrada Família', imagens: aimg('1583422409516-2895a77efded', 'barcelona'), preco: 26, duracao: '2 horas', categoria: 'Monumento', descricao: 'A obra-prima inacabada de Gaudí, com vitrais que transformam a luz em pura emoção.' },
-      { id: 'barcelona-guell', nome: 'Park Güell', imagens: aimg('1539037116277-4db20889f2d4', 'barcelona'), preco: 18, duracao: '2-3 horas', categoria: 'Parque', descricao: 'Mosaicos coloridos e formas orgânicas em um parque que parece um conto de fadas urbano.' },
-      { id: 'barcelona-gotico', nome: 'Bairro Gótico', imagens: aimg('1464790719320-516ecd75af6c', 'barcelona'), preco: 0, duracao: '3 horas', categoria: 'Bairro', descricao: 'Ruelas medievais, praças escondidas e a Catedral de Barcelona em um labirinto histórico.' },
-      { id: 'barcelona-casa-batllo', nome: 'Casa Batlló', imagens: aimg('1551867633-194f125bdde0', 'barcelona'), preco: 35, duracao: '1.5 horas', categoria: 'Monumento', descricao: 'A casa mais excêntrica do Passeig de Gràcia, com fachada em forma de dragão escamado.' },
-      { id: 'barcelona-barceloneta', nome: 'Praia de Barceloneta', imagens: aimg('1492571350019-22de08371fd3', 'barcelona'), preco: 0, duracao: '2-4 horas', categoria: 'Praia', descricao: 'Areia mediterrânea, chiringuitos e a melhor paella à beira-mar da cidade.' }
+      { id: 'barcelona-sagrada', nome: 'Sagrada Família', imagens: aimg('1583422409516-2895a77efded', 'barcelona'), preco: 26, duracao: '2 horas', categoria: 'Monumento', avaliacao: 4.8, local: 'Eixample', dica: 'Compre com hora marcada no site oficial; fim de tarde tem a melhor luz nos vitrais.', linkOficial: 'https://sagradafamilia.org', descricao: 'A obra-prima inacabada de Gaudí, com vitrais que transformam a luz em pura emoção.' },
+      { id: 'barcelona-guell', nome: 'Park Güell', imagens: aimg('1539037116277-4db20889f2d4', 'barcelona'), preco: 18, duracao: '2-3 horas', categoria: 'Parque', avaliacao: 4.6, local: 'Gràcia', dica: 'A zona monumental exige ingresso com horário; o resto do parque é gratuito.', linkOficial: 'https://parkguell.barcelona', descricao: 'Mosaicos coloridos e formas orgânicas em um parque que parece um conto de fadas urbano.' },
+      { id: 'barcelona-gotico', nome: 'Bairro Gótico', imagens: aimg('1464790719320-516ecd75af6c', 'barcelona'), preco: 0, duracao: '3 horas', categoria: 'Bairro', avaliacao: 4.6, local: 'Ciutat Vella', dica: 'Procure a Plaça Sant Felip Neri e a ponte neogótica do Carrer del Bisbe.', descricao: 'Ruelas medievais, praças escondidas e a Catedral de Barcelona em um labirinto histórico.' },
+      { id: 'barcelona-casa-batllo', nome: 'Casa Batlló', imagens: aimg('1551867633-194f125bdde0', 'barcelona'), preco: 35, duracao: '1.5 horas', categoria: 'Monumento', avaliacao: 4.6, local: 'Eixample', dica: 'O ingresso "Be the first" (9h) evita as multidões e custa pouco mais.', linkOficial: 'https://www.casabatllo.es', descricao: 'A casa mais excêntrica do Passeig de Gràcia, com fachada em forma de dragão escamado.' },
+      { id: 'barcelona-barceloneta', nome: 'Praia de Barceloneta', imagens: aimg('1492571350019-22de08371fd3', 'barcelona'), preco: 0, duracao: '2-4 horas', categoria: 'Praia', avaliacao: 4.4, local: 'Barceloneta', dica: 'Alugue uma bicicleta e siga o calçadão até o Fórum — praias ficam mais vazias.', descricao: 'Areia mediterrânea, chiringuitos e a melhor paella à beira-mar da cidade.' },
+      { id: 'barcelona-pedrera', nome: 'Casa Milà (La Pedrera)', imagens: aimg(), preco: 28, duracao: '1.5 horas', categoria: 'Monumento', avaliacao: 4.6, local: 'Eixample', dica: 'O tour noturno projeta luzes no terraço das chaminés-guerreiro — experiência única.', linkOficial: 'https://www.lapedrera.com', descricao: 'O último edifício civil de Gaudí, com fachada ondulada de pedra e o terraço mais surreal da Europa.' },
+      { id: 'barcelona-picasso', nome: 'Museu Picasso', imagens: aimg(), preco: 14, duracao: '2 horas', categoria: 'Museu', avaliacao: 4.5, local: 'El Born', dica: 'Gratuito nas quintas à tarde e no 1º domingo do mês — reserve online mesmo assim.', linkOficial: 'https://www.museupicasso.bcn.cat', descricao: 'A formação do gênio: 4 mil obras da juventude de Picasso em cinco palácios medievais unidos.' },
+      { id: 'barcelona-montjuic', nome: 'Montjuïc e Font Màgica', imagens: aimg(), preco: 0, duracao: '3-4 horas', categoria: 'Parque', avaliacao: 4.5, local: 'Montjuïc', dica: 'Suba de teleférico e desça a pé passando pelo castelo, jardins e o Estádio Olímpico.', descricao: 'A montanha dos museus, jardins e mirantes de Barcelona, coroada por um castelo à beira-mar.' },
+      { id: 'barcelona-camp-nou', nome: 'Camp Nou — Barça Immersive Tour', imagens: aimg(), preco: 28, duracao: '2 horas', categoria: 'Passeio', avaliacao: 4.4, local: 'Les Corts', dica: 'O museu guarda as seis taças da Champions; ingresso mais barato online.', linkOficial: 'https://www.fcbarcelona.com', descricao: 'O maior estádio da Europa e o museu do FC Barcelona, com troféus, túnel e beira do gramado.' },
+      { id: 'barcelona-boqueria', nome: 'Mercado de La Boqueria', imagens: aimg(), preco: 0, duracao: '1 hora', categoria: 'Gastronomia', avaliacao: 4.4, local: 'La Rambla', dica: 'Vá antes das 11h; no fim do dia os sucos caem para €1.', descricao: 'O mercado mais fotogênico da Europa: frutas, jamón e frutos do mar desde 1217.' },
+      { id: 'barcelona-tibidabo', nome: 'Tibidabo e Sagrat Cor', imagens: aimg(), preco: 35, duracao: '4 horas', categoria: 'Parque', avaliacao: 4.4, local: 'Collserola', dica: 'O funicular histórico e a vista do templo valem a ida mesmo sem os brinquedos.', descricao: 'Parque de diversões centenário no topo da serra, com a melhor vista panorâmica da cidade.' },
+      { id: 'barcelona-palau', nome: 'Palau de la Música Catalana', imagens: aimg(), preco: 18, duracao: '1 hora', categoria: 'Cultural', avaliacao: 4.7, local: 'Sant Pere', dica: 'Um concerto à noite sai quase pelo preço do tour — e a claraboia iluminada é outro espetáculo.', linkOficial: 'https://www.palaumusica.cat', descricao: 'A sala de concertos modernista declarada Patrimônio da Humanidade, com claraboia invertida de vitral.' }
     ],
     hospedagens: [
       { id: 'barcelona-h1', nome: 'Hotel Casa Fuster', imagens: himg('medio', 'barcelona'), precoNoite: 220, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Passeig de Gràcia', comodidades: ['Rooftop', 'Piscina', 'Wi-Fi'] },
       { id: 'barcelona-h2', nome: 'Gòtic Boutique Apartment', imagens: himg('apartamento', 'barcelona'), precoNoite: 95, avaliacao: 4.5, tipo: 'Apartamento', bairro: 'Bairro Gótico', comodidades: ['Cozinha', 'Wi-Fi', 'Ar-condicionado'] },
       { id: 'barcelona-h3', nome: 'Kabul Party Hostel', imagens: himg('hostel', 'barcelona'), precoNoite: 32, avaliacao: 4.1, tipo: 'Hostel', bairro: 'Plaça Reial', comodidades: ['Bar', 'Wi-Fi', 'Tour grátis'] },
-      { id: 'barcelona-h4', nome: 'W Barcelona', imagens: himg('luxo', 'barcelona'), precoNoite: 320, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Barceloneta', comodidades: ['Vista do mar', 'Spa', 'Piscina infinita'] }
+      { id: 'barcelona-h4', nome: 'W Barcelona', imagens: himg('luxo', 'barcelona'), precoNoite: 320, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Barceloneta', comodidades: ['Vista do mar', 'Spa', 'Piscina infinita'] },
+      { id: 'barcelona-h5', nome: 'Hotel Arts Barcelona', imagens: himg(), precoNoite: 390, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Port Olímpic', comodidades: ['Vista do mar', 'Piscina', 'Spa'] },
+      { id: 'barcelona-h6', nome: 'El Palace Barcelona', imagens: himg(), precoNoite: 330, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Eixample', comodidades: ['Spa', 'Terraço-jardim', 'Restaurante'] },
+      { id: 'barcelona-h7', nome: 'Majestic Hotel & Spa', imagens: himg(), precoNoite: 280, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Passeig de Gràcia', comodidades: ['Rooftop com piscina', 'Spa', 'Café da manhã'] },
+      { id: 'barcelona-h8', nome: 'Generator Barcelona', imagens: himg(), precoNoite: 35, avaliacao: 4.3, tipo: 'Hostel', bairro: 'Gràcia', comodidades: ['Bar', 'Terraço', 'Wi-Fi'] },
+      { id: 'barcelona-h9', nome: "St Christopher's Inn", imagens: himg(), precoNoite: 28, avaliacao: 4.3, tipo: 'Hostel', bairro: 'Las Ramblas', comodidades: ['Bar', 'Eventos', 'Wi-Fi'] },
+      { id: 'barcelona-h10', nome: 'Eixample Modernist Apartment', imagens: himg(), precoNoite: 105, avaliacao: 4.6, tipo: 'Apartamento', bairro: 'Eixample', comodidades: ['Cozinha', 'Varanda modernista', 'Ar-condicionado'] }
     ]
   },
   {
@@ -443,17 +518,30 @@ export const cidades = [
     destaques: ['Museu do Prado', 'Palácio Real', 'Parque Retiro', 'Plaza Mayor'],
     custoMedioDia: 65,
     atracoes: [
-      { id: 'madri-prado', nome: 'Museu do Prado', imagens: aimg('1543783207-ec64e4d95325', 'madri'), preco: 15, duracao: '3-4 horas', categoria: 'Museu', descricao: 'Velázquez, Goya e El Greco em um dos museus de pintura mais importantes do mundo.' },
-      { id: 'madri-palacio', nome: 'Palácio Real', imagens: aimg('1591794665242-eaee93f4f31a', 'madri'), preco: 14, duracao: '2-3 horas', categoria: 'Histórico', descricao: 'O maior palácio real ainda em funcionamento na Europa Ocidental, com 3.418 cômodos.' },
-      { id: 'madri-retiro', nome: 'Parque do Retiro', imagens: aimg('1574169208507-84376144848b', 'madri'), preco: 0, duracao: '2-3 horas', categoria: 'Parque', descricao: 'O pulmão verde de Madri, com lago para passeios de barco e o Palácio de Cristal.' },
-      { id: 'madri-tapas', nome: 'Tour de Tapas em La Latina', imagens: aimg('1467003909585-2f8a72700288', 'madri'), preco: 60, duracao: '3.5 horas', categoria: 'Gastronomia', descricao: 'Tortilla, jamón ibérico e vermute em bares centenários no bairro mais autêntico da cidade.' },
-      { id: 'madri-flamenco', nome: 'Show de Flamenco Autêntico', imagens: aimg('1503095396549-807759245b35', 'madri'), preco: 50, duracao: '1.5 horas', categoria: 'Cultural', descricao: 'Sinta a paixão andaluza em um tablao tradicional com tapas e bebidas inclusas.' }
+      { id: 'madri-prado', nome: 'Museu do Prado', imagens: aimg('1543783207-ec64e4d95325', 'madri'), preco: 15, duracao: '3-4 horas', categoria: 'Museu', avaliacao: 4.8, local: 'Paseo del Prado', dica: 'Entrada gratuita de segunda a sábado das 18h às 20h — chegue 30 min antes.', linkOficial: 'https://www.museodelprado.es', descricao: 'Velázquez, Goya e El Greco em um dos museus de pintura mais importantes do mundo.' },
+      { id: 'madri-palacio', nome: 'Palácio Real', imagens: aimg('1591794665242-eaee93f4f31a', 'madri'), preco: 14, duracao: '2-3 horas', categoria: 'Histórico', avaliacao: 4.6, local: 'Ópera', dica: 'A troca da guarda acontece às quartas e sábados ao meio-dia (grátis).', linkOficial: 'https://www.patrimonionacional.es', descricao: 'O maior palácio real ainda em funcionamento na Europa Ocidental, com 3.418 cômodos.' },
+      { id: 'madri-retiro', nome: 'Parque do Retiro', imagens: aimg('1574169208507-84376144848b', 'madri'), preco: 0, duracao: '2-3 horas', categoria: 'Parque', avaliacao: 4.7, local: 'Retiro', dica: 'O Palácio de Cristal dentro do parque tem exposições gratuitas do Reina Sofía.', descricao: 'O pulmão verde de Madri, com lago para passeios de barco e o Palácio de Cristal.' },
+      { id: 'madri-tapas', nome: 'Tour de Tapas em La Latina', imagens: aimg('1467003909585-2f8a72700288', 'madri'), preco: 60, duracao: '3.5 horas', categoria: 'Gastronomia', avaliacao: 4.7, local: 'La Latina', dica: 'Aos domingos combine com o mercado de rua El Rastro, ao lado.', descricao: 'Tortilla, jamón ibérico e vermute em bares centenários no bairro mais autêntico da cidade.' },
+      { id: 'madri-flamenco', nome: 'Show de Flamenco Autêntico', imagens: aimg('1503095396549-807759245b35', 'madri'), preco: 50, duracao: '1.5 horas', categoria: 'Cultural', avaliacao: 4.6, local: 'Huertas', dica: 'Sessões mais tarde (22h30) costumam ter casa mais animada.', descricao: 'Sinta a paixão andaluza em um tablao tradicional com tapas e bebidas inclusas.' },
+      { id: 'madri-reina-sofia', nome: 'Museu Reina Sofía', imagens: aimg(), preco: 12, duracao: '2-3 horas', categoria: 'Museu', avaliacao: 4.7, local: 'Atocha', dica: 'A Guernica de Picasso fica na sala 205.10; entrada gratuita seg/qua-sáb das 19h às 21h.', linkOficial: 'https://www.museoreinasofia.es', descricao: 'O grande museu de arte moderna da Espanha, casa da Guernica de Picasso e de obras de Dalí e Miró.' },
+      { id: 'madri-thyssen', nome: 'Museu Thyssen-Bornemisza', imagens: aimg(), preco: 13, duracao: '2-3 horas', categoria: 'Museu', avaliacao: 4.6, local: 'Paseo del Prado', dica: 'Às segundas-feiras a coleção permanente é gratuita das 12h às 16h.', linkOficial: 'https://www.museothyssen.org', descricao: 'Fecha o "Triângulo da Arte" de Madri: 700 anos de pintura, de Van Eyck a Hopper, em uma única coleção.' },
+      { id: 'madri-plaza-mayor', nome: 'Plaza Mayor e Puerta del Sol', imagens: aimg(), preco: 0, duracao: '1-2 horas', categoria: 'Histórico', avaliacao: 4.6, local: 'Centro', dica: 'Prove o clássico bocadillo de calamares nos bares ao redor da praça.', descricao: 'O coração histórico de Madri: a praça porticada de 1619 e o marco zero das estradas da Espanha.' },
+      { id: 'madri-bernabeu', nome: 'Tour Estádio Santiago Bernabéu', imagens: aimg(), preco: 35, duracao: '2 horas', categoria: 'Passeio', avaliacao: 4.5, local: 'Chamartín', dica: 'Compre no site oficial com antecedência; em dias de jogo o tour fecha mais cedo.', linkOficial: 'https://www.realmadrid.com/pt-BR/tour-bernabeu', descricao: 'Os bastidores do estádio do Real Madrid: museu, vestiários, túnel e a beira do gramado.' },
+      { id: 'madri-mercado-san-miguel', nome: 'Mercado de San Miguel', imagens: aimg(), preco: 0, duracao: '1-2 horas', categoria: 'Gastronomia', avaliacao: 4.4, local: 'Centro', dica: 'Entrada livre — paga-se o que consumir. Evite o horário do almoço, lota.', descricao: 'Mercado de ferro e vidro de 1916 transformado no templo gourmet mais famoso da cidade.' },
+      { id: 'madri-templo-debod', nome: 'Templo de Debod', imagens: aimg(), preco: 0, duracao: '1 hora', categoria: 'Histórico', avaliacao: 4.5, local: 'Parque del Oeste', dica: 'Vá ao pôr do sol: o templo egípcio refletido na água é o cartão-postal de Madri.', descricao: 'Um templo egípcio autêntico do século II a.C., presente do Egito à Espanha, remontado em Madri.' },
+      { id: 'madri-gran-via', nome: 'Gran Vía e Círculo de Bellas Artes', imagens: aimg(), preco: 0, duracao: '2 horas', categoria: 'Bairro', avaliacao: 4.5, local: 'Centro', dica: 'Suba ao rooftop do Círculo de Bellas Artes (€5) para a melhor vista da avenida.', descricao: 'A "Broadway madrilenha": teatros, fachadas monumentais e o edifício Metrópolis iluminado à noite.' }
     ],
     hospedagens: [
       { id: 'madri-h1', nome: 'Four Seasons Madrid', imagens: himg('luxo', 'madri'), precoNoite: 410, avaliacao: 4.9, tipo: 'Hotel', bairro: 'Centro', comodidades: ['Rooftop', 'Spa', 'Piscina'] },
       { id: 'madri-h2', nome: 'Only YOU Boutique Hotel', imagens: himg('medio', 'madri'), precoNoite: 175, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Chueca', comodidades: ['Café da manhã', 'Bar', 'Wi-Fi'] },
       { id: 'madri-h3', nome: 'Malasaña Cool Apartment', imagens: himg('apartamento', 'madri'), precoNoite: 85, avaliacao: 4.5, tipo: 'Apartamento', bairro: 'Malasaña', comodidades: ['Cozinha', 'Wi-Fi', 'Varanda'] },
-      { id: 'madri-h4', nome: 'TOC Hostel Madrid', imagens: himg('hostel', 'madri'), precoNoite: 32, avaliacao: 4.3, tipo: 'Hostel', bairro: 'Sol', comodidades: ['Wi-Fi', 'Bar', 'Lavanderia'] }
+      { id: 'madri-h4', nome: 'TOC Hostel Madrid', imagens: himg('hostel', 'madri'), precoNoite: 32, avaliacao: 4.3, tipo: 'Hostel', bairro: 'Sol', comodidades: ['Wi-Fi', 'Bar', 'Lavanderia'] },
+      { id: 'madri-h5', nome: 'Mandarin Oriental Ritz', imagens: himg(), precoNoite: 550, avaliacao: 4.9, tipo: 'Hotel', bairro: 'Paseo del Prado', comodidades: ['Spa', 'Jardim histórico', 'Restaurante estrelado'] },
+      { id: 'madri-h6', nome: 'The Westin Palace Madrid', imagens: himg(), precoNoite: 320, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Cortes', comodidades: ['Cúpula de vitral 1912', 'Café da manhã', 'Academia'] },
+      { id: 'madri-h7', nome: 'Dear Hotel Madrid', imagens: himg(), precoNoite: 160, avaliacao: 4.5, tipo: 'Hotel', bairro: 'Gran Vía', comodidades: ['Piscina no rooftop', 'Vista da cidade', 'Wi-Fi'] },
+      { id: 'madri-h8', nome: 'The Hat Madrid', imagens: himg(), precoNoite: 40, avaliacao: 4.5, tipo: 'Hostel', bairro: 'Plaza Mayor', comodidades: ['Rooftop', 'Café da manhã', 'Wi-Fi'] },
+      { id: 'madri-h9', nome: 'OK Hostel Madrid', imagens: himg(), precoNoite: 30, avaliacao: 4.6, tipo: 'Hostel', bairro: 'La Latina', comodidades: ['Cozinha compartilhada', 'Eventos diários', 'Wi-Fi'] },
+      { id: 'madri-h10', nome: 'Chamberí Classic Apartment', imagens: himg(), precoNoite: 95, avaliacao: 4.6, tipo: 'Apartamento', bairro: 'Chamberí', comodidades: ['Cozinha', 'Varanda', 'Máquina de lavar'] }
     ]
   },
   {
@@ -467,17 +555,30 @@ export const cidades = [
     destaques: ['Acrópole', 'Plaka', 'Museu Arqueológico', 'Cabo Sounion'],
     custoMedioDia: 55,
     atracoes: [
-      { id: 'atenas-acropole', nome: 'Acrópole e Partenon', imagens: aimg('1555993539-1732b0258235', 'atenas'), preco: 20, duracao: '3 horas', categoria: 'Histórico', descricao: 'O templo mais famoso da Grécia Antiga sobre a colina sagrada com vista de toda a cidade.' },
-      { id: 'atenas-museu', nome: 'Museu Arqueológico Nacional', imagens: aimg('1599992094479-13c8f0ed1f12', 'atenas'), preco: 12, duracao: '3 horas', categoria: 'Museu', descricao: 'A maior coleção de artefatos da Antiguidade grega, da Máscara de Agamenon ao Mecanismo de Antikythera.' },
-      { id: 'atenas-plaka', nome: 'Plaka e Monastiraki', imagens: aimg('1530841344095-502fb33d97f2', 'atenas'), preco: 0, duracao: '3 horas', categoria: 'Bairro', descricao: 'Os bairros mais antigos da cidade, com tavernas, lojas de antiguidades e ruas de paralelepípedo.' },
-      { id: 'atenas-sounion', nome: 'Bate-volta a Cabo Sounion', imagens: aimg('1602343984991-92d3e2f8b73c', 'atenas'), preco: 65, duracao: '6 horas', categoria: 'Passeio', descricao: 'Templo de Poseidon à beira-mar com o pôr-do-sol mais famoso da Grécia continental.' },
-      { id: 'atenas-comida', nome: 'Tour de Comida Grega', imagens: aimg('1467003909585-2f8a72700288', 'atenas'), preco: 55, duracao: '3 horas', categoria: 'Gastronomia', descricao: 'Souvlaki, moussaka, gyros e ouzo em mercados e tavernas tradicionais.' }
+      { id: 'atenas-acropole', nome: 'Acrópole e Partenon', imagens: aimg('1555993539-1732b0258235', 'atenas'), preco: 20, duracao: '3 horas', categoria: 'Histórico', avaliacao: 4.8, local: 'Acrópole', dica: 'Vá na abertura (8h) ou após as 17h — meio-dia no verão passa de 35°C sem sombra.', linkOficial: 'https://hhticket.gr', descricao: 'O templo mais famoso da Grécia Antiga sobre a colina sagrada com vista de toda a cidade.' },
+      { id: 'atenas-museu', nome: 'Museu Arqueológico Nacional', imagens: aimg('1599992094479-13c8f0ed1f12', 'atenas'), preco: 12, duracao: '3 horas', categoria: 'Museu', avaliacao: 4.7, local: 'Exarchia', dica: 'A Máscara de Agamenon e o Mecanismo de Antikythera ficam em salas separadas — pegue o mapa.', descricao: 'A maior coleção de artefatos da Antiguidade grega, da Máscara de Agamenon ao Mecanismo de Antikythera.' },
+      { id: 'atenas-plaka', nome: 'Plaka e Monastiraki', imagens: aimg('1530841344095-502fb33d97f2', 'atenas'), preco: 0, duracao: '3 horas', categoria: 'Bairro', avaliacao: 4.6, local: 'Plaka', dica: 'Domingo de manhã tem feira de antiguidades na praça Avissynias.', descricao: 'Os bairros mais antigos da cidade, com tavernas, lojas de antiguidades e ruas de paralelepípedo.' },
+      { id: 'atenas-sounion', nome: 'Bate-volta a Cabo Sounion', imagens: aimg('1602343984991-92d3e2f8b73c', 'atenas'), preco: 65, duracao: '6 horas', categoria: 'Passeio', avaliacao: 4.6, local: 'Ática', dica: 'Tours saem ~15h30 para chegar ao Templo de Poseidon no pôr do sol.', descricao: 'Templo de Poseidon à beira-mar com o pôr-do-sol mais famoso da Grécia continental.' },
+      { id: 'atenas-comida', nome: 'Tour de Comida Grega', imagens: aimg('1467003909585-2f8a72700288', 'atenas'), preco: 55, duracao: '3 horas', categoria: 'Gastronomia', avaliacao: 4.7, local: 'Centro', dica: 'Passa pelo Mercado Central (Varvakios) — cena autêntica que poucos turistas veem.', descricao: 'Souvlaki, moussaka, gyros e ouzo em mercados e tavernas tradicionais.' },
+      { id: 'atenas-museu-acropole', nome: 'Museu da Acrópole', imagens: aimg(), preco: 15, duracao: '2-3 horas', categoria: 'Museu', avaliacao: 4.8, local: 'Makrygianni', dica: 'O piso de vidro revela escavações sob o museu; sextas no verão abre até 22h.', linkOficial: 'https://www.theacropolismuseum.gr', descricao: 'Museu moderno aos pés da Acrópole com as esculturas originais do Partenon e vista para o templo.' },
+      { id: 'atenas-agora', nome: 'Ágora Antiga e Templo de Hefesto', imagens: aimg(), preco: 10, duracao: '2 horas', categoria: 'Histórico', avaliacao: 4.6, local: 'Thiseio', dica: 'Entra no bilhete combinado da Acrópole (€30) — compensa a partir de 3 sítios.', descricao: 'Onde Sócrates filosofava: a praça da democracia ateniense e o templo dórico mais bem preservado da Grécia.' },
+      { id: 'atenas-licabeto', nome: 'Monte Licabeto', imagens: aimg(), preco: 10, duracao: '2 horas', categoria: 'Natureza', avaliacao: 4.7, local: 'Kolonaki', dica: 'Teleférico €10 ida e volta, ou trilha de 20 minutos; o pôr do sol é imperdível.', descricao: 'O ponto mais alto de Atenas: capela branca, café e a cidade inteira até o mar Egeu aos seus pés.' },
+      { id: 'atenas-zeus', nome: 'Templo de Zeus Olímpico', imagens: aimg(), preco: 8, duracao: '1 hora', categoria: 'Histórico', avaliacao: 4.4, local: 'Centro', dica: 'Combine com o Arco de Adriano ao lado — fica na calçada e é gratuito.', descricao: 'As 15 colunas colossais que restaram do maior templo da Grécia Antiga, 6 séculos em construção.' },
+      { id: 'atenas-syntagma', nome: 'Praça Syntagma e Troca da Guarda', imagens: aimg(), preco: 0, duracao: '1 hora', categoria: 'Cultural', avaliacao: 4.4, local: 'Syntagma', dica: 'A troca dos Evzones acontece a cada hora; a cerimônia completa é domingo às 11h.', descricao: 'O coração político de Atenas, onde os Evzones de saiote e pompons guardam o Túmulo do Soldado Desconhecido.' },
+      { id: 'atenas-anafiotika', nome: 'Anafiotika', imagens: aimg(), preco: 0, duracao: '1-2 horas', categoria: 'Bairro', avaliacao: 4.6, local: 'Plaka', dica: 'Um pedacinho das Cíclades sob a Acrópole — vá cedo, os becos são estreitos.', descricao: 'Casinhas brancas de ilha grega construídas por operários de Anafi no século XIX, escondidas na encosta.' },
+      { id: 'atenas-panatenaico', nome: 'Estádio Panatenaico', imagens: aimg(), preco: 10, duracao: '1 hora', categoria: 'Histórico', avaliacao: 4.5, local: 'Pangrati', dica: 'Único estádio do mundo todo em mármore; o áudio-guia está incluído no ingresso.', descricao: 'O estádio dos primeiros Jogos Olímpicos modernos (1896), reconstruído todo em mármore branco.' }
     ],
     hospedagens: [
       { id: 'atenas-h1', nome: 'Hotel Grande Bretagne', imagens: himg('luxo', 'atenas'), precoNoite: 380, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Syntagma', comodidades: ['Vista da Acrópole', 'Spa', 'Rooftop'] },
       { id: 'atenas-h2', nome: 'Plaka Boutique Hotel', imagens: himg('medio', 'atenas'), precoNoite: 130, avaliacao: 4.6, tipo: 'Hotel', bairro: 'Plaka', comodidades: ['Café da manhã', 'Terraço', 'Wi-Fi'] },
       { id: 'atenas-h3', nome: 'Acropolis View Apartment', imagens: himg('apartamento', 'atenas'), precoNoite: 75, avaliacao: 4.5, tipo: 'Apartamento', bairro: 'Koukaki', comodidades: ['Cozinha', 'Vista', 'Wi-Fi'] },
-      { id: 'atenas-h4', nome: 'City Circus Athens', imagens: himg('hostel', 'atenas'), precoNoite: 28, avaliacao: 4.5, tipo: 'Hostel', bairro: 'Psirri', comodidades: ['Café da manhã', 'Wi-Fi', 'Bar'] }
+      { id: 'atenas-h4', nome: 'City Circus Athens', imagens: himg('hostel', 'atenas'), precoNoite: 28, avaliacao: 4.5, tipo: 'Hostel', bairro: 'Psirri', comodidades: ['Café da manhã', 'Wi-Fi', 'Bar'] },
+      { id: 'atenas-h5', nome: 'King George Athens', imagens: himg(), precoNoite: 300, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Syntagma', comodidades: ['Vista da Acrópole', 'Restaurante no rooftop', 'Spa'] },
+      { id: 'atenas-h6', nome: 'Electra Palace Athens', imagens: himg(), precoNoite: 190, avaliacao: 4.6, tipo: 'Hotel', bairro: 'Plaka', comodidades: ['Piscina no rooftop', 'Vista da Acrópole', 'Café da manhã'] },
+      { id: 'atenas-h7', nome: 'Herodion Hotel', imagens: himg(), precoNoite: 150, avaliacao: 4.6, tipo: 'Hotel', bairro: 'Makrygianni', comodidades: ['Terraço', 'Perto da Acrópole', 'Wi-Fi'] },
+      { id: 'atenas-h8', nome: 'Athens Backpackers', imagens: himg(), precoNoite: 25, avaliacao: 4.4, tipo: 'Hostel', bairro: 'Makrygianni', comodidades: ['Bar no rooftop', 'Cozinha', 'Wi-Fi'] },
+      { id: 'atenas-h9', nome: 'Monastiraki Loft', imagens: himg(), precoNoite: 65, avaliacao: 4.5, tipo: 'Apartamento', bairro: 'Monastiraki', comodidades: ['Cozinha', 'Vista', 'Wi-Fi'] },
+      { id: 'atenas-h10', nome: 'Kolonaki Chic Apartment', imagens: himg(), precoNoite: 90, avaliacao: 4.6, tipo: 'Apartamento', bairro: 'Kolonaki', comodidades: ['Cozinha', 'Varanda', 'Ar-condicionado'] }
     ]
   },
   {
@@ -515,17 +616,30 @@ export const cidades = [
     destaques: ['Parlamento', 'Bastião dos Pescadores', 'Termas Széchenyi', 'Ruin Bars'],
     custoMedioDia: 50,
     atracoes: [
-      { id: 'budapeste-parlamento', nome: 'Parlamento Húngaro', imagens: aimg('1549893072-4bc678117f45', 'budapeste'), preco: 22, duracao: '2 horas', categoria: 'Monumento', descricao: 'O terceiro maior parlamento do mundo, neogótico, ainda mais espetacular iluminado à noite.' },
-      { id: 'budapeste-bastiao', nome: 'Castelo de Buda e Bastião dos Pescadores', imagens: aimg('1551867633-194f125bdde0', 'budapeste'), preco: 12, duracao: '3 horas', categoria: 'Histórico', descricao: 'Vista panorâmica de toda Peste a partir do alto da colina histórica de Buda.' },
-      { id: 'budapeste-termas', nome: 'Termas Széchenyi', imagens: aimg('1559339352-11d035aa65de', 'budapeste'), preco: 28, duracao: '3 horas', categoria: 'Bem-estar', descricao: 'O maior complexo termal da Europa, com 18 piscinas em um palácio amarelo neobarroco.' },
-      { id: 'budapeste-ruin', nome: 'Tour pelos Ruin Bars', imagens: aimg('1518176258769-f227c798150e', 'budapeste'), preco: 35, duracao: '3 horas', categoria: 'Cultural', descricao: 'Bares montados em prédios abandonados do bairro judeu, símbolo da boemia local.' },
-      { id: 'budapeste-cruzeiro', nome: 'Cruzeiro Noturno pelo Danúbio', imagens: aimg('1531574744066-0c3f15c19e54', 'budapeste'), preco: 25, duracao: '1.5 hora', categoria: 'Passeio', descricao: 'Veja o Parlamento e a Ponte das Correntes iluminados durante um jantar a bordo.' }
+      { id: 'budapeste-parlamento', nome: 'Parlamento Húngaro', imagens: aimg('1549893072-4bc678117f45', 'budapeste'), preco: 22, duracao: '2 horas', categoria: 'Monumento', avaliacao: 4.8, local: 'Lipótváros', dica: 'Visita interna só com tour guiado (há horário em inglês) — ingressos esgotam, reserve online.', linkOficial: 'https://www.parlament.hu', descricao: 'O terceiro maior parlamento do mundo, neogótico, ainda mais espetacular iluminado à noite.' },
+      { id: 'budapeste-bastiao', nome: 'Castelo de Buda e Bastião dos Pescadores', imagens: aimg('1551867633-194f125bdde0', 'budapeste'), preco: 12, duracao: '3 horas', categoria: 'Histórico', avaliacao: 4.7, local: 'Várkerület', dica: 'As varandas do Bastião são pagas, mas o terraço inferior tem quase a mesma vista de graça.', descricao: 'Vista panorâmica de toda Peste a partir do alto da colina histórica de Buda.' },
+      { id: 'budapeste-termas', nome: 'Termas Széchenyi', imagens: aimg('1559339352-11d035aa65de', 'budapeste'), preco: 28, duracao: '3 horas', categoria: 'Bem-estar', avaliacao: 4.6, local: 'Városliget', dica: 'Leve chinelo e touca (obrigatória nas piscinas de nado). Sextas à noite tem "sparty".', linkOficial: 'https://www.szechenyibath.hu', descricao: 'O maior complexo termal da Europa, com 18 piscinas em um palácio amarelo neobarroco.' },
+      { id: 'budapeste-ruin', nome: 'Tour pelos Ruin Bars', imagens: aimg('1518176258769-f227c798150e', 'budapeste'), preco: 35, duracao: '3 horas', categoria: 'Cultural', avaliacao: 4.5, local: 'Erzsébetváros', dica: 'O Szimpla Kert original vira mercado de produtores aos domingos de manhã.', descricao: 'Bares montados em prédios abandonados do bairro judeu, símbolo da boemia local.' },
+      { id: 'budapeste-cruzeiro', nome: 'Cruzeiro Noturno pelo Danúbio', imagens: aimg('1531574744066-0c3f15c19e54', 'budapeste'), preco: 25, duracao: '1.5 hora', categoria: 'Passeio', avaliacao: 4.6, local: 'Belváros', dica: 'Os barcos das 21h pegam o Parlamento já iluminado — a foto que você quer.', descricao: 'Veja o Parlamento e a Ponte das Correntes iluminados durante um jantar a bordo.' },
+      { id: 'budapeste-matthias', nome: 'Igreja de Matias', imagens: aimg(), preco: 12, duracao: '1.5 horas', categoria: 'Monumento', avaliacao: 4.7, local: 'Várkerület', dica: 'O telhado de azulejos Zsolnay coloridos é único — combine com o Bastião ao lado.', descricao: 'A igreja de coroação dos reis húngaros, com telhado de cerâmica colorida e interior pintado à mão.' },
+      { id: 'budapeste-gellert', nome: 'Colina Gellért e Citadella', imagens: aimg(), preco: 0, duracao: '2 horas', categoria: 'Natureza', avaliacao: 4.6, local: 'Buda', dica: 'Suba ao entardecer: Danúbio, pontes e Parlamento iluminados aos seus pés.', descricao: 'A trilha urbana mais recompensadora de Budapeste, coroada pela Estátua da Liberdade húngara.' },
+      { id: 'budapeste-sinagoga', nome: 'Grande Sinagoga da Rua Dohány', imagens: aimg(), preco: 18, duracao: '1.5 horas', categoria: 'Histórico', avaliacao: 4.6, local: 'Erzsébetváros', dica: 'A entrada inclui tour guiado e o Museu Judaico; homens recebem kipá na porta.', descricao: 'A maior sinagoga da Europa, em estilo mourisco, com o memorial da Árvore da Vida no jardim.' },
+      { id: 'budapeste-basilica', nome: 'Basílica de Santo Estêvão', imagens: aimg(), preco: 6, duracao: '1 hora', categoria: 'Monumento', avaliacao: 4.6, local: 'Lipótváros', dica: 'Suba à cúpula (€3 extra): vista 360° de Peste. Concertos de órgão às quintas.', descricao: 'A maior igreja de Budapeste, com a relíquia da "Santa Direita" e vista panorâmica da cúpula.' },
+      { id: 'budapeste-mercado', nome: 'Grande Mercado Municipal', imagens: aimg(), preco: 0, duracao: '1-2 horas', categoria: 'Gastronomia', avaliacao: 4.4, local: 'Ferencváros', dica: 'Lángos no 2º andar; páprica e salame no térreo são as melhores lembranças.', descricao: 'O maior e mais bonito mercado coberto de Budapeste, no fim da rua de pedestres Váci utca.' },
+      { id: 'budapeste-herois', nome: 'Praça dos Heróis e Parque da Cidade', imagens: aimg(), preco: 0, duracao: '2-3 horas', categoria: 'Parque', avaliacao: 4.6, local: 'Városliget', dica: 'No inverno, o lago do parque vira a maior pista de patinação ao ar livre da Europa.', descricao: 'O monumento do milênio húngaro e o parque com o castelo Vajdahunyad e as termas Széchenyi.' },
+      { id: 'budapeste-opera', nome: 'Ópera Estatal Húngara', imagens: aimg(), preco: 10, duracao: '1 hora', categoria: 'Cultural', avaliacao: 4.6, local: 'Terézváros', dica: 'Ingresso de ópera na galeria custa a partir de ~€5 — mais barato que o próprio tour.', linkOficial: 'https://www.opera.hu', descricao: 'Uma das casas de ópera mais bonitas do mundo, dourada do chão ao teto, na avenida Andrássy.' }
     ],
     hospedagens: [
       { id: 'budapeste-h1', nome: 'Four Seasons Gresham Palace', imagens: himg('luxo', 'budapeste'), precoNoite: 390, avaliacao: 4.9, tipo: 'Hotel', bairro: 'Belváros', comodidades: ['Vista do Danúbio', 'Spa', 'Restaurante'] },
       { id: 'budapeste-h2', nome: 'Hotel Rum Budapest', imagens: himg('medio', 'budapeste'), precoNoite: 130, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Centro', comodidades: ['Rooftop', 'Café da manhã', 'Bar'] },
       { id: 'budapeste-h3', nome: 'District 7 Apartment', imagens: himg('apartamento', 'budapeste'), precoNoite: 60, avaliacao: 4.5, tipo: 'Apartamento', bairro: 'Bairro Judeu', comodidades: ['Cozinha', 'Wi-Fi', 'Próximo aos ruin bars'] },
-      { id: 'budapeste-h4', nome: 'Maverick City Lodge', imagens: himg('hostel', 'budapeste'), precoNoite: 22, avaliacao: 4.4, tipo: 'Hostel', bairro: 'Bairro Judeu', comodidades: ['Wi-Fi', 'Bar', 'Café da manhã'] }
+      { id: 'budapeste-h4', nome: 'Maverick City Lodge', imagens: himg('hostel', 'budapeste'), precoNoite: 22, avaliacao: 4.4, tipo: 'Hostel', bairro: 'Bairro Judeu', comodidades: ['Wi-Fi', 'Bar', 'Café da manhã'] },
+      { id: 'budapeste-h5', nome: 'Hotel Gellért', imagens: himg(), precoNoite: 160, avaliacao: 4.5, tipo: 'Hotel', bairro: 'Gellért tér', comodidades: ['Termas históricas', 'Café da manhã', 'Vista do Danúbio'] },
+      { id: 'budapeste-h6', nome: 'Corinthia Budapest', imagens: himg(), precoNoite: 220, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Erzsébetváros', comodidades: ['Spa histórico', 'Piscina', 'Restaurante'] },
+      { id: 'budapeste-h7', nome: 'Anantara New York Palace', imagens: himg(), precoNoite: 280, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Erzsébetváros', comodidades: ['New York Café', 'Spa', 'Concierge'] },
+      { id: 'budapeste-h8', nome: "Wombat's City Hostel", imagens: himg(), precoNoite: 20, avaliacao: 4.4, tipo: 'Hostel', bairro: 'Váci utca', comodidades: ['Bar', 'Cozinha', 'Wi-Fi'] },
+      { id: 'budapeste-h9', nome: 'Danube View Apartment', imagens: himg(), precoNoite: 70, avaliacao: 4.6, tipo: 'Apartamento', bairro: 'Belváros', comodidades: ['Vista do rio', 'Cozinha', 'Máquina de lavar'] },
+      { id: 'budapeste-h10', nome: 'Andrássy Boutique Hotel', imagens: himg(), precoNoite: 120, avaliacao: 4.6, tipo: 'Hotel', bairro: 'Terézváros', comodidades: ['Café da manhã', 'Ar-condicionado', 'Wi-Fi'] }
     ]
   },
   {
@@ -539,17 +653,30 @@ export const cidades = [
     destaques: ['Duomo', 'Galeria Uffizi', 'Ponte Vecchio', 'David de Michelangelo'],
     custoMedioDia: 70,
     atracoes: [
-      { id: 'florenca-duomo', nome: 'Duomo de Florença', imagens: aimg('1543429776-2782fc8e1acd', 'florenca'), preco: 20, duracao: '2 horas', categoria: 'Monumento', descricao: 'A icônica cúpula de Brunelleschi e o batistério com as Portas do Paraíso de Ghiberti.' },
-      { id: 'florenca-uffizi', nome: 'Galeria Uffizi', imagens: aimg('1565099824688-e93eb20fe622', 'florenca'), preco: 26, duracao: '3-4 horas', categoria: 'Museu', descricao: '"O Nascimento de Vênus" de Botticelli e a maior coleção de arte renascentista do mundo.' },
-      { id: 'florenca-david', nome: "Galleria dell'Accademia (David)", imagens: aimg('1531572753322-ad063cecc140', 'florenca'), preco: 16, duracao: '1.5 hora', categoria: 'Museu', descricao: 'O David original de Michelangelo, escultura de 5 metros que define a perfeição clássica.' },
-      { id: 'florenca-vecchio', nome: 'Ponte Vecchio e Oltrarno', imagens: aimg('1533929736458-ca588d08c8be', 'florenca'), preco: 0, duracao: '2 horas', categoria: 'Bairro', descricao: 'A ponte mais famosa da cidade, com joalherias seculares, e o lado mais autêntico de Florença.' },
-      { id: 'florenca-toscana', nome: 'Tour de Vinhos pela Toscana', imagens: aimg('1467003909585-2f8a72700288', 'florenca'), preco: 95, duracao: 'Dia inteiro', categoria: 'Gastronomia', descricao: 'Chianti, San Gimignano e Siena com degustação em vinícolas centenárias.' }
+      { id: 'florenca-duomo', nome: 'Duomo de Florença', imagens: aimg('1543429776-2782fc8e1acd', 'florenca'), preco: 20, duracao: '2 horas', categoria: 'Monumento', avaliacao: 4.8, local: 'Centro Storico', dica: 'A subida à cúpula exige reserva de horário; o Brunelleschi Pass cobre todos os monumentos em 3 dias.', linkOficial: 'https://duomo.firenze.it', descricao: 'A icônica cúpula de Brunelleschi e o batistério com as Portas do Paraíso de Ghiberti.' },
+      { id: 'florenca-uffizi', nome: 'Galeria Uffizi', imagens: aimg('1565099824688-e93eb20fe622', 'florenca'), preco: 26, duracao: '3-4 horas', categoria: 'Museu', avaliacao: 4.7, local: 'Centro Storico', dica: 'Primeiro domingo do mês é gratuito (sem reserva, fila enorme). Terças de manhã são as mais vazias.', linkOficial: 'https://www.uffizi.it', descricao: '"O Nascimento de Vênus" de Botticelli e a maior coleção de arte renascentista do mundo.' },
+      { id: 'florenca-david', nome: "Galleria dell'Accademia (David)", imagens: aimg('1531572753322-ad063cecc140', 'florenca'), preco: 16, duracao: '1.5 hora', categoria: 'Museu', avaliacao: 4.7, local: 'San Marco', dica: 'Reserve o primeiro horário (8h15) e você verá o David quase sozinho.', linkOficial: 'https://www.galleriaaccademiafirenze.it', descricao: 'O David original de Michelangelo, escultura de 5 metros que define a perfeição clássica.' },
+      { id: 'florenca-vecchio', nome: 'Ponte Vecchio e Oltrarno', imagens: aimg('1533929736458-ca588d08c8be', 'florenca'), preco: 0, duracao: '2 horas', categoria: 'Bairro', avaliacao: 4.7, local: 'Oltrarno', dica: 'Atravesse para o Oltrarno: ateliês de artesãos, Santo Spirito e aperitivo local.', descricao: 'A ponte mais famosa da cidade, com joalherias seculares, e o lado mais autêntico de Florença.' },
+      { id: 'florenca-toscana', nome: 'Tour de Vinhos pela Toscana', imagens: aimg('1467003909585-2f8a72700288', 'florenca'), preco: 95, duracao: 'Dia inteiro', categoria: 'Gastronomia', avaliacao: 4.8, local: 'Chianti', dica: 'Tours em grupo pequeno incluem almoço na vinícola — confira antes de reservar.', descricao: 'Chianti, San Gimignano e Siena com degustação em vinícolas centenárias.' },
+      { id: 'florenca-pitti', nome: 'Palazzo Pitti e Jardins Boboli', imagens: aimg(), preco: 22, duracao: '3-4 horas', categoria: 'Museu', avaliacao: 4.6, local: 'Oltrarno', dica: 'O PassePartout 5 dias combina Uffizi + Pitti + Boboli com desconto.', linkOficial: 'https://www.uffizi.it/palazzo-pitti', descricao: 'O palácio dos Médici com cinco museus e os jardins renascentistas que inspiraram Versalhes.' },
+      { id: 'florenca-signoria', nome: 'Palazzo Vecchio e Piazza della Signoria', imagens: aimg(), preco: 17, duracao: '2 horas', categoria: 'Histórico', avaliacao: 4.6, local: 'Centro Storico', dica: 'A subida à Torre de Arnolfo tem vista incrível e fila bem menor que a do Duomo.', descricao: 'A fortaleza-prefeitura de Florença desde 1299, com o Salone dei Cinquecento e a galeria de esculturas a céu aberto.' },
+      { id: 'florenca-michelangelo', nome: 'Piazzale Michelangelo', imagens: aimg(), preco: 0, duracao: '1-2 horas', categoria: 'Passeio', avaliacao: 4.8, local: 'Oltrarno', dica: 'Chegue 40 minutos antes do pôr do sol para garantir lugar na escadaria.', descricao: 'O mirante clássico de Florença: a cidade inteira, o Arno e as colinas toscanas em um único enquadramento.' },
+      { id: 'florenca-santa-croce', nome: 'Basílica de Santa Croce', imagens: aimg(), preco: 8, duracao: '1.5 horas', categoria: 'Histórico', avaliacao: 4.6, local: 'Santa Croce', dica: 'Aqui estão os túmulos de Michelangelo, Galileu e Maquiavel — o "Panteão de Florença".', descricao: 'A maior igreja franciscana do mundo, com afrescos de Giotto e os túmulos dos gênios italianos.' },
+      { id: 'florenca-mercato', nome: 'Mercato Centrale', imagens: aimg(), preco: 0, duracao: '1-2 horas', categoria: 'Gastronomia', avaliacao: 4.5, local: 'San Lorenzo', dica: 'Térreo: mercado tradicional (manhã). 1º andar: praça gastronômica aberta até meia-noite.', descricao: 'O mercado coberto de 1874 onde florentinos compram trufas, queijos e o famoso panino com lampredotto.' },
+      { id: 'florenca-bargello', nome: 'Museu Nacional do Bargello', imagens: aimg(), preco: 10, duracao: '2 horas', categoria: 'Museu', avaliacao: 4.6, local: 'Centro Storico', dica: 'O David de Donatello fica aqui — e quase sem filas.', descricao: 'A melhor coleção de escultura renascentista da Itália em um antigo quartel-prisão medieval.' },
+      { id: 'florenca-fiesole', nome: 'Bate-volta a Fiesole', imagens: aimg(), preco: 0, duracao: '4 horas', categoria: 'Passeio', avaliacao: 4.5, local: 'Fiesole', dica: 'Ônibus nº 7 da Piazza San Marco (~25 min): anfiteatro romano e a melhor vista da cidade.', descricao: 'A cidadezinha etrusca nas colinas sobre Florença, com ruínas romanas e panorâmica da Toscana.' }
     ],
     hospedagens: [
       { id: 'florenca-h1', nome: 'Four Seasons Firenze', imagens: himg('luxo', 'florenca'), precoNoite: 460, avaliacao: 4.9, tipo: 'Hotel', bairro: 'Centro Storico', comodidades: ['Spa', 'Jardim renascentista', 'Piscina'] },
       { id: 'florenca-h2', nome: 'Hotel Lungarno', imagens: himg('medio', 'florenca'), precoNoite: 220, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Oltrarno', comodidades: ['Vista do Arno', 'Café da manhã', 'Wi-Fi'] },
       { id: 'florenca-h3', nome: 'Tuscany Style Apartment', imagens: himg('apartamento', 'florenca'), precoNoite: 105, avaliacao: 4.6, tipo: 'Apartamento', bairro: 'Santa Croce', comodidades: ['Cozinha', 'Varanda', 'Wi-Fi'] },
-      { id: 'florenca-h4', nome: 'Plus Florence', imagens: himg('hostel', 'florenca'), precoNoite: 38, avaliacao: 4.3, tipo: 'Hostel', bairro: 'San Marco', comodidades: ['Piscina', 'Sauna', 'Wi-Fi'] }
+      { id: 'florenca-h4', nome: 'Plus Florence', imagens: himg('hostel', 'florenca'), precoNoite: 38, avaliacao: 4.3, tipo: 'Hostel', bairro: 'San Marco', comodidades: ['Piscina', 'Sauna', 'Wi-Fi'] },
+      { id: 'florenca-h5', nome: 'The St. Regis Florence', imagens: himg(), precoNoite: 480, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Ognissanti', comodidades: ['Vista do Arno', 'Spa', 'Restaurante'] },
+      { id: 'florenca-h6', nome: 'Hotel Savoy — Rocco Forte', imagens: himg(), precoNoite: 350, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Piazza della Repubblica', comodidades: ['Localização central', 'Bar', 'Academia'] },
+      { id: 'florenca-h7', nome: 'Hotel Davanzati', imagens: himg(), precoNoite: 140, avaliacao: 4.7, tipo: 'Hotel', bairro: 'Centro Storico', comodidades: ['Café da manhã', 'Happy hour grátis', 'Wi-Fi'] },
+      { id: 'florenca-h8', nome: 'Ostello Bello Firenze', imagens: himg(), precoNoite: 40, avaliacao: 4.5, tipo: 'Hostel', bairro: 'San Lorenzo', comodidades: ['Cozinha', 'Terraço', 'Eventos'] },
+      { id: 'florenca-h9', nome: 'Oltrarno Artisan Apartment', imagens: himg(), precoNoite: 98, avaliacao: 4.6, tipo: 'Apartamento', bairro: 'Oltrarno', comodidades: ['Cozinha', 'Charme de ateliê', 'Wi-Fi'] },
+      { id: 'florenca-h10', nome: 'Duomo View Apartment', imagens: himg(), precoNoite: 125, avaliacao: 4.7, tipo: 'Apartamento', bairro: 'Centro Storico', comodidades: ['Vista do Duomo', 'Cozinha', 'Ar-condicionado'] }
     ]
   },
   {

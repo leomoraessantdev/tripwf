@@ -115,7 +115,50 @@ export const IMAGENS_HOSPEDAGEM = {
   'copenhague-h1': enc('hotels', 'hotel-d-angleterre-copenhagen.jpg'),
   'copenhague-h2': enc('hotels', 'hotel-sp34-copenhagen.jpg'),
   'copenhague-h3': enc('hotels', 'vesterbro-desing-apartment-copenhagen.jpg'),
-  'copenhague-h4': enc('hotels', 'generator-hostel-conpenhagen.jpg')
+  'copenhague-h4': enc('hotels', 'generator-hostel-conpenhagen.jpg'),
+  // ----- Expansão das 6 cidades (imagens baixadas via scripts/baixar-imagens-novas.mjs) -----
+  // Madri
+  'madri-h5':  enc('hotels', 'mandarin-oriental-ritz-madrid.jpg'),
+  'madri-h6':  enc('hotels', 'westin-palace-madrid.jpg'),
+  'madri-h7':  enc('hotels', 'dear-hotel-plaza-espana-madrid.jpg'),
+  'madri-h8':  enc('hotels', 'the-hat-puerta-del-sol-madrid.jpg'),
+  'madri-h9':  enc('hotels', 'ok-hostel-la-latina-madrid.jpg'),
+  'madri-h10': enc('hotels', 'chamberi-apartment-madrid.jpg'),
+  // Barcelona
+  'barcelona-h5':  enc('hotels', 'hotel-arts-barcelona.jpg'),
+  'barcelona-h6':  enc('hotels', 'el-palace-barcelona.jpg'),
+  'barcelona-h7':  enc('hotels', 'majestic-passeig-gracia-barcelona.jpg'),
+  'barcelona-h8':  enc('hotels', 'generator-gracia-barcelona.jpg'),
+  'barcelona-h9':  enc('hotels', 'st-christophers-ramblas-barcelona.jpg'),
+  'barcelona-h10': enc('hotels', 'eixample-apartment-barcelona.jpg'),
+  // Florença
+  'florenca-h5':  enc('hotels', 'st-regis-florence-florenca.jpg'),
+  'florenca-h6':  enc('hotels', 'hotel-savoy-repubblica-florenca.jpg'),
+  'florenca-h7':  enc('hotels', 'hotel-davanzati-florenca.jpg'),
+  'florenca-h8':  enc('hotels', 'ostello-bello-san-lorenzo-florenca.jpg'),
+  'florenca-h9':  enc('hotels', 'oltrarno-apartment-florenca.jpg'),
+  'florenca-h10': enc('hotels', 'duomo-view-apartment-florenca.jpg'),
+  // Roma
+  'roma-h5':  enc('hotels', 'st-regis-rome-roma.jpg'),
+  'roma-h6':  enc('hotels', 'hotel-eden-roma.jpg'),
+  'roma-h7':  enc('hotels', 'hotel-quirinale-roma.jpg'),
+  'roma-h8':  enc('hotels', 'albergo-del-senato-roma.jpg'),
+  'roma-h9':  enc('hotels', 'yellow-hostel-repubblica-roma.jpg'),
+  'roma-h10': enc('hotels', 'monti-apartment-roma.jpg'),
+  // Budapeste
+  'budapeste-h5':  enc('hotels', 'hotel-gellert-budapeste.jpg'),
+  'budapeste-h6':  enc('hotels', 'corinthia-budapeste.jpg'),
+  'budapeste-h7':  enc('hotels', 'anantara-new-york-palace-budapeste.jpg'),
+  'budapeste-h8':  enc('hotels', 'wombats-vaci-budapeste.jpg'),
+  'budapeste-h9':  enc('hotels', 'danube-view-apartment-budapeste.jpg'),
+  'budapeste-h10': enc('hotels', 'andrassy-boutique-budapeste.jpg'),
+  // Atenas
+  'atenas-h5':  enc('hotels', 'king-george-atenas.jpg'),
+  'atenas-h6':  enc('hotels', 'electra-palace-plaka-atenas.jpg'),
+  'atenas-h7':  enc('hotels', 'herodion-hotel-atenas.jpg'),
+  'atenas-h8':  enc('hotels', 'athens-backpackers-makrygianni-atenas.jpg'),
+  'atenas-h9':  enc('hotels', 'monastiraki-loft-atenas.jpg'),
+  'atenas-h10': enc('hotels', 'kolonaki-apartment-atenas.jpg')
 }
 
 // ----- Atrações (80 de 80) -----
@@ -215,5 +258,54 @@ export const IMAGENS_ATRACAO = {
   'copenhague-sereia':       enc('attractions', 'copenhagen-pequena-sereia.jpg'),
   'copenhague-tivoli':       enc('attractions', 'jardins-tivoli-copenhagen.jpg'),
   'copenhague-christiania':  enc('attractions', 'Entree_de_Christiania-conpenhagen.jpg'),
-  'copenhague-canais':       enc('attractions', 'tour-de-bicicleta-copenhagen.jpg')
+  'copenhague-canais':       enc('attractions', 'tour-de-bicicleta-copenhagen.jpg'),
+  // ----- Expansão das 6 cidades (imagens baixadas via scripts/baixar-imagens-novas.mjs) -----
+  // Madri
+  'madri-reina-sofia':       enc('attractions', 'madri-museu-reina-sofia.jpg'),
+  'madri-thyssen':           enc('attractions', 'madri-museu-thyssen.jpg'),
+  'madri-plaza-mayor':       enc('attractions', 'madri-plaza-mayor.jpg'),
+  'madri-bernabeu':          enc('attractions', 'madri-estadio-bernabeu.jpg'),
+  'madri-mercado-san-miguel': enc('attractions', 'madri-mercado-san-miguel.jpg'),
+  'madri-templo-debod':      enc('attractions', 'madri-templo-debod.jpg'),
+  'madri-gran-via':          enc('attractions', 'madri-gran-via.jpg'),
+  // Barcelona
+  'barcelona-pedrera':       enc('attractions', 'barcelona-casa-mila-pedrera.jpg'),
+  'barcelona-picasso':       enc('attractions', 'barcelona-museu-picasso.jpg'),
+  'barcelona-montjuic':      enc('attractions', 'barcelona-montjuic.jpg'),
+  'barcelona-camp-nou':      enc('attractions', 'barcelona-camp-nou.jpg'),
+  'barcelona-boqueria':      enc('attractions', 'barcelona-la-boqueria.jpg'),
+  'barcelona-tibidabo':      enc('attractions', 'barcelona-tibidabo.jpg'),
+  'barcelona-palau':         enc('attractions', 'barcelona-palau-musica.jpg'),
+  // Florença
+  'florenca-pitti':          enc('attractions', 'florenca-palazzo-pitti.jpg'),
+  'florenca-signoria':       enc('attractions', 'florenca-palazzo-vecchio.jpg'),
+  'florenca-michelangelo':   enc('attractions', 'florenca-piazzale-michelangelo.jpg'),
+  'florenca-santa-croce':    enc('attractions', 'florenca-santa-croce.jpg'),
+  'florenca-mercato':        enc('attractions', 'florenca-mercato-centrale.jpg'),
+  'florenca-bargello':       enc('attractions', 'florenca-bargello.jpg'),
+  'florenca-fiesole':        enc('attractions', 'florenca-fiesole.jpg'),
+  // Roma
+  'roma-borghese':           enc('attractions', 'roma-galleria-borghese.jpg'),
+  'roma-castel':             enc('attractions', 'roma-castel-santangelo.jpg'),
+  'roma-espanha':            enc('attractions', 'roma-spanish-steps.jpg'),
+  'roma-san-pietro':         enc('attractions', 'roma-san-pietro.jpg'),
+  'roma-catacumbas':         enc('attractions', 'roma-catacumbas-callisto.jpg'),
+  'roma-campo-fiori':        enc('attractions', 'roma-campo-de-fiori.jpg'),
+  'roma-appia':              enc('attractions', 'roma-via-appia.jpg'),
+  // Budapeste
+  'budapeste-matthias':      enc('attractions', 'budapeste-igreja-matthias.jpg'),
+  'budapeste-gellert':       enc('attractions', 'budapeste-colina-gellert.jpg'),
+  'budapeste-sinagoga':      enc('attractions', 'budapeste-sinagoga-dohany.jpg'),
+  'budapeste-basilica':      enc('attractions', 'budapeste-basilica-santo-estevao.jpg'),
+  'budapeste-mercado':       enc('attractions', 'budapeste-mercado-central.jpg'),
+  'budapeste-herois':        enc('attractions', 'budapeste-praca-herois.jpg'),
+  'budapeste-opera':         enc('attractions', 'budapeste-opera-hungara.jpg'),
+  // Atenas
+  'atenas-museu-acropole':   enc('attractions', 'atenas-museu-acropole.jpg'),
+  'atenas-agora':            enc('attractions', 'atenas-agora-antiga.jpg'),
+  'atenas-licabeto':         enc('attractions', 'atenas-monte-licabeto.jpg'),
+  'atenas-zeus':             enc('attractions', 'atenas-templo-zeus.jpg'),
+  'atenas-syntagma':         enc('attractions', 'atenas-praca-syntagma.jpg'),
+  'atenas-anafiotika':       enc('attractions', 'atenas-anafiotika.jpg'),
+  'atenas-panatenaico':      enc('attractions', 'atenas-estadio-panatenaico.jpg')
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import clsx from 'clsx'
 
 // =============================================================
@@ -28,11 +28,27 @@ export default function Imagem({ src, alt, className, ...props }) {
   const listaKey = lista.join('|')
   const [indice, setIndice] = useState(0)
   const [carregada, setCarregada] = useState(false)
+  const imgRef = useRef(null)
 
   useEffect(() => {
     setIndice(0)
     setCarregada(false)
   }, [listaKey])
+
+  // Imagem servida do cache do browser pode completar ANTES do React anexar
+  // onLoad/onError (comum em refresh) — os eventos se perdem e a <img> ficaria
+  // presa em opacity-0 (ou o skeleton preso, no caso de erro). Confere o
+  // estado real do elemento a cada render: complete + naturalWidth>0 = ok;
+  // complete + naturalWidth 0 = falhou, avança a cascata.
+  useEffect(() => {
+    const el = imgRef.current
+    if (!el || !el.complete) return
+    if (el.naturalWidth > 0) {
+      setCarregada(true)
+    } else {
+      setIndice((i) => i + 1)
+    }
+  }, [listaKey, indice, carregada])
 
   const semImagem = lista.length === 0 || indice >= lista.length
 
@@ -49,6 +65,7 @@ export default function Imagem({ src, alt, className, ...props }) {
           <div className="absolute inset-0 bg-cream-200 dark:bg-ink-800 animate-pulse" />
         )}
         <img
+          ref={imgRef}
           src={lista[indice]}
           alt={alt}
           loading="lazy"

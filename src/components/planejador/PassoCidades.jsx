@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useViagem } from '../../context/ViagemContext.jsx'
 import Imagem from '../ui/Imagem.jsx'
 import ComparadorCidades from './ComparadorCidades.jsx'
-import { formatarEUR, formatarBRL } from '../../utils/formatadores.js'
+import { formatarEUR } from '../../utils/formatadores.js'
 
 export default function PassoCidades() {
   const {

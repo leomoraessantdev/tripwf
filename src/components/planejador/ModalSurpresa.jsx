@@ -34,14 +34,12 @@ export default function ModalSurpresa({ aberto, aoFechar }) {
 
   const [fase, setFase] = useState('gerando')   // 'gerando' | 'pronto'
   const [mensagemIdx, setMensagemIdx] = useState(0)
-  const [semente, setSemente] = useState(() => Date.now() & 0xFFFF)
   const [plano, setPlano] = useState(null)
 
   const gerar = useCallback(() => {
     setFase('gerando')
     setMensagemIdx(0)
     const novaSemente = Math.floor(Math.random() * 0xFFFF) + 1
-    setSemente(novaSemente)
     const resultado = gerarRoteiroSurpresa({
       orcamentoDiario, dataIda, dataVolta, estilo, semente: novaSemente
     })

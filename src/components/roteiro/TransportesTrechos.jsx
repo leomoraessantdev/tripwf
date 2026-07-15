@@ -7,9 +7,8 @@ import clsx from 'clsx'
 import { sugestoesTransporte } from '../../utils/transportes.js'
 import { haversine, formatarDistancia } from '../../utils/distancia.js'
 import { formatarEUR, formatarBRL } from '../../utils/formatadores.js'
-import { formatarData, formatarDataDiaSemana } from '../../utils/datas.js'
+import { formatarDataDiaSemana } from '../../utils/datas.js'
 import { multiplicadorVooMedio, detectarTemporada } from '../../utils/temporadas.js'
-import { useViagem } from '../../context/ViagemContext.jsx'
 
 const ICONES = {
   aviao: Plane,
@@ -41,8 +40,6 @@ function dataParaIso(d) {
 }
 
 function MapaRoteiroBase({ dadosViagem }) {
-  const { dataVoltaEfetiva, viajantes } = useViagem()
-
   const trechos = useMemo(() => {
     const arr = []
     for (let i = 0; i < dadosViagem.length - 1; i++) {
@@ -71,7 +68,7 @@ function MapaRoteiroBase({ dadosViagem }) {
       })
     }
     return arr
-  }, [dadosViagem, dataVoltaEfetiva])
+  }, [dadosViagem])
 
   if (trechos.length === 0) return null
 

@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 
-export function useLocalStorage(chave, valorInicial) {
+// `normalizar` (opcional): função aplicada ao valor lido do storage antes
+// de virar estado — usada para migrar/sanear dados salvos por versões
+// antigas do app (campos faltando, tipos errados). Deve ser pura.
+export function useLocalStorage(chave, valorInicial, normalizar) {
   const [valor, setValor] = useState(() => {
     try {
       const armazenado = window.localStorage.getItem(chave)
-      return armazenado ? JSON.parse(armazenado) : valorInicial
+      const lido = armazenado ? JSON.parse(armazenado) : valorInicial
+      return normalizar ? normalizar(lido) : lido
     } catch {
       return valorInicial
     }

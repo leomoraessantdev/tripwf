@@ -4,19 +4,9 @@ import { cidades, buscarCidade } from '../data/cidades.js'
 import { computarDatasCidades } from '../utils/datas.js'
 import { sugerirEscolhas } from '../utils/sugestoes.js'
 import { carimbarSalvamento } from '../utils/saveTracker.js'
+import { ESTADO_INICIAL, normalizarEstado } from '../utils/estadoViagem.js'
 
 const ViagemContext = createContext(null)
-
-const ESTADO_INICIAL = {
-  orcamentoDiario: 100,
-  viajantes: 1,
-  origem: '',           // cidade/país de origem (ex.: "São Paulo, Brasil")
-  dataIda: '',          // ISO date YYYY-MM-DD; vazio = sem datas calculadas
-  dataVolta: '',        // ISO date; vazio = auto-calculada (dataIda + total dias)
-  estilo: 'conforto',   // 'economico' | 'conforto' | 'luxo'
-  cidadesSelecionadas: [],
-  checklistConcluidos: []  // ids dos itens do checklist marcados como prontos
-}
 
 // Constante para estimar transporte entre cidades. Alimentação é por cidade
 // (cidade.custoAlimentacaoDia em src/data/cidades.js) e reflete diferenças
@@ -24,7 +14,9 @@ const ESTADO_INICIAL = {
 export const CUSTO_TRANSPORTE_TRECHO = 80 // EUR por trecho (trem regional médio)
 
 export function ViagemProvider({ children }) {
-  const [estado, setEstado] = useLocalStorage('viagem-europa', ESTADO_INICIAL)
+  // normalizarEstado migra estado salvo por versões antigas do app
+  // (campos ausentes, tipos errados) para o schema atual na carga.
+  const [estado, setEstado] = useLocalStorage('viagem-europa', ESTADO_INICIAL, normalizarEstado)
 
   // Persistência real é automática via useLocalStorage. Aqui só carimbamos
   // o timestamp da última edição (silencioso, sem toast) — usado pelo

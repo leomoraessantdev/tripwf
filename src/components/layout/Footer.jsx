@@ -1,4 +1,4 @@
-import { Compass, Mail, Globe } from 'lucide-react'
+import { Compass, Mail, Globe, Github, Linkedin } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
@@ -41,8 +41,28 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-app py-5 flex items-center justify-center text-xs text-cream-100/50">
+        <div className="container-app py-5 flex items-center justify-center gap-4 text-xs text-cream-100/50 relative">
           <div>© 2026 TripWF</div>
+          <div className="flex items-center gap-3 sm:absolute sm:right-0">
+            <a
+              href="https://github.com/leomoraessantdev"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="hover:text-accent-500 transition"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/leonardo-moraesdev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="hover:text-accent-500 transition"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

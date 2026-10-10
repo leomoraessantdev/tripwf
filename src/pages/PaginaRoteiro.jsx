@@ -21,6 +21,7 @@ import CidadeRoteiro from '../components/roteiro/CidadeRoteiro.jsx'
 import ResumoEscolhas from '../components/roteiro/ResumoEscolhas.jsx'
 import ChecklistViagem from '../components/roteiro/ChecklistViagem.jsx'
 import Botao from '../components/ui/Botao.jsx'
+import BudgetSummary from '../components/planejador/BudgetSummary.jsx'
 import { useTituloPagina } from '../hooks/useTituloPagina.js'
 
 export default function PaginaRoteiro() {
@@ -28,7 +29,7 @@ export default function PaginaRoteiro() {
   const {
     dadosViagem, limparViagem, totais,
     orcamentoDiario, viajantes, cidadesSelecionadas,
-    origem, dataIda, dataVolta, estilo, checklistConcluidos
+    origem, dataIda, dataVolta, estilo, checklistConcluidos, transportesEscolhidos
   } = useViagem()
   const navigate = useNavigate()
   const [exportando, setExportando] = useState(false)
@@ -41,7 +42,7 @@ export default function PaginaRoteiro() {
     try {
       const estado = {
         orcamentoDiario, viajantes, origem, dataIda, dataVolta, estilo,
-        cidadesSelecionadas, checklistConcluidos
+        cidadesSelecionadas, checklistConcluidos, transportesEscolhidos
       }
       const nomeSugerido = sugerirNomeRoteiro(estado, dadosViagem)
       const nome = window.prompt('Dê um nome ao roteiro:', nomeSugerido) ?? nomeSugerido
@@ -67,7 +68,8 @@ export default function PaginaRoteiro() {
 
   const compartilhar = async () => {
     const url = gerarLinkCompartilhamento({
-      orcamentoDiario, viajantes, origem, dataIda, dataVolta, estilo, cidadesSelecionadas
+      orcamentoDiario, viajantes, origem, dataIda, dataVolta, estilo, cidadesSelecionadas,
+      transportesEscolhidos
     })
     const r = await compartilharLink(url, `TripWF — roteiro de ${dadosViagem.length} cidades`)
     if (r === 'copiado') {
@@ -84,7 +86,7 @@ export default function PaginaRoteiro() {
   }
 
   return (
-    <div className="pt-20 sm:pt-24 pb-20 bg-cream-100 dark:bg-ink-950 min-h-screen">
+    <div className="pt-20 sm:pt-24 pb-40 bg-cream-100 dark:bg-ink-950 min-h-screen">
       <div className="container-app">
         {/* Barra de ações — fora do imprimir para não cair no PDF */}
         <div className="flex flex-wrap justify-end gap-2 mb-5">
@@ -199,6 +201,11 @@ export default function PaginaRoteiro() {
             <Sparkles className="w-4 h-4" /> Editar roteiro
           </Link>
         </div>
+      </div>
+
+      {/* Fora de #roteiro-imprimir: não entra no PDF. Atualiza ao escolher transporte/hotel. */}
+      <div className="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-96 z-40">
+        <BudgetSummary />
       </div>
     </div>
   )

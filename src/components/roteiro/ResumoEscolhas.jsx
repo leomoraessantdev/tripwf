@@ -1,7 +1,9 @@
 import { Ticket, BedDouble, ExternalLink, MapPin } from 'lucide-react'
 import Imagem from '../ui/Imagem.jsx'
 import { formatarEUR, formatarBRL, formatarPreco } from '../../utils/formatadores.js'
-import { linkIngresso, linkReserva } from '../../utils/links.js'
+import { linkIngresso, linkReserva, linkReservaAccor, linkHotelAccor } from '../../utils/links.js'
+import { opcaoMaisBarata } from '../../data/cidades.js'
+import { rotuloUnidade } from '../../utils/hospedagem.js'
 import { useViagem } from '../../context/ViagemContext.jsx'
 
 function somarUmDia(data) {
@@ -17,30 +19,43 @@ export default function ResumoEscolhas({ dadosViagem }) {
   // Junta todas as atrações em listas planas e propaga datas + viajantes
   // para que o link de compra/reserva já abra com tudo pré-preenchido.
   const atracoes = dadosViagem.flatMap((d) =>
-    d.atracoes.map((a) => ({
-      ...a,
-      cidadeNome: d.cidade.nome,
-      bandeira: d.cidade.bandeira,
-      link: linkIngresso(a.nome, d.cidade.nome, {
-        dataInicio: d.dataInicio,
-        dataFim: d.dataFim
-      })
-    }))
+    d.atracoes.map((a) => {
+      // Bate e volta: compra direto na operadora mais barata (sem GetYourGuide).
+      const maisBarata = a.bateVolta ? opcaoMaisBarata(a.bateVolta) : null
+      return {
+        ...a,
+        cidadeNome: d.cidade.nome,
+        bandeira: d.cidade.bandeira,
+        link: maisBarata
+          ? maisBarata.links[0].url
+          : a.linkCompra || linkIngresso(a.nome, d.cidade.nome, { dataInicio: d.dataInicio, dataFim: d.dataFim }),
+        botao: maisBarata
+          ? `Comprar: ${maisBarata.links[0].label}`
+          : a.linkCompra ? 'Comprar no site oficial' : 'Comprar no GetYourGuide'
+      }
+    })
   )
   const hospedagens = dadosViagem
     .filter((d) => d.hospedagem)
-    .map((d) => ({
-      ...d.hospedagem,
-      cidadeNome: d.cidade.nome,
-      bandeira: d.cidade.bandeira,
-      dias: d.dias,
-      total: d.custoHospedagem,
-      link: linkReserva(d.hospedagem.nome, d.cidade.nome, {
-        dataInicio: d.dataInicio,
-        dataFim: somarUmDia(d.dataFim),
-        viajantes
-      })
-    }))
+    .map((d) => {
+      const opts = { dataInicio: d.dataInicio, dataFim: somarUmDia(d.dataFim), viajantes }
+      const ehAccor = d.hospedagem.rede === 'Accor'
+      return {
+        ...d.hospedagem,
+        cidadeNome: d.cidade.nome,
+        bandeira: d.cidade.bandeira,
+        dias: d.dias,
+        unidades: d.unidadesHospedagem,
+        precoNoiteAjustado: d.precoNoiteAjustado,
+        total: d.custoHospedagem,
+        link: !ehAccor
+          ? linkReserva(d.hospedagem.nome, d.cidade.nome, opts)
+          : d.hospedagem.codigo
+            ? linkHotelAccor(d.hospedagem.codigo, opts)
+            : linkReservaAccor(d.cidade.accorDestino, opts),
+        botao: ehAccor ? 'Reservar na Accor' : 'Reservar no Booking'
+      }
+    })
 
   if (atracoes.length === 0 && hospedagens.length === 0) {
     return (
@@ -70,10 +85,10 @@ export default function ResumoEscolhas({ dadosViagem }) {
                 cidade={h.cidadeNome}
                 bandeira={h.bandeira}
                 meta={`${h.tipo} · ${h.bairro}`}
-                precoLabel={`${formatarEUR(h.precoNoite)}/noite × ${h.dias}`}
+                precoLabel={`${formatarEUR(h.precoNoiteAjustado)}/noite × ${h.dias}${h.unidades > 1 ? ` × ${h.unidades} ${rotuloUnidade(h.tipo, h.unidades)}` : ''}`}
                 preco={h.total}
                 link={h.link}
-                botao="Reservar no Booking"
+                botao={h.botao}
                 icone={BedDouble}
                 corBotao="primary"
               />
@@ -101,9 +116,9 @@ export default function ResumoEscolhas({ dadosViagem }) {
                 bandeira={a.bandeira}
                 meta={`${a.duracao} · ${a.categoria}`}
                 preco={a.preco}
-                precoLabel={a.preco === 0 ? 'Entrada' : 'Ingresso'}
+                precoLabel={a.preco === 0 ? 'Entrada' : 'Ingresso por pessoa'}
                 link={a.link}
-                botao="Comprar no GetYourGuide"
+                botao={a.botao}
                 icone={Ticket}
                 corBotao="accent"
               />

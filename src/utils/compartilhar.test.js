@@ -11,7 +11,8 @@ const ESTADO = {
   cidadesSelecionadas: [
     { slug: 'paris', dias: 4, atracoesEscolhidas: ['louvre', 'torre'], hospedagemEscolhida: 'h1' },
     { slug: 'roma', dias: 3, atracoesEscolhidas: [], hospedagemEscolhida: null }
-  ]
+  ],
+  transportesEscolhidos: { 'paris>roma': 'aviao' }
 }
 
 describe('encodar/decodificar roteiro', () => {

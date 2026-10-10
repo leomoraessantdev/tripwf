@@ -31,7 +31,9 @@ const MOEDA_CIDADE = {
   budapeste:  'HUF',
   florenca:   'EUR',
   edimburgo:  'GBP',
-  copenhague: 'DKK'
+  copenhague: 'DKK',
+  milao:      'EUR',
+  porto:      'EUR'
 }
 
 const NOME_MOEDA = {
@@ -40,7 +42,8 @@ const NOME_MOEDA = {
   CZK: 'coroas tchecas',
   TRY: 'liras turcas',
   HUF: 'florins húngaros',
-  DKK: 'coroas dinamarquesas'
+  DKK: 'coroas dinamarquesas',
+  CHF: 'francos suíços'
 }
 
 function listaPtBr(itens) {
@@ -110,9 +113,11 @@ export function gerarChecklist({ dadosViagem }) {
   })
 
   // Dinheiro local — adapta texto às moedas reais do roteiro
-  const moedas = [...new Set(
-    dadosViagem.map((d) => MOEDA_CIDADE[d.slug]).filter(Boolean)
-  )]
+  // Bate e volta para fora da zona do euro (ex.: Milão → Suíça) também conta.
+  const moedas = [...new Set([
+    ...dadosViagem.map((d) => MOEDA_CIDADE[d.slug]),
+    ...dadosViagem.flatMap((d) => (d.atracoes || []).map((a) => a.bateVolta?.moeda))
+  ].filter(Boolean))]
   let descDinheiro
   if (moedas.length === 0) {
     descDinheiro = 'Leve algum dinheiro em espécie para os primeiros gastos e gorjetas.'

@@ -14,7 +14,7 @@
 
 const enc = (pasta, arquivo) => arquivo ? `/images/${pasta}/${encodeURI(arquivo)}` : null
 
-// ----- Cidades (16 de 16) -----
+// ----- Cidades (18 de 18) -----
 export const IMAGENS_CIDADE = {
   paris:      enc('cities', 'paris.jpg'),
   roma:       enc('cities', 'roma.jpg'),
@@ -31,7 +31,10 @@ export const IMAGENS_CIDADE = {
   budapeste:  enc('cities', 'budapeste.jpg'),
   florenca:   enc('cities', 'florenca.jpg'),
   edimburgo:  enc('cities', 'edimburgo.jpg'),
-  copenhague: enc('cities', 'Copenhagen.jpg')
+  copenhague: enc('cities', 'Copenhagen.jpg'),
+  // ----- Milão, Porto, bate e volta e Accor (scripts/baixar-imagens-milao-porto-accor.mjs) -----
+  'milao': enc('cities', 'milao.jpg'),
+  'porto': enc('cities', 'porto.jpg')
 }
 
 // ----- Hospedagens (64 de 64) -----
@@ -158,7 +161,83 @@ export const IMAGENS_HOSPEDAGEM = {
   'atenas-h7':  enc('hotels', 'herodion-hotel-atenas.jpg'),
   'atenas-h8':  enc('hotels', 'athens-backpackers-makrygianni-atenas.jpg'),
   'atenas-h9':  enc('hotels', 'monastiraki-loft-atenas.jpg'),
-  'atenas-h10': enc('hotels', 'kolonaki-apartment-atenas.jpg')
+  'atenas-h10': enc('hotels', 'kolonaki-apartment-atenas.jpg'),
+  // ----- Milão, Porto, bate e volta e Accor (scripts/baixar-imagens-milao-porto-accor.mjs) -----
+  'milao-h1': enc('hotels', 'milao-h1.jpg'),
+  'milao-h2': enc('hotels', 'milao-h2.jpg'),
+  'milao-h3': enc('hotels', 'milao-h3.jpg'),
+  'porto-h1': enc('hotels', 'porto-h1.jpg'),
+  'porto-h2': enc('hotels', 'porto-h2.jpg'),
+  'porto-h3': enc('hotels', 'porto-h3.jpg'),
+  'paris-accor-ibis': enc('hotels', 'paris-accor-ibis.jpg'),
+  'paris-accor-novotel': enc('hotels', 'paris-accor-novotel.jpg'),
+  'paris-accor-sofitel': enc('hotels', 'paris-accor-sofitel.jpg'),
+  'roma-accor-mercure-termini': enc('hotels', 'roma-accor-mercure-termini.jpg'),
+  'roma-accor-mercure-colosseo': enc('hotels', 'roma-accor-mercure-colosseo.jpg'),
+  'roma-accor-sofitel': enc('hotels', 'roma-accor-sofitel.jpg'),
+  'barcelona-accor-ibis': enc('hotels', 'barcelona-accor-ibis.jpg'),
+  'barcelona-accor-novotel': enc('hotels', 'barcelona-accor-novotel.jpg'),
+  'amsterdam-accor-ibis': enc('hotels', 'amsterdam-accor-ibis.jpg'),
+  'amsterdam-accor-sofitel': enc('hotels', 'amsterdam-accor-sofitel.jpg'),
+  'praga-accor-ibis': enc('hotels', 'praga-accor-ibis.jpg'),
+  'praga-accor-novotel': enc('hotels', 'praga-accor-novotel.jpg'),
+  'lisboa-accor-ibis': enc('hotels', 'lisboa-accor-ibis.jpg'),
+  'lisboa-accor-novotel': enc('hotels', 'lisboa-accor-novotel.jpg'),
+  'lisboa-accor-sofitel': enc('hotels', 'lisboa-accor-sofitel.jpg'),
+  'viena-accor-ibis': enc('hotels', 'viena-accor-ibis.jpg'),
+  'viena-accor-novotel': enc('hotels', 'viena-accor-novotel.jpg'),
+  'londres-accor-ibis': enc('hotels', 'londres-accor-ibis.jpg'),
+  'londres-accor-novotel': enc('hotels', 'londres-accor-novotel.jpg'),
+  'londres-accor-sofitel': enc('hotels', 'londres-accor-sofitel.jpg'),
+  'berlim-accor-ibis': enc('hotels', 'berlim-accor-ibis.jpg'),
+  'berlim-accor-novotel': enc('hotels', 'berlim-accor-novotel.jpg'),
+  'berlim-accor-sofitel': enc('hotels', 'berlim-accor-sofitel.jpg'),
+  'madri-accor-ibis': enc('hotels', 'madri-accor-ibis.jpg'),
+  'madri-accor-ibis-styles': enc('hotels', 'madri-accor-ibis-styles.jpg'),
+  'madri-accor-novotel': enc('hotels', 'madri-accor-novotel.jpg'),
+  'atenas-accor-ibis-styles': enc('hotels', 'atenas-accor-ibis-styles.jpg'),
+  'atenas-accor-novotel': enc('hotels', 'atenas-accor-novotel.jpg'),
+  'istambul-accor-mercure': enc('hotels', 'istambul-accor-mercure.jpg'),
+  'istambul-accor-novotel': enc('hotels', 'istambul-accor-novotel.jpg'),
+  'istambul-accor-swissotel': enc('hotels', 'istambul-accor-swissotel.jpg'),
+  'budapeste-accor-ibis': enc('hotels', 'budapeste-accor-ibis.jpg'),
+  'budapeste-accor-novotel': enc('hotels', 'budapeste-accor-novotel.jpg'),
+  'budapeste-accor-sofitel': enc('hotels', 'budapeste-accor-sofitel.jpg'),
+  'florenca-accor-mercure': enc('hotels', 'florenca-accor-mercure.jpg'),
+  'florenca-accor-ibis': enc('hotels', 'florenca-accor-ibis.jpg'),
+  'edimburgo-accor-ibis': enc('hotels', 'edimburgo-accor-ibis.jpg'),
+  'edimburgo-accor-novotel': enc('hotels', 'edimburgo-accor-novotel.jpg'),
+  'copenhague-accor-ibis-styles': enc('hotels', 'copenhague-accor-ibis-styles.jpg'),
+  'milao-accor-ibis': enc('hotels', 'milao-accor-ibis.jpg'),
+  'milao-accor-ibis-styles': enc('hotels', 'milao-accor-ibis-styles.jpg'),
+  'milao-accor-mercure': enc('hotels', 'milao-accor-mercure.jpg'),
+  'porto-accor-ibis': enc('hotels', 'porto-accor-ibis.jpg'),
+  'porto-accor-mercure': enc('hotels', 'porto-accor-mercure.jpg'),
+  'porto-accor-novotel': enc('hotels', 'porto-accor-novotel.jpg'),
+  // ----- Milão, Porto, bate e volta e Accor (scripts/baixar-imagens-milao-porto-accor.mjs) -----
+  'paris-accor-ibis-budget': enc('hotels', 'paris-accor-ibis-budget.jpg'),
+  'paris-accor-ibis-styles': enc('hotels', 'paris-accor-ibis-styles.jpg'),
+  'roma-accor-jojo': enc('hotels', 'roma-accor-jojo.jpg'),
+  'barcelona-accor-ibis-budget': enc('hotels', 'barcelona-accor-ibis-budget.jpg'),
+  'barcelona-accor-ibis-styles': enc('hotels', 'barcelona-accor-ibis-styles.jpg'),
+  'amsterdam-accor-ibis-stopera': enc('hotels', 'amsterdam-accor-ibis-stopera.jpg'),
+  'amsterdam-accor-ibis-styles': enc('hotels', 'amsterdam-accor-ibis-styles.jpg'),
+  'praga-accor-ibis-wenceslas': enc('hotels', 'praga-accor-ibis-wenceslas.jpg'),
+  'lisboa-accor-ibis-saldanha': enc('hotels', 'lisboa-accor-ibis-saldanha.jpg'),
+  'lisboa-accor-ibis-styles': enc('hotels', 'lisboa-accor-ibis-styles.jpg'),
+  'viena-accor-jojo': enc('hotels', 'viena-accor-jojo.jpg'),
+  'viena-accor-ibis-budget': enc('hotels', 'viena-accor-ibis-budget.jpg'),
+  'londres-accor-ibis-styles': enc('hotels', 'londres-accor-ibis-styles.jpg'),
+  'berlim-accor-ibis-budget': enc('hotels', 'berlim-accor-ibis-budget.jpg'),
+  'madri-accor-ibis-budget': enc('hotels', 'madri-accor-ibis-budget.jpg'),
+  'madri-accor-mercure': enc('hotels', 'madri-accor-mercure.jpg'),
+  'budapeste-accor-jojo': enc('hotels', 'budapeste-accor-jojo.jpg'),
+  'budapeste-accor-ibis-castle': enc('hotels', 'budapeste-accor-ibis-castle.jpg'),
+  'edimburgo-accor-ibis-styles': enc('hotels', 'edimburgo-accor-ibis-styles.jpg'),
+  'porto-accor-ibis-budget': enc('hotels', 'porto-accor-ibis-budget.jpg'),
+  'porto-accor-ibis-sao-bento': enc('hotels', 'porto-accor-ibis-sao-bento.jpg'),
+  // ----- Milão, Porto, bate e volta e Accor (scripts/baixar-imagens-milao-porto-accor.mjs) -----
+  'atenas-accor-mgallery': enc('hotels', 'atenas-accor-mgallery.jpg')
 }
 
 // ----- Atrações (80 de 80) -----
@@ -307,5 +386,28 @@ export const IMAGENS_ATRACAO = {
   'atenas-zeus':             enc('attractions', 'atenas-templo-zeus.jpg'),
   'atenas-syntagma':         enc('attractions', 'atenas-praca-syntagma.jpg'),
   'atenas-anafiotika':       enc('attractions', 'atenas-anafiotika.jpg'),
-  'atenas-panatenaico':      enc('attractions', 'atenas-estadio-panatenaico.jpg')
+  'atenas-panatenaico':      enc('attractions', 'atenas-estadio-panatenaico.jpg'),
+  // ----- Milão, Porto, bate e volta e Accor (scripts/baixar-imagens-milao-porto-accor.mjs) -----
+  'milao-duomo': enc('attractions', 'milao-duomo.jpg'),
+  'milao-cenacolo': enc('attractions', 'milao-cenacolo.jpg'),
+  'milao-galleria': enc('attractions', 'milao-galleria.jpg'),
+  'milao-sforzesco': enc('attractions', 'milao-sforzesco.jpg'),
+  'milao-brera': enc('attractions', 'milao-brera.jpg'),
+  'milao-scala': enc('attractions', 'milao-scala.jpg'),
+  'milao-navigli': enc('attractions', 'milao-navigli.jpg'),
+  'milao-porta-nuova': enc('attractions', 'milao-porta-nuova.jpg'),
+  'milao-san-siro': enc('attractions', 'milao-san-siro.jpg'),
+  'porto-ribeira': enc('attractions', 'porto-ribeira.jpg'),
+  'porto-lello': enc('attractions', 'porto-lello.jpg'),
+  'porto-caves': enc('attractions', 'porto-caves.jpg'),
+  'porto-clerigos': enc('attractions', 'porto-clerigos.jpg'),
+  'porto-bolsa': enc('attractions', 'porto-bolsa.jpg'),
+  'porto-sao-bento': enc('attractions', 'porto-sao-bento.jpg'),
+  'porto-se': enc('attractions', 'porto-se.jpg'),
+  'porto-cruzeiro': enc('attractions', 'porto-cruzeiro.jpg'),
+  'porto-serralves': enc('attractions', 'porto-serralves.jpg'),
+  'porto-foz': enc('attractions', 'porto-foz.jpg'),
+  'madri-toledo': enc('attractions', 'madri-toledo.jpg'),
+  'milao-lugano': enc('attractions', 'milao-lugano.jpg'),
+  'milao-bernina': enc('attractions', 'milao-bernina.jpg')
 }

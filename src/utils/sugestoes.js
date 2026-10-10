@@ -49,7 +49,8 @@ function sugerirHospedagem(cidade, estilo) {
 }
 
 function sugerirAtracoes(cidade, dias, estilo, orcamentoDiario) {
-  const lista = cidade?.atracoes || []
+  // Bate e volta consome um dia inteiro da estadia — fica a critério do usuário.
+  const lista = (cidade?.atracoes || []).filter((a) => !a.bateVolta)
   if (lista.length === 0) return []
 
   // ~1.2 atrações por dia, mínimo 2, máximo igual ao tamanho da lista
@@ -122,7 +123,8 @@ const PERIODO_NATURAL = {
   Praia:       2,
   Natureza:    2,
   'Bem-estar': 2,
-  Gastronomia: 3  // noite
+  Gastronomia: 3, // noite
+  'Bate e volta': 0 // ocupa o dia; começa cedo
 }
 
 const PERIODOS = ['Manhã', 'Tarde', 'Fim de tarde', 'Noite']

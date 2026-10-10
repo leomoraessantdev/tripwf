@@ -14,6 +14,7 @@ const coresTipo = {
 
 export default function HospedagemCard({ hospedagem }) {
   const link = useLinkReservaComData(hospedagem)
+  const ehAccor = hospedagem.rede === 'Accor'
   return (
     <article className="card-base h-full flex flex-col">
       <div className="relative aspect-[4/3] w-full">
@@ -22,10 +23,15 @@ export default function HospedagemCard({ hospedagem }) {
           alt={hospedagem.nome}
           className="absolute inset-0"
         />
-        <div className="absolute top-3 left-3">
+        <div className="absolute top-3 left-3 flex flex-col items-start gap-1">
           <span className={`text-xs font-semibold px-3 py-1 rounded-full ${coresTipo[hospedagem.tipo] || 'bg-primary-500 text-white'}`}>
             {hospedagem.tipo}
           </span>
+          {ehAccor && (
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/95 text-primary-800 dark:bg-ink-900/90 dark:text-ink-100 shadow-sm">
+              Accor · {hospedagem.marca}
+            </span>
+          )}
         </div>
         <div className="absolute top-3 right-3">
           <Tag variante="branco">
@@ -59,7 +65,14 @@ export default function HospedagemCard({ hospedagem }) {
             <div className="font-display font-extrabold text-2xl text-primary-900 dark:text-ink-50">
               {formatarEUR(hospedagem.precoNoite)}
             </div>
-            <div className="text-xs text-primary-500 dark:text-ink-300">por noite · {formatarBRL(hospedagem.precoNoite)}</div>
+            <div className="text-xs text-primary-500 dark:text-ink-300">
+              {hospedagem.tipo === 'Hostel' ? 'por cama/noite' : 'por noite (quarto duplo)'} · {formatarBRL(hospedagem.precoNoite)}
+            </div>
+            {ehAccor && (
+              <div className="text-[10px] text-primary-500/80 dark:text-ink-300 mt-0.5">
+                Média fora da alta temporada · preço exato no link com suas datas
+              </div>
+            )}
           </div>
         </div>
         <a
@@ -69,9 +82,19 @@ export default function HospedagemCard({ hospedagem }) {
           className="btn-base bg-primary-500 hover:bg-primary-600 dark:bg-ink-700 dark:hover:bg-ink-500 dark:ring-1 dark:ring-ink-600 text-white px-4 py-2.5 text-sm w-full mt-auto"
         >
           <BedDouble className="w-4 h-4" />
-          Reservar
+          {ehAccor ? 'Reservar na Accor' : 'Reservar'}
           <ExternalLink className="w-3 h-3 opacity-70" />
         </a>
+        {ehAccor && (
+          <a
+            href={hospedagem.linkComparar}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 text-center text-xs font-semibold text-primary-600 dark:text-ink-200 hover:text-accent-600 underline decoration-dotted underline-offset-2"
+          >
+            Comparar preço no Booking
+          </a>
+        )}
       </div>
     </article>
   )

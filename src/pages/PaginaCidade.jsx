@@ -1,11 +1,13 @@
 import { useParams, Navigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Camera, BedDouble, ArrowRight } from 'lucide-react'
+import { Camera, BedDouble, ArrowRight, Route } from 'lucide-react'
 import { buscarCidade } from '../data/cidades.js'
 import { useViagem } from '../context/ViagemContext.jsx'
 import CidadeHero from '../components/cidade/CidadeHero.jsx'
 import AtracaoCard from '../components/cidade/AtracaoCard.jsx'
 import HospedagemCard from '../components/cidade/HospedagemCard.jsx'
+import BateVoltaCard from '../components/cidade/BateVoltaCard.jsx'
+import BuscaHoteisDatas from '../components/ui/BuscaHoteisDatas.jsx'
 import MelhorEpoca from '../components/cidade/MelhorEpoca.jsx'
 import FiltroChips from '../components/ui/FiltroChips.jsx'
 import { useFavoritos } from '../hooks/useFavoritos.js'
@@ -40,15 +42,19 @@ export default function PaginaCidade() {
     setOrdemHospedagem('Relevância')
   }, [slug])
 
-  const temAtracaoFavorita = cidade?.atracoes.some((a) => ehFavorito('atracoes', a.id))
+  // Bate e volta tem seção própria; o grid de atrações mostra só a cidade.
+  const atracoesCidade = useMemo(() => cidade?.atracoes.filter((a) => !a.bateVolta) ?? [], [cidade])
+  const batesVolta = useMemo(() => cidade?.atracoes.filter((a) => a.bateVolta) ?? [], [cidade])
+
+  const temAtracaoFavorita = atracoesCidade.some((a) => ehFavorito('atracoes', a.id))
   const temHospedagemFavorita = cidade?.hospedagens.some((h) => ehFavorito('hospedagens', h.id))
 
   const categoriasAtracao = useMemo(() => {
     if (!cidade) return []
-    const base = ['Todas', ...new Set(cidade.atracoes.map((a) => a.categoria))]
+    const base = ['Todas', ...new Set(atracoesCidade.map((a) => a.categoria))]
     if (temAtracaoFavorita) base.push('♥ Favoritas')
     return base
-  }, [cidade, temAtracaoFavorita])
+  }, [cidade, atracoesCidade, temAtracaoFavorita])
 
   const tiposHospedagem = useMemo(() => {
     if (!cidade) return []
@@ -59,12 +65,12 @@ export default function PaginaCidade() {
 
   const atracoesVisiveis = useMemo(() => {
     if (!cidade) return []
-    if (categoriaAtracao === 'Todas') return cidade.atracoes
+    if (categoriaAtracao === 'Todas') return atracoesCidade
     if (categoriaAtracao === '♥ Favoritas') {
-      return cidade.atracoes.filter((a) => ehFavorito('atracoes', a.id))
+      return atracoesCidade.filter((a) => ehFavorito('atracoes', a.id))
     }
-    return cidade.atracoes.filter((a) => a.categoria === categoriaAtracao)
-  }, [cidade, categoriaAtracao, ehFavorito])
+    return atracoesCidade.filter((a) => a.categoria === categoriaAtracao)
+  }, [cidade, atracoesCidade, categoriaAtracao, ehFavorito])
 
   const hospedagensVisiveis = useMemo(() => {
     if (!cidade) return []
@@ -111,9 +117,9 @@ export default function PaginaCidade() {
               Atrações em destaque
             </h2>
             <p className="text-primary-700/70 dark:text-ink-200">
-              {atracoesVisiveis.length === cidade.atracoes.length
-                ? `${cidade.atracoes.length} experiências imperdíveis`
-                : `${atracoesVisiveis.length} de ${cidade.atracoes.length} experiências`}
+              {atracoesVisiveis.length === atracoesCidade.length
+                ? `${atracoesCidade.length} experiências imperdíveis`
+                : `${atracoesVisiveis.length} de ${atracoesCidade.length} experiências`}
             </p>
           </div>
         </div>
@@ -143,6 +149,29 @@ export default function PaginaCidade() {
         </div>
       </section>
 
+      {batesVolta.length > 0 && (
+        <section className="container-app pb-16" aria-labelledby="titulo-bate-volta">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 rounded-xl bg-success/10 flex items-center justify-center">
+              <Route className="w-6 h-6 text-success" aria-hidden="true" />
+            </div>
+            <div>
+              <h2 id="titulo-bate-volta" className="font-display font-extrabold text-3xl text-primary-900 dark:text-ink-50">
+                Bate e volta saindo de {cidade.nome}
+              </h2>
+              <p className="text-primary-700/70 dark:text-ink-200">
+                Opções ordenadas da mais barata para a mais cara, com link direto para comprar. Inclua no roteiro pelo planejador.
+              </p>
+            </div>
+          </div>
+          <div className="space-y-6">
+            {batesVolta.map((a) => (
+              <BateVoltaCard key={a.id} atracao={a} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="bg-cream-200/50 dark:bg-ink-900/40 py-16">
         <div className="container-app">
           <div className="flex items-center gap-3 mb-6">
@@ -159,6 +188,9 @@ export default function PaginaCidade() {
                   : `${hospedagensVisiveis.length} de ${cidade.hospedagens.length} opções`}
               </p>
             </div>
+          </div>
+          <div className="mb-6 max-w-2xl">
+            <BuscaHoteisDatas cidade={cidade} />
           </div>
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
             {tiposHospedagem.length > 2 && (

@@ -40,10 +40,10 @@ const CATEGORIAS = [
 ]
 
 export default function CardEconomia() {
-  const { dadosViagem, totais, dataIda } = useViagem()
+  const { dadosViagem, totais, dataIda, viajantes } = useViagem()
   const economia = useMemo(
-    () => calcularEconomia({ dadosViagem, totais, dataIda }),
-    [dadosViagem, totais, dataIda]
+    () => calcularEconomia({ dadosViagem, totais, dataIda, viajantes }),
+    [dadosViagem, totais, dataIda, viajantes]
   )
 
   if (!economia || economia.economiaTotal < 1) return null

@@ -23,16 +23,18 @@ const ESTADO_VISUAL = {
 }
 
 export default function SugestoesEconomia() {
-  const { dadosViagem, totais, dataIda } = useViagem()
+  const { dadosViagem, totais, trechos, transportesEscolhidos, viajantes } = useViagem()
 
   const dados = useMemo(
     () => gerarSugestoesEconomia({
       dadosViagem,
       totais,
       orcamentoTotal: totais.orcamentoTotal,
-      dataIda
+      trechos,
+      transportesEscolhidos,
+      viajantes
     }),
-    [dadosViagem, totais, dataIda]
+    [dadosViagem, totais, trechos, transportesEscolhidos, viajantes]
   )
 
   if (!dados || dados.estado === 'dentro' || dados.sugestoes.length === 0) {

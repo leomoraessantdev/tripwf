@@ -119,5 +119,19 @@ export const EPOCA_CIDADE = {
     clima: 'Oceânico frio — verões curtos e amenos, invernos longos e escuros.',
     altaTemporada: 'Julho e Agosto',
     custoBeneficio: 'Maio e Setembro'
+  },
+  milao: {
+    melhoresMeses: 'Abril a Junho',
+    descMelhor: 'Primavera amena, ideal também para bate e volta aos lagos e à Suíça.',
+    clima: 'Subtropical úmido — verões quentes e abafados, invernos frios com neblina.',
+    altaTemporada: 'Setembro (semana de moda) e Junho',
+    custoBeneficio: 'Março, Outubro e Novembro'
+  },
+  porto: {
+    melhoresMeses: 'Maio a Setembro',
+    descMelhor: 'Dias longos, pouca chuva e festa de São João em 23 de junho.',
+    clima: 'Mediterrâneo atlântico — verões amenos, invernos chuvosos.',
+    altaTemporada: 'Julho e Agosto',
+    custoBeneficio: 'Abril, Maio e Outubro'
   }
 }

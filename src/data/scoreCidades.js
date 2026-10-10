@@ -31,7 +31,9 @@ export const SCORE_CIDADE = {
   budapeste:  { cultural: 4, noturna: 5, gastronomia: 3, seguranca: 4, clima: 3, caminhada: 3, intensidade: 4 },
   florenca:   { cultural: 5, noturna: 2, gastronomia: 5, seguranca: 4, clima: 4, caminhada: 4, intensidade: 4 },
   edimburgo:  { cultural: 4, noturna: 3, gastronomia: 3, seguranca: 5, clima: 2, caminhada: 4, intensidade: 3 },
-  copenhague: { cultural: 4, noturna: 3, gastronomia: 4, seguranca: 5, clima: 2, caminhada: 3, intensidade: 3 }
+  copenhague: { cultural: 4, noturna: 3, gastronomia: 4, seguranca: 5, clima: 2, caminhada: 3, intensidade: 3 },
+  milao:      { cultural: 4, noturna: 4, gastronomia: 5, seguranca: 4, clima: 3, caminhada: 3, intensidade: 4 },
+  porto:      { cultural: 4, noturna: 4, gastronomia: 5, seguranca: 4, clima: 4, caminhada: 4, intensidade: 4 }
 }
 
 export const SCORE_PADRAO = {

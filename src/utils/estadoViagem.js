@@ -12,10 +12,22 @@ export const ESTADO_INICIAL = {
   dataVolta: '',        // ISO date; vazio = auto-calculada (dataIda + total dias)
   estilo: 'conforto',   // 'economico' | 'conforto' | 'luxo'
   cidadesSelecionadas: [],
-  checklistConcluidos: []  // ids dos itens do checklist marcados como prontos
+  checklistConcluidos: [],  // ids dos itens do checklist marcados como prontos
+  transportesEscolhidos: {} // { 'lisboa>porto': 'trem' } — modal escolhido por trecho
 }
 
 const ESTILOS_VALIDOS = ['economico', 'conforto', 'luxo']
+
+const TIPOS_TRANSPORTE = ['aviao', 'trem', 'onibus', 'carro']
+
+function normalizarTransportes(bruto) {
+  if (!bruto || typeof bruto !== 'object' || Array.isArray(bruto)) return {}
+  return Object.fromEntries(
+    Object.entries(bruto).filter(
+      ([chave, tipo]) => /^[a-z]+>[a-z]+$/.test(chave) && TIPOS_TRANSPORTE.includes(tipo)
+    )
+  )
+}
 
 const validarDataISO = (v) =>
   typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : ''
@@ -54,6 +66,7 @@ export function normalizarEstado(bruto) {
       : [],
     checklistConcluidos: Array.isArray(bruto.checklistConcluidos)
       ? bruto.checklistConcluidos.filter((x) => typeof x === 'string')
-      : []
+      : [],
+    transportesEscolhidos: normalizarTransportes(bruto.transportesEscolhidos)
   }
 }

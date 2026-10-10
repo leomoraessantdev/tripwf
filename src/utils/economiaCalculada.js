@@ -15,8 +15,8 @@
 
 import { detectarTemporada } from './temporadas.js'
 
-const TRANSPORTE_BASELINE_TRECHO = 120  // EUR — voo regional barato médio
-const TRANSPORTE_REAL_TRECHO = 80       // EUR — mesma constante do ViagemContext
+const TRANSPORTE_BASELINE_TRECHO = 120  // EUR por pessoa — voo regional barato médio
+const TRANSPORTE_REAL_TRECHO = 80       // EUR — fallback quando totais.transport não vem
 const MULT_HOTEL_ALTA = 1.20            // baseline assume sempre alta temporada
 const ECONOMIA_MIN_RELEVANTE = 15       // ignora ganhos menores que isso
 
@@ -39,7 +39,7 @@ const MINUTOS_TRIPWF = 15              // fluxo completo dos 4 passos
 const THRESHOLD_EXCELENTE = 0.12
 const THRESHOLD_MODERADO = 0.04
 
-export function calcularEconomia({ dadosViagem, totais, dataIda }) {
+export function calcularEconomia({ dadosViagem, totais, dataIda, viajantes = 1 }) {
   if (!dadosViagem || dadosViagem.length === 0) return null
 
   // ---------- Baseline por categoria ----------
@@ -55,7 +55,7 @@ export function calcularEconomia({ dadosViagem, totais, dataIda }) {
     const opcoes = d.cidade.hospedagens || []
     if (opcoes.length === 0) return
     const maisCara = opcoes.reduce((m, h) => (h.precoNoite > m.precoNoite ? h : m), opcoes[0])
-    hospedagemBaseline += maisCara.precoNoite * d.dias * MULT_HOTEL_ALTA
+    hospedagemBaseline += maisCara.precoNoite * d.dias * MULT_HOTEL_ALTA * (d.unidadesHospedagem ?? 1)
     hospedagemReal += d.custoHospedagem
   })
   const economiaHospedagem = Math.max(0, hospedagemBaseline - hospedagemReal)
@@ -73,16 +73,17 @@ export function calcularEconomia({ dadosViagem, totais, dataIda }) {
       .filter((a) => a.preco > 0)
       .sort((a, b) => b.preco - a.preco)
     const topN = pagas.slice(0, n)
-    atracoesBaseline += topN.reduce((s, a) => s + a.preco, 0)
+    atracoesBaseline += topN.reduce((s, a) => s + a.preco, 0) * viajantes
     atracoesReal += d.custoAtracoes
     atracoesGratuitasEscolhidas += d.atracoes.filter((a) => a.preco === 0).length
   })
   const economiaAtracoes = Math.max(0, atracoesBaseline - atracoesReal)
 
-  // Transporte baseline: avião €120/trecho. Real: €80/trecho.
+  // Transporte baseline: avião €120/trecho/pessoa. Real: modal escolhido em
+  // cada trecho (totais.transport).
   const nTrechos = Math.max(0, dadosViagem.length - 1)
-  const transporteBaseline = nTrechos * TRANSPORTE_BASELINE_TRECHO
-  const transporteReal = nTrechos * TRANSPORTE_REAL_TRECHO
+  const transporteBaseline = nTrechos * TRANSPORTE_BASELINE_TRECHO * viajantes
+  const transporteReal = totais.transport ?? nTrechos * TRANSPORTE_REAL_TRECHO
   const economiaTransporte = Math.max(0, transporteBaseline - transporteReal)
 
   // Temporada: para cada cidade, se está em baixa/média (vs alta assumida no

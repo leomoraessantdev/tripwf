@@ -1,11 +1,14 @@
-// Dados das 16 cidades europeias com atrações turísticas e hospedagens.
+// Dados das 18 cidades europeias com atrações turísticas e hospedagens.
 // Preços em EUR. Imagens vêm de arquivos LOCAIS em /public/images, mapeados
 // no manifesto src/data/imagensLocais.js — zero dependência de rede.
 // Wikipedia segue sendo usada SÓ para texto auxiliar (extract no popup do
 // mapa e bloco "Sobre na Wikipedia" no card de atração) — via campo `wiki`
 // abaixo. Imagem em si vem 100% local.
 
-import { linkIngresso, linkReserva } from '../utils/links.js'
+import { linkIngresso, linkReserva, linkReservaAccor, linkHotelAccor } from '../utils/links.js'
+import { HOTEIS_ACCOR, ACCOR_DESTINO } from './hoteisAccor.js'
+import { BATE_VOLTA } from './bateVolta.js'
+import { INGRESSO_OFICIAL } from './ingressosOficiais.js'
 import {
   IMAGENS_CIDADE,
   IMAGENS_HOSPEDAGEM,
@@ -38,7 +41,9 @@ const ALIMENTACAO_DIA = {
   budapeste:  30,
   florenca:   45,
   edimburgo:  50,
-  copenhague: 70   // muito alta (mais cara da lista)
+  copenhague: 70,  // muito alta (mais cara da lista)
+  milao:      50,
+  porto:      30   // barata
 }
 
 // Coordenadas geográficas (latitude, longitude) de cada cidade.
@@ -59,7 +64,9 @@ const COORDS = {
   budapeste:  [47.4979, 19.0402],
   florenca:   [43.7696, 11.2558],
   edimburgo:  [55.9533, -3.1883],
-  copenhague: [55.6761, 12.5683]
+  copenhague: [55.6761, 12.5683],
+  milao:      [45.4642,  9.1900],
+  porto:      [41.1579, -8.6291]
 }
 
 // Slug do artigo na Wikipedia EN para cada cidade (usado em buscarImagemWiki)
@@ -79,7 +86,9 @@ const WIKI_CIDADE = {
   budapeste: 'Budapest',
   florenca: 'Florence',
   edimburgo: 'Edinburgh',
-  copenhague: 'Copenhagen'
+  copenhague: 'Copenhagen',
+  milao: 'Milan',
+  porto: 'Porto'
 }
 
 // Slug do artigo na Wikipedia EN para cada atração (chave = id da atração).
@@ -231,7 +240,32 @@ const WIKI_ATRACAO = {
   'atenas-zeus': 'Temple_of_Olympian_Zeus,_Athens',
   'atenas-syntagma': 'Syntagma_Square',
   'atenas-anafiotika': 'Anafiotika',
-  'atenas-panatenaico': 'Panathenaic_Stadium'
+  'atenas-panatenaico': 'Panathenaic_Stadium',
+  // Milão
+  'milao-duomo': 'Milan_Cathedral',
+  'milao-cenacolo': 'The_Last_Supper_(Leonardo)',
+  'milao-galleria': 'Galleria_Vittorio_Emanuele_II',
+  'milao-sforzesco': 'Castello_Sforzesco',
+  'milao-brera': 'Pinacoteca_di_Brera',
+  'milao-scala': 'La_Scala',
+  'milao-navigli': 'Navigli',
+  'milao-porta-nuova': 'Bosco_Verticale',
+  'milao-san-siro': 'San_Siro',
+  // Porto
+  'porto-ribeira': 'Ribeira_(Porto)',
+  'porto-lello': 'Livraria_Lello',
+  'porto-caves': 'Port_wine',
+  'porto-clerigos': 'Clérigos_Church',
+  'porto-bolsa': 'Palácio_da_Bolsa',
+  'porto-sao-bento': 'São_Bento_railway_station',
+  'porto-se': 'Porto_Cathedral',
+  'porto-cruzeiro': 'Dom_Luís_I_Bridge',
+  'porto-serralves': 'Serralves',
+  'porto-foz': 'Foz_do_Douro',
+  // Bate e volta
+  'madri-toledo': 'Toledo,_Spain',
+  'milao-lugano': 'Lugano',
+  'milao-bernina': 'Bernina_Express'
 }
 
 export const cidades = [
@@ -305,7 +339,7 @@ export const cidades = [
       { id: 'roma-trevi', nome: 'Fontana di Trevi', imagens: aimg('1525874684015-58379d421a52', 'roma'), preco: 0, duracao: '30 minutos', categoria: 'Monumento', avaliacao: 4.7, local: 'Trevi', dica: 'Antes das 8h da manhã você tem a fonte (quase) só para você.', descricao: 'Jogue uma moeda e garanta sua volta a Roma diante da fonte barroca mais famosa do mundo.' },
       { id: 'roma-pantheon', nome: 'Pantheon e Piazza Navona', imagens: aimg('1539037116277-4db20889f2d4', 'roma'), preco: 5, duracao: '2 horas', categoria: 'Histórico', avaliacao: 4.8, local: 'Centro Storico', dica: 'Se chover, corra para lá: a chuva caindo pelo óculo da cúpula é um espetáculo.', descricao: 'Templo romano perfeitamente preservado e a praça barroca com fontes de Bernini.' },
       { id: 'roma-trastevere', nome: 'Tour Gastronômico em Trastevere', imagens: aimg('1467003909585-2f8a72700288', 'roma'), preco: 65, duracao: '3 horas', categoria: 'Gastronomia', avaliacao: 4.7, local: 'Trastevere', dica: 'Vá com fome: são 6-8 paradas entre suppli, cacio e pepe e gelato artesanal.', descricao: 'Caminhada por trattorias autênticas com degustação de cacio e pepe, suppli e vinhos locais.' },
-      { id: 'roma-borghese', nome: 'Galleria Borghese', imagens: aimg(), preco: 15, duracao: '2 horas', categoria: 'Museu', avaliacao: 4.7, local: 'Villa Borghese', dica: 'Entrada só com hora marcada em turnos de 2h — reserve com semanas de antecedência.', linkOficial: 'https://galleriaborghese.beniculturali.it', descricao: 'Berninis e Caravaggios na coleção particular mais impressionante de Roma, dentro do parque Borghese.' },
+      { id: 'roma-borghese', nome: 'Galleria Borghese', imagens: aimg(), preco: 15, duracao: '2 horas', categoria: 'Museu', avaliacao: 4.7, local: 'Villa Borghese', dica: 'Entrada só com hora marcada em turnos de 2h — reserve com semanas de antecedência.', linkOficial: 'https://galleriaborghese.cultura.gov.it', descricao: 'Berninis e Caravaggios na coleção particular mais impressionante de Roma, dentro do parque Borghese.' },
       { id: 'roma-castel', nome: "Castel Sant'Angelo", imagens: aimg(), preco: 16, duracao: '2 horas', categoria: 'Histórico', avaliacao: 4.5, local: 'Prati', dica: 'O terraço no topo tem uma das melhores vistas de Roma — vá perto do pôr do sol.', descricao: 'Mausoléu de Adriano, fortaleza papal e cenário de ópera: 2 mil anos de história à beira do Tibre.' },
       { id: 'roma-espanha', nome: 'Piazza di Spagna e Escadaria', imagens: aimg(), preco: 0, duracao: '1 hora', categoria: 'Monumento', avaliacao: 4.5, local: 'Campo Marzio', dica: 'Sentar na escadaria é proibido (multa de €250) — vá cedo para fotos sem multidão.', descricao: 'Os 135 degraus mais famosos do mundo, entre a fonte de Bernini e a igreja Trinità dei Monti.' },
       { id: 'roma-san-pietro', nome: 'Basílica de São Pedro', imagens: aimg(), preco: 10, duracao: '2-3 horas', categoria: 'Monumento', avaliacao: 4.8, local: 'Vaticano', dica: 'A basílica é gratuita; os €10 valem pela subida à cúpula (551 degraus ou elevador parcial).', descricao: 'A maior igreja do mundo, com a Pietà de Michelangelo e a vista da cúpula sobre a Praça São Pedro.' },
@@ -343,7 +377,7 @@ export const cidades = [
       { id: 'barcelona-casa-batllo', nome: 'Casa Batlló', imagens: aimg('1551867633-194f125bdde0', 'barcelona'), preco: 35, duracao: '1.5 horas', categoria: 'Monumento', avaliacao: 4.6, local: 'Eixample', dica: 'O ingresso "Be the first" (9h) evita as multidões e custa pouco mais.', linkOficial: 'https://www.casabatllo.es', descricao: 'A casa mais excêntrica do Passeig de Gràcia, com fachada em forma de dragão escamado.' },
       { id: 'barcelona-barceloneta', nome: 'Praia de Barceloneta', imagens: aimg('1492571350019-22de08371fd3', 'barcelona'), preco: 0, duracao: '2-4 horas', categoria: 'Praia', avaliacao: 4.4, local: 'Barceloneta', dica: 'Alugue uma bicicleta e siga o calçadão até o Fórum — praias ficam mais vazias.', descricao: 'Areia mediterrânea, chiringuitos e a melhor paella à beira-mar da cidade.' },
       { id: 'barcelona-pedrera', nome: 'Casa Milà (La Pedrera)', imagens: aimg(), preco: 28, duracao: '1.5 horas', categoria: 'Monumento', avaliacao: 4.6, local: 'Eixample', dica: 'O tour noturno projeta luzes no terraço das chaminés-guerreiro — experiência única.', linkOficial: 'https://www.lapedrera.com', descricao: 'O último edifício civil de Gaudí, com fachada ondulada de pedra e o terraço mais surreal da Europa.' },
-      { id: 'barcelona-picasso', nome: 'Museu Picasso', imagens: aimg(), preco: 14, duracao: '2 horas', categoria: 'Museu', avaliacao: 4.5, local: 'El Born', dica: 'Gratuito nas quintas à tarde e no 1º domingo do mês — reserve online mesmo assim.', linkOficial: 'https://www.museupicasso.bcn.cat', descricao: 'A formação do gênio: 4 mil obras da juventude de Picasso em cinco palácios medievais unidos.' },
+      { id: 'barcelona-picasso', nome: 'Museu Picasso', imagens: aimg(), preco: 14, duracao: '2 horas', categoria: 'Museu', avaliacao: 4.5, local: 'El Born', dica: 'Gratuito nas quintas à tarde e no 1º domingo do mês — reserve online mesmo assim.', linkOficial: 'https://museupicassobcn.cat/en/', descricao: 'A formação do gênio: 4 mil obras da juventude de Picasso em cinco palácios medievais unidos.' },
       { id: 'barcelona-montjuic', nome: 'Montjuïc e Font Màgica', imagens: aimg(), preco: 0, duracao: '3-4 horas', categoria: 'Parque', avaliacao: 4.5, local: 'Montjuïc', dica: 'Suba de teleférico e desça a pé passando pelo castelo, jardins e o Estádio Olímpico.', descricao: 'A montanha dos museus, jardins e mirantes de Barcelona, coroada por um castelo à beira-mar.' },
       { id: 'barcelona-camp-nou', nome: 'Camp Nou — Barça Immersive Tour', imagens: aimg(), preco: 28, duracao: '2 horas', categoria: 'Passeio', avaliacao: 4.4, local: 'Les Corts', dica: 'O museu guarda as seis taças da Champions; ingresso mais barato online.', linkOficial: 'https://www.fcbarcelona.com', descricao: 'O maior estádio da Europa e o museu do FC Barcelona, com troféus, túnel e beira do gramado.' },
       { id: 'barcelona-boqueria', nome: 'Mercado de La Boqueria', imagens: aimg(), preco: 0, duracao: '1 hora', categoria: 'Gastronomia', avaliacao: 4.4, local: 'La Rambla', dica: 'Vá antes das 11h; no fim do dia os sucos caem para €1.', descricao: 'O mercado mais fotogênico da Europa: frutas, jamón e frutos do mar desde 1217.' },
@@ -526,7 +560,7 @@ export const cidades = [
       { id: 'madri-reina-sofia', nome: 'Museu Reina Sofía', imagens: aimg(), preco: 12, duracao: '2-3 horas', categoria: 'Museu', avaliacao: 4.7, local: 'Atocha', dica: 'A Guernica de Picasso fica na sala 205.10; entrada gratuita seg/qua-sáb das 19h às 21h.', linkOficial: 'https://www.museoreinasofia.es', descricao: 'O grande museu de arte moderna da Espanha, casa da Guernica de Picasso e de obras de Dalí e Miró.' },
       { id: 'madri-thyssen', nome: 'Museu Thyssen-Bornemisza', imagens: aimg(), preco: 13, duracao: '2-3 horas', categoria: 'Museu', avaliacao: 4.6, local: 'Paseo del Prado', dica: 'Às segundas-feiras a coleção permanente é gratuita das 12h às 16h.', linkOficial: 'https://www.museothyssen.org', descricao: 'Fecha o "Triângulo da Arte" de Madri: 700 anos de pintura, de Van Eyck a Hopper, em uma única coleção.' },
       { id: 'madri-plaza-mayor', nome: 'Plaza Mayor e Puerta del Sol', imagens: aimg(), preco: 0, duracao: '1-2 horas', categoria: 'Histórico', avaliacao: 4.6, local: 'Centro', dica: 'Prove o clássico bocadillo de calamares nos bares ao redor da praça.', descricao: 'O coração histórico de Madri: a praça porticada de 1619 e o marco zero das estradas da Espanha.' },
-      { id: 'madri-bernabeu', nome: 'Tour Estádio Santiago Bernabéu', imagens: aimg(), preco: 35, duracao: '2 horas', categoria: 'Passeio', avaliacao: 4.5, local: 'Chamartín', dica: 'Compre no site oficial com antecedência; em dias de jogo o tour fecha mais cedo.', linkOficial: 'https://www.realmadrid.com/pt-BR/tour-bernabeu', descricao: 'Os bastidores do estádio do Real Madrid: museu, vestiários, túnel e a beira do gramado.' },
+      { id: 'madri-bernabeu', nome: 'Tour Estádio Santiago Bernabéu', imagens: aimg(), preco: 35, duracao: '2 horas', categoria: 'Passeio', avaliacao: 4.5, local: 'Chamartín', dica: 'Compre no site oficial com antecedência; em dias de jogo o tour fecha mais cedo.', linkOficial: 'https://www.realmadrid.com/pt-PT/tour-bernabeu', descricao: 'Os bastidores do estádio do Real Madrid: museu, vestiários, túnel e a beira do gramado.' },
       { id: 'madri-mercado-san-miguel', nome: 'Mercado de San Miguel', imagens: aimg(), preco: 0, duracao: '1-2 horas', categoria: 'Gastronomia', avaliacao: 4.4, local: 'Centro', dica: 'Entrada livre — paga-se o que consumir. Evite o horário do almoço, lota.', descricao: 'Mercado de ferro e vidro de 1916 transformado no templo gourmet mais famoso da cidade.' },
       { id: 'madri-templo-debod', nome: 'Templo de Debod', imagens: aimg(), preco: 0, duracao: '1 hora', categoria: 'Histórico', avaliacao: 4.5, local: 'Parque del Oeste', dica: 'Vá ao pôr do sol: o templo egípcio refletido na água é o cartão-postal de Madri.', descricao: 'Um templo egípcio autêntico do século II a.C., presente do Egito à Espanha, remontado em Madri.' },
       { id: 'madri-gran-via', nome: 'Gran Vía e Círculo de Bellas Artes', imagens: aimg(), preco: 0, duracao: '2 horas', categoria: 'Bairro', avaliacao: 4.5, local: 'Centro', dica: 'Suba ao rooftop do Círculo de Bellas Artes (€5) para a melhor vista da avenida.', descricao: 'A "Broadway madrilenha": teatros, fachadas monumentais e o edifício Metrópolis iluminado à noite.' }
@@ -726,6 +760,61 @@ export const cidades = [
       { id: 'copenhague-h3', nome: 'Vesterbro Design Apartment', imagens: himg('apartamento', 'copenhague'), precoNoite: 130, avaliacao: 4.6, tipo: 'Apartamento', bairro: 'Vesterbro', comodidades: ['Cozinha', 'Bicicleta', 'Wi-Fi'] },
       { id: 'copenhague-h4', nome: 'Generator Copenhagen', imagens: himg('hostel', 'copenhague'), precoNoite: 45, avaliacao: 4.3, tipo: 'Hostel', bairro: 'Centro', comodidades: ['Bar', 'Wi-Fi', 'Café da manhã'] }
     ]
+  },
+  {
+    slug: 'milao',
+    nome: 'Milão',
+    pais: 'Itália',
+    bandeira: '🇮🇹',
+    imagens: [],
+    descricao:
+      'Capital da moda e do design, com uma catedral gótica de mármore, a Última Ceia de Leonardo e o aperitivo nos canais dos Navigli. E a melhor base para bate e voltas aos lagos e à Suíça.',
+    destaques: ['Duomo', 'Última Ceia', 'Galleria Vittorio Emanuele II', 'Navigli'],
+    custoMedioDia: 70,
+    atracoes: [
+      { id: 'milao-duomo', nome: 'Duomo e Terraços', imagens: aimg(), preco: 25, duracao: '2-3 horas', categoria: 'Monumento', avaliacao: 4.8, local: 'Piazza del Duomo', dica: 'O passe com subida de escada sai ~€10 mais barato que o de elevador — e são só 250 degraus até os terraços.', linkOficial: 'https://www.duomomilano.it', descricao: 'Seis séculos de construção, 3.400 estátuas e um passeio entre as agulhas de mármore do telhado com vista para os Alpes.' },
+      { id: 'milao-cenacolo', nome: 'A Última Ceia de Leonardo', imagens: aimg(), preco: 15, duracao: '1 hora', categoria: 'Museu', avaliacao: 4.7, local: 'Santa Maria delle Grazie', dica: 'Visitas de 15 min com hora marcada; os ingressos do site oficial abrem por trimestre e esgotam em horas. Revendas cobram até 4x mais.', linkOficial: 'https://cenacolovinciano.org', descricao: 'O afresco mais famoso do mundo, pintado por Leonardo da Vinci no refeitório de um convento dominicano.' },
+      { id: 'milao-galleria', nome: 'Galleria Vittorio Emanuele II', imagens: aimg(), preco: 0, duracao: '1 hora', categoria: 'Histórico', avaliacao: 4.7, local: 'Piazza del Duomo', dica: 'Gire o calcanhar sobre o mosaico do touro no chão — a tradição promete que você volta a Milão.', descricao: 'A galeria comercial de ferro e vidro de 1877, a "sala de estar" de Milão, ligando o Duomo ao Teatro alla Scala.' },
+      { id: 'milao-sforzesco', nome: 'Castello Sforzesco', imagens: aimg(), preco: 5, duracao: '2-3 horas', categoria: 'Histórico', avaliacao: 4.6, local: 'Centro', dica: 'Os pátios e o Parco Sempione são gratuitos; os €5 valem pela Pietà Rondanini, a última obra de Michelangelo.', linkOficial: 'https://www.milanocastello.it', descricao: 'A fortaleza dos duques de Milão, hoje com museus de arte antiga e o grande parque Sempione nos fundos.' },
+      { id: 'milao-brera', nome: 'Pinacoteca di Brera', imagens: aimg(), preco: 15, duracao: '2-3 horas', categoria: 'Museu', avaliacao: 4.6, local: 'Brera', dica: 'Primeiro domingo do mês tem entrada gratuita. Depois, explore as ruelas do bairro de Brera.', linkOficial: 'https://pinacotecabrera.org', descricao: 'Mantegna, Rafael, Caravaggio e Hayez em um palácio barroco no bairro mais charmoso da cidade.' },
+      { id: 'milao-scala', nome: 'Teatro alla Scala e Museu', imagens: aimg(), preco: 12, duracao: '1 hora', categoria: 'Cultural', avaliacao: 4.6, local: 'Piazza della Scala', dica: 'O museu dá acesso aos camarotes para espiar a plateia quando não há ensaio.', linkOficial: 'https://www.teatroallascala.org', descricao: 'O templo da ópera mundial, onde estrearam Verdi e Puccini, com museu de figurinos e instrumentos.' },
+      { id: 'milao-navigli', nome: 'Navigli e Aperitivo', imagens: aimg(), preco: 0, duracao: '3 horas', categoria: 'Bairro', avaliacao: 4.5, local: 'Navigli', dica: 'Das 18h às 21h o drink (~€10) vem com buffet de petiscos — vira jantar barato. No último domingo do mês tem feira de antiguidades.', descricao: 'Os canais projetados com ajuda de Leonardo, hoje com bares, ateliês e o melhor aperitivo milanês ao pôr do sol.' },
+      { id: 'milao-porta-nuova', nome: 'Porta Nuova e Bosco Verticale', imagens: aimg(), preco: 0, duracao: '1-2 horas', categoria: 'Bairro', avaliacao: 4.5, local: 'Porta Nuova', dica: 'Combine com a Biblioteca degli Alberi, o parque ao lado, e com o bairro Isola para almoçar.', descricao: 'A Milão do futuro: os prédios-floresta do Bosco Verticale, a Piazza Gae Aulenti e arranha-céus premiados.' },
+      { id: 'milao-san-siro', nome: 'Tour Estádio San Siro', imagens: aimg(), preco: 30, duracao: '1.5 horas', categoria: 'Passeio', avaliacao: 4.5, local: 'San Siro', dica: 'Em dia de jogo do Milan ou da Inter o tour é reduzido — confira o calendário antes.', linkOficial: 'https://sansirostadium.com', descricao: 'Vestiários, museu e beira do gramado do Giuseppe Meazza, a casa de Milan e Inter.' }
+    ],
+    hospedagens: [
+      { id: 'milao-h1', nome: 'Ostello Bello Grande', imagens: himg(), precoNoite: 45, avaliacao: 4.6, tipo: 'Hostel', bairro: 'Stazione Centrale', comodidades: ['Café da manhã', 'Terraço', 'Wi-Fi'] },
+      { id: 'milao-h2', nome: 'Navigli Loft Apartment', imagens: himg(), precoNoite: 120, avaliacao: 4.5, tipo: 'Apartamento', bairro: 'Navigli', comodidades: ['Cozinha', 'Wi-Fi', 'Máquina de lavar'] },
+      { id: 'milao-h3', nome: 'Park Hyatt Milano', imagens: himg(), precoNoite: 650, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Galleria', comodidades: ['Restaurante estrelado', 'Spa', 'Concierge 24h'] }
+    ]
+  },
+  {
+    slug: 'porto',
+    nome: 'Porto',
+    pais: 'Portugal',
+    bandeira: '🇵🇹',
+    imagens: [],
+    descricao:
+      'Casarios de azulejo descendo até o Douro, caves de vinho do Porto do outro lado da ponte e francesinha em cada esquina. Uma das cidades mais baratas e acolhedoras da Europa Ocidental.',
+    destaques: ['Ribeira', 'Ponte Dom Luís I', 'Livraria Lello', 'Caves do Vinho do Porto'],
+    custoMedioDia: 50,
+    atracoes: [
+      { id: 'porto-ribeira', nome: 'Ribeira e Ponte Dom Luís I', imagens: aimg(), preco: 0, duracao: '2-3 horas', categoria: 'Bairro', avaliacao: 4.8, local: 'Ribeira', dica: 'Atravesse pelo tabuleiro de cima da ponte (a pé ou de metrô) até o Jardim do Morro no pôr do sol — vista mais bonita da cidade.', descricao: 'O cais Patrimônio da UNESCO, com casinhas coloridas, barcos rabelos e a ponte de ferro da escola de Eiffel.' },
+      { id: 'porto-lello', nome: 'Livraria Lello', imagens: aimg(), preco: 10, duracao: '45 minutos', categoria: 'Histórico', avaliacao: 4.4, local: 'Clérigos', dica: 'O valor do ingresso é descontado se você comprar um livro. Compre online com horário para fugir da fila.', linkOficial: 'https://www.livrarialello.pt', descricao: 'A livraria neogótica de 1906 com a escadaria vermelha que inspirou gerações de leitores.' },
+      { id: 'porto-caves', nome: 'Caves do Vinho do Porto', imagens: aimg(), preco: 20, duracao: '1.5 horas', categoria: 'Gastronomia', avaliacao: 4.7, local: 'Vila Nova de Gaia', dica: 'Caves como Cálem, Sandeman e Graham’s têm visita + degustação de 2-3 vinhos; reserve as do fim da tarde.', descricao: 'Visita às adegas centenárias de Gaia com degustação do vinho que leva o nome da cidade.' },
+      { id: 'porto-clerigos', nome: 'Torre dos Clérigos', imagens: aimg(), preco: 10, duracao: '1 hora', categoria: 'Monumento', avaliacao: 4.6, local: 'Clérigos', dica: 'São 240 degraus; a visita noturna no verão tem vista iluminada e menos gente.', linkOficial: 'https://www.torredosclerigos.pt', descricao: 'A torre barroca símbolo do Porto, com vista de 360° sobre telhados, rio e oceano.' },
+      { id: 'porto-bolsa', nome: 'Palácio da Bolsa', imagens: aimg(), preco: 14, duracao: '45 minutos', categoria: 'Histórico', avaliacao: 4.6, local: 'Ribeira', dica: 'Só com visita guiada (inclusa); o Salão Árabe no final vale o ingresso sozinho.', linkOficial: 'https://www.palaciodabolsa.com', descricao: 'Antiga bolsa de comércio do século XIX com o deslumbrante Salão Árabe revestido de ouro.' },
+      { id: 'porto-sao-bento', nome: 'Estação de São Bento', imagens: aimg(), preco: 0, duracao: '30 minutos', categoria: 'Monumento', avaliacao: 4.7, local: 'Baixa', dica: 'Entrada livre. Dali saem os trens baratos para Guimarães, Braga e o Vale do Douro.', descricao: 'O saguão revestido com 20 mil azulejos que contam a história de Portugal.' },
+      { id: 'porto-se', nome: 'Sé do Porto', imagens: aimg(), preco: 3, duracao: '1 hora', categoria: 'Histórico', avaliacao: 4.5, local: 'Batalha', dica: 'A igreja é gratuita; os €3 são do claustro de azulejos. O adro tem uma das melhores vistas da Ribeira.', descricao: 'A catedral-fortaleza do século XII no ponto mais alto do centro histórico.' },
+      { id: 'porto-cruzeiro', nome: 'Cruzeiro das 6 Pontes', imagens: aimg(), preco: 18, duracao: '1 hora', categoria: 'Passeio', avaliacao: 4.5, local: 'Ribeira', dica: 'Compre direto no cais da Ribeira — costuma sair mais barato que online.', descricao: 'Passeio de barco rabelo pelo Douro passando sob as seis pontes que ligam Porto e Gaia.' },
+      { id: 'porto-serralves', nome: 'Fundação Serralves', imagens: aimg(), preco: 25, duracao: '3 horas', categoria: 'Museu', avaliacao: 4.6, local: 'Boavista', dica: 'Só o parque custa menos que o bilhete completo; no primeiro domingo do mês a manhã é gratuita.', linkOficial: 'https://www.serralves.pt', descricao: 'Museu de arte contemporânea de Álvaro Siza, casa art déco cor-de-rosa e 18 hectares de jardins.' },
+      { id: 'porto-foz', nome: 'Elétrico 1 até a Foz do Douro', imagens: aimg(), preco: 7, duracao: '3 horas', categoria: 'Praia', avaliacao: 4.5, local: 'Foz do Douro', dica: 'O bonde histórico sai do Infante e segue pela margem até onde o rio encontra o mar; volte a pé pelo calçadão.', descricao: 'Bonde de 1930 pela beira do rio até o farol e as praias atlânticas da Foz.' }
+    ],
+    hospedagens: [
+      { id: 'porto-h1', nome: 'Gallery Hostel Porto', imagens: himg(), precoNoite: 35, avaliacao: 4.8, tipo: 'Hostel', bairro: 'Miguel Bombarda', comodidades: ['Jantar comunitário', 'Wi-Fi', 'Galeria de arte'] },
+      { id: 'porto-h2', nome: 'Ribeira Riverside Apartment', imagens: himg(), precoNoite: 95, avaliacao: 4.6, tipo: 'Apartamento', bairro: 'Ribeira', comodidades: ['Vista do Douro', 'Cozinha', 'Wi-Fi'] },
+      { id: 'porto-h3', nome: 'The Yeatman', imagens: himg(), precoNoite: 380, avaliacao: 4.8, tipo: 'Hotel', bairro: 'Vila Nova de Gaia', comodidades: ['Spa de vinoterapia', 'Restaurante estrelado', 'Piscina infinita'] }
+    ]
   }
 ]
 
@@ -747,20 +836,38 @@ cidades.forEach((cidade) => {
   // Custo de alimentação por dia (média realista). Valor padrão se não mapeado.
   cidade.custoAlimentacaoDia = ALIMENTACAO_DIA[cidade.slug] ?? 40
   cidade.epoca = EPOCA_CIDADE[cidade.slug] || null
+  cidade.accorDestino = ACCOR_DESTINO[cidade.slug] || null
+
+  // Accor primeiro: é a rede preferencial de reserva do app.
+  const accor = (HOTEIS_ACCOR[cidade.slug] || []).map((h) => ({ ...h, rede: 'Accor' }))
+  cidade.hospedagens = [...accor, ...cidade.hospedagens]
+  cidade.atracoes = [...cidade.atracoes, ...(BATE_VOLTA[cidade.slug] || [])]
 
   cidade.atracoes.forEach((a) => {
     a.cidade = cidade.nome
     a.pais = cidade.pais
     a.wiki = WIKI_ATRACAO[a.id] || null
     a.imagem = IMAGENS_ATRACAO[a.id] || null
-    a.linkIngresso = linkIngresso(a.nome, cidade.nome)
+    // Bilheteria oficial (mais barata que revenda) quando existe.
+    a.linkCompra = a.preco > 0 ? INGRESSO_OFICIAL[a.id] || null : null
+    // Bate e volta: o "comprar" padrão é o link da opção mais barata.
+    a.linkIngresso = a.bateVolta
+      ? opcaoMaisBarata(a.bateVolta).links[0].url
+      : linkIngresso(a.nome, cidade.nome)
   })
   cidade.hospedagens.forEach((h) => {
     h.cidade = cidade.nome
     h.pais = cidade.pais
     h.imagem = IMAGENS_HOSPEDAGEM[h.id] || null
-    h.linkReserva = linkReserva(h.nome, cidade.nome)
+    h.linkComparar = linkReserva(h.nome, cidade.nome)
+    h.linkReserva = h.rede !== 'Accor'
+      ? h.linkComparar
+      : h.codigo ? linkHotelAccor(h.codigo) : linkReservaAccor(cidade.accorDestino)
   })
 })
 
 export const buscarCidade = (slug) => cidades.find((c) => c.slug === slug)
+
+export function opcaoMaisBarata(bateVolta) {
+  return bateVolta.opcoes.reduce((m, o) => (o.precoIdaVolta < m.precoIdaVolta ? o : m))
+}

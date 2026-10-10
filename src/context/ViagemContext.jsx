@@ -5,13 +5,12 @@ import { computarDatasCidades } from '../utils/datas.js'
 import { sugerirEscolhas } from '../utils/sugestoes.js'
 import { carimbarSalvamento } from '../utils/saveTracker.js'
 import { ESTADO_INICIAL, normalizarEstado } from '../utils/estadoViagem.js'
+import { calcularTrechos, custoTransporte, TIPOS_TRANSPORTE } from '../utils/trechos.js'
+import { detectarTemporada } from '../utils/temporadas.js'
+import { unidadesHospedagem } from '../utils/hospedagem.js'
 
 const ViagemContext = createContext(null)
 
-// Constante para estimar transporte entre cidades. Alimentação é por cidade
-// (cidade.custoAlimentacaoDia em src/data/cidades.js) e reflete diferenças
-// reais de custo de vida — Istambul barata, Copenhague cara.
-export const CUSTO_TRANSPORTE_TRECHO = 80 // EUR por trecho (trem regional médio)
 
 export function ViagemProvider({ children }) {
   // normalizarEstado migra estado salvo por versões antigas do app
@@ -40,7 +39,8 @@ export function ViagemProvider({ children }) {
     estado.dataIda,
     estado.dataVolta,
     estado.estilo,
-    estado.origem
+    estado.origem,
+    estado.transportesEscolhidos
   ])
 
   const setOrcamento = useCallback((valor) => {
@@ -125,6 +125,14 @@ export function ViagemProvider({ children }) {
     setEstado((s) => ({ ...s, cidadesSelecionadas: novaOrdem }))
   }, [setEstado])
 
+  const escolherTransporte = useCallback((chave, tipo) => {
+    if (!chave || !TIPOS_TRANSPORTE.includes(tipo)) return
+    setEstado((s) => ({
+      ...s,
+      transportesEscolhidos: { ...(s.transportesEscolhidos || {}), [chave]: tipo }
+    }))
+  }, [setEstado])
+
   const toggleChecklistItem = useCallback((id) => {
     if (!id) return
     setEstado((s) => {
@@ -195,6 +203,7 @@ export function ViagemProvider({ children }) {
       dataVolta: novoEstado.dataVolta ?? s.dataVolta,
       estilo: novoEstado.estilo ?? s.estilo,
       cidadesSelecionadas: novoEstado.cidadesSelecionadas ?? s.cidadesSelecionadas,
+      transportesEscolhidos: novoEstado.transportesEscolhidos ?? {},
       // Roteiro vindo de link compartilhado começa com checklist zerado:
       // a marcação é pessoal de quem planejou, não viaja na URL.
       checklistConcluidos: []
@@ -214,6 +223,7 @@ export function ViagemProvider({ children }) {
       dataVolta: novoEstado.dataVolta ?? s.dataVolta,
       estilo: novoEstado.estilo ?? s.estilo,
       cidadesSelecionadas: novoEstado.cidadesSelecionadas ?? s.cidadesSelecionadas,
+      transportesEscolhidos: novoEstado.transportesEscolhidos ?? {},
       checklistConcluidos: Array.isArray(novoEstado.checklistConcluidos)
         ? novoEstado.checklistConcluidos
         : []
@@ -248,8 +258,15 @@ export function ViagemProvider({ children }) {
       if (!cidade) return null
       const hospedagem = cidade.hospedagens.find((h) => h.id === cs.hospedagemEscolhida)
       const atracoes = cidade.atracoes.filter((a) => cs.atracoesEscolhidas.includes(a.id))
-      const custoAtracoes = atracoes.reduce((acc, a) => acc + a.preco, 0)
-      const custoHospedagem = hospedagem ? hospedagem.precoNoite * cs.dias : 0
+      // Ingressos são por pessoa.
+      const custoAtracoes = atracoes.reduce((acc, a) => acc + a.preco, 0) * viajantes
+      // Hospedagem: noites (= dias na cidade; checkout na manhã do trecho
+      // seguinte) × quartos/camas × preço da noite ajustado pela temporada.
+      const temporada = detectarTemporada(cidade.slug, cs.dataInicio)
+      const multHospedagem = temporada?.multiplicadorHotel ?? 1
+      const unidades = hospedagem ? unidadesHospedagem(hospedagem.tipo, viajantes) : 0
+      const precoNoiteAjustado = hospedagem ? Math.round(hospedagem.precoNoite * multHospedagem) : 0
+      const custoHospedagem = precoNoiteAjustado * cs.dias * unidades
       // Alimentação por cidade — entra no total da cidade. Soma das cidades = food do trip
       const custoAlimentacao = (cidade.custoAlimentacaoDia || 40) * cs.dias * viajantes
       // Total da cidade = SOMA dos 3 tiles exibidos (hospedagem + atrações + alimentação).
@@ -259,6 +276,9 @@ export function ViagemProvider({ children }) {
         ...cs,
         cidade,
         hospedagem,
+        unidadesHospedagem: unidades,
+        precoNoiteAjustado,
+        multHospedagem,
         atracoes,
         custoAtracoes,
         custoHospedagem,
@@ -267,6 +287,11 @@ export function ViagemProvider({ children }) {
       }
     }).filter(Boolean)
   }, [estado.cidadesSelecionadas, estado.dataIda, estado.viajantes])
+
+  const trechos = useMemo(
+    () => calcularTrechos(dadosViagem, Math.max(1, estado.viajantes || 1)),
+    [dadosViagem, estado.viajantes]
+  )
 
   const totais = useMemo(() => {
     const viajantes = Math.max(1, estado.viajantes || 1)
@@ -277,7 +302,7 @@ export function ViagemProvider({ children }) {
     const accommodation = dadosViagem.reduce((acc, d) => acc + d.custoHospedagem, 0)
     const attractions = dadosViagem.reduce((acc, d) => acc + d.custoAtracoes, 0)
     const food = dadosViagem.reduce((acc, d) => acc + d.custoAlimentacao, 0)
-    const transport = Math.max(0, dadosViagem.length - 1) * CUSTO_TRANSPORTE_TRECHO
+    const transport = custoTransporte(trechos, estado.transportesEscolhidos, viajantes)
     const custoTotal = accommodation + attractions + food + transport
     const custoMedioPorDia = totalDias > 0 ? custoTotal / totalDias : 0
     const orcamentoTotal = estado.orcamentoDiario * totalDias * viajantes
@@ -295,7 +320,7 @@ export function ViagemProvider({ children }) {
       dentroDoOrcamento,
       diferenca: orcamentoTotal - custoTotal
     }
-  }, [dadosViagem, estado.orcamentoDiario, estado.viajantes])
+  }, [dadosViagem, trechos, estado.transportesEscolhidos, estado.orcamentoDiario, estado.viajantes])
 
   const valor = {
     orcamentoDiario: estado.orcamentoDiario,
@@ -307,7 +332,9 @@ export function ViagemProvider({ children }) {
     estilo: estado.estilo || 'conforto',
     cidadesSelecionadas: estado.cidadesSelecionadas,
     checklistConcluidos: estado.checklistConcluidos || [],
+    transportesEscolhidos: estado.transportesEscolhidos || {},
     dadosViagem,
+    trechos,
     totais,
     todasCidades: cidades,
     setOrcamento,
@@ -328,7 +355,8 @@ export function ViagemProvider({ children }) {
     carregarRoteiroSalvo,
     cidadeEstaSelecionada,
     toggleChecklistItem,
-    resetarChecklist
+    resetarChecklist,
+    escolherTransporte
   }
 
   return <ViagemContext.Provider value={valor}>{children}</ViagemContext.Provider>

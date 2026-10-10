@@ -10,19 +10,20 @@
 // Sem rede. Funções puras. Roda novamente toda vez que o estado da
 // viagem muda (chamada dentro de componentes React).
 //
-// CUSTO_TRANSPORTE_TRECHO_BASE = €80 → mesmo valor de ViagemContext.
-// Hardcoded para não criar import circular; manter sincronizado.
+// Valores em EUR para o grupo inteiro (viajantes), coerentes com os totais
+// do ViagemContext: ingresso × viajantes, hotel × quartos × temporada,
+// transporte pelo modal escolhido em cada trecho.
 
-import { haversine } from './distancia.js'
-import { sugestoesTransporte } from './transportes.js'
+import { opcaoSelecionada, custoOpcao } from './trechos.js'
 
-const CUSTO_TRANSPORTE_TRECHO_BASE = 80
 const PROXIMO_THRESHOLD = 0.9 // 90% do orçamento já dispara "próximo do limite"
 const FOLGA_DESEJADA_ACIMA = 0.05 // 5% de folga após cobrir excedente
 const FOLGA_DESEJADA_PROXIMO = 0.15 // baixar de 100% para 85%
 const ECONOMIA_MIN_RELEVANTE = 15 // ignora sugestões com economia < €15
 
-export function gerarSugestoesEconomia({ dadosViagem, totais, orcamentoTotal, dataIda }) {
+export function gerarSugestoesEconomia({
+  dadosViagem, totais, orcamentoTotal, trechos = [], transportesEscolhidos = {}, viajantes = 1
+}) {
   if (!dadosViagem || dadosViagem.length === 0) {
     return { estado: 'dentro', ratio: 0, deficit: 0, alvo: 0, sugestoes: [], totalEconomia: 0 }
   }
@@ -66,7 +67,9 @@ export function gerarSugestoesEconomia({ dadosViagem, totais, orcamentoTotal, da
       alternativas[0]
     )
     if (maisBarata.precoNoite >= d.hospedagem.precoNoite) return
-    const economia = Math.round((d.hospedagem.precoNoite - maisBarata.precoNoite) * d.dias)
+    const unidades = d.unidadesHospedagem ?? 1
+    const mult = d.multHospedagem ?? 1
+    const economia = Math.round((d.hospedagem.precoNoite - maisBarata.precoNoite) * mult * d.dias * unidades)
     if (economia < ECONOMIA_MIN_RELEVANTE) return
     tierHotel.push({
       tipo: 'hotel',
@@ -78,46 +81,25 @@ export function gerarSugestoesEconomia({ dadosViagem, totais, orcamentoTotal, da
     })
   })
 
-  // --- Tier 2: transporte mais barato entre cidades ---
-  if (dadosViagem.length >= 2) {
-    const trechosCount = dadosViagem.length - 1
-    const baselineTotal = trechosCount * CUSTO_TRANSPORTE_TRECHO_BASE
-    let cheapestTotal = 0
-    const modaisMaisBaratos = new Set()
-
-    for (let i = 0; i < trechosCount; i++) {
-      const a = dadosViagem[i].cidade
-      const b = dadosViagem[i + 1].cidade
-      if (a.lat == null || b.lat == null) {
-        cheapestTotal += CUSTO_TRANSPORTE_TRECHO_BASE
-        continue
-      }
-      const km = haversine(a.lat, a.lng, b.lat, b.lng)
-      const opcoes = sugestoesTransporte(km, a.nome, b.nome, dataIda)
-      if (opcoes.length === 0) {
-        cheapestTotal += CUSTO_TRANSPORTE_TRECHO_BASE
-        continue
-      }
-      const maisBarato = opcoes.reduce(
-        (m, o) => (o.precoMin < m.precoMin ? o : m),
-        opcoes[0]
-      )
-      cheapestTotal += maisBarato.precoMin
-      modaisMaisBaratos.add(maisBarato.nome)
-    }
-
-    const economia = Math.round(baselineTotal - cheapestTotal)
-    if (economia >= ECONOMIA_MIN_RELEVANTE) {
-      const modais = Array.from(modaisMaisBaratos).join('/')
-      tierTransporte.push({
-        tipo: 'transporte',
-        emoji: '🚄',
-        titulo: 'Use modais mais econômicos entre cidades',
-        detalhe: `Prefira ${modais || 'trem ou ônibus'} no lugar do voo quando a distância permitir.`,
-        economia
-      })
-    }
-  }
+  // --- Tier 2: modal mais barato em cada trecho (vs o escolhido) ---
+  trechos.forEach((t) => {
+    const atual = opcaoSelecionada(t, transportesEscolhidos)
+    if (!atual) return
+    const maisBarato = t.opcoes.reduce(
+      (m, o) => (custoOpcao(o, viajantes) < custoOpcao(m, viajantes) ? o : m),
+      t.opcoes[0]
+    )
+    const economia = Math.round(custoOpcao(atual, viajantes) - custoOpcao(maisBarato, viajantes))
+    if (economia < ECONOMIA_MIN_RELEVANTE) return
+    tierTransporte.push({
+      tipo: 'transporte',
+      emoji: '🚄',
+      cidade: t.destino.nome,
+      titulo: `${t.origem.nome} → ${t.destino.nome} de ${maisBarato.nome.toLowerCase()}`,
+      detalhe: `${atual.nome} → ${maisBarato.nome} (${maisBarato.duracaoTexto}). Troque na seção de transportes.`,
+      economia
+    })
+  })
 
   // --- Tier 3: trocar atração paga por gratuita ---
   dadosViagem.forEach((d) => {
@@ -137,7 +119,7 @@ export function gerarSugestoesEconomia({ dadosViagem, totais, orcamentoTotal, da
       cidade: d.cidade.nome,
       titulo: `Troque atração em ${d.cidade.nome}`,
       detalhe: `${mais.nome} → ${gratuitas[0].nome} (gratuita)`,
-      economia: Math.round(mais.preco)
+      economia: Math.round(mais.preco * viajantes)
     })
   })
 
@@ -158,7 +140,7 @@ export function gerarSugestoesEconomia({ dadosViagem, totais, orcamentoTotal, da
       cidade: d.cidade.nome,
       titulo: `Reduza 1 atração premium em ${d.cidade.nome}`,
       detalhe: `Remova "${mais.nome}" — é o ingresso mais caro do roteiro nesta cidade.`,
-      economia: Math.round(mais.preco)
+      economia: Math.round(mais.preco * viajantes)
     })
   })
 

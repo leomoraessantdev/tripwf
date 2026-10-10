@@ -103,7 +103,8 @@ export function salvarRoteiro({ estado, dadosViagem, totais, nome }) {
       dataVolta: estado.dataVolta,
       estilo: estado.estilo,
       cidadesSelecionadas: estado.cidadesSelecionadas,
-      checklistConcluidos: estado.checklistConcluidos || []
+      checklistConcluidos: estado.checklistConcluidos || [],
+      transportesEscolhidos: estado.transportesEscolhidos || {}
     },
     resumo
   }

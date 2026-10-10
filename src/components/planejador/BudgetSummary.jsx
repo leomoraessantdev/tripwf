@@ -141,8 +141,9 @@ export default function BudgetSummary() {
           ))}
           <div className="pt-2 mt-2 border-t border-cream-200 dark:border-ink-700 text-[10px] text-primary-500/70 dark:text-ink-300 leading-relaxed">
             <Users className="inline w-3 h-3 mr-1" />
-            Estimativas: alimentação €40/dia/pessoa, transporte €80/trecho.
-            {tripCost.travelers > 1 && ` Multiplicado por ${tripCost.travelers} viajantes.`}
+            Estimativas: hospedagem com ajuste de temporada e {tripCost.travelers > 1 ? 'quartos para o grupo' : 'quarto individual'},
+            ingressos e transporte por pessoa (modal escolhido em cada trecho no roteiro), alimentação pela média da cidade.
+            {tripCost.travelers > 1 && ` Total para ${tripCost.travelers} viajantes.`}
           </div>
         </div>
       )}

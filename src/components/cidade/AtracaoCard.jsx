@@ -77,15 +77,25 @@ export default function AtracaoCard({ atracao }) {
           )}
         </div>
         <a
-          href={link}
+          href={atracao.linkCompra || link}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-base bg-accent-500 hover:bg-accent-600 text-white px-4 py-2.5 text-sm w-full mt-auto"
         >
           <Ticket className="w-4 h-4" aria-hidden="true" />
-          {atracao.preco > 0 ? 'Comprar ingresso' : 'Ver detalhes'}
+          {atracao.linkCompra ? 'Comprar no site oficial' : atracao.preco > 0 ? 'Comprar ingresso' : 'Ver detalhes'}
           <ExternalLink className="w-3 h-3 opacity-70" aria-hidden="true" />
         </a>
+        {atracao.linkCompra && (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 text-center text-xs font-semibold text-primary-600 dark:text-ink-200 hover:text-accent-600 underline decoration-dotted underline-offset-2"
+          >
+            Comparar no GetYourGuide
+          </a>
+        )}
       </div>
     </article>
   )

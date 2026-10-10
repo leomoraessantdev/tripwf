@@ -1,6 +1,7 @@
 // Compartilhamento de roteiro via URL (?v=<base64url>).
 // Codifica orçamento, viajantes e cidades selecionadas em base64 URL-safe.
 // Ex: tripwf.com/?v=eyJvIjoxMDAsInYiOjIsImMiOlt7InMiOiJwYXJpcyIsImQiOjN9XX0
+import { normalizarEstado } from './estadoViagem.js'
 
 function paraBase64Url(str) {
   // btoa precisa de string ASCII; UTF-8 → bytes → base64 → URL-safe
@@ -16,7 +17,8 @@ function deBase64Url(token) {
 
 // Compactação propositalmente curta — chaves de 1 letra para deixar a URL menor.
 export function encodarRoteiro({
-  orcamentoDiario, viajantes, origem, dataIda, dataVolta, estilo, cidadesSelecionadas
+  orcamentoDiario, viajantes, origem, dataIda, dataVolta, estilo, cidadesSelecionadas,
+  transportesEscolhidos
 }) {
   const compact = {
     o: orcamentoDiario,
@@ -30,7 +32,8 @@ export function encodarRoteiro({
       d: c.dias,
       a: c.atracoesEscolhidas || [],
       h: c.hospedagemEscolhida || null
-    }))
+    })),
+    t: transportesEscolhidos || {}
   }
   return paraBase64Url(JSON.stringify(compact))
 }
@@ -56,7 +59,8 @@ export function decodificarRoteiro(token) {
           dias: Math.max(1, Math.min(30, Number(c.d) || 3)),
           atracoesEscolhidas: Array.isArray(c.a) ? c.a.filter((x) => typeof x === 'string') : [],
           hospedagemEscolhida: typeof c.h === 'string' ? c.h : null
-        }))
+        })),
+      transportesEscolhidos: normalizarEstado({ transportesEscolhidos: data.t }).transportesEscolhidos
     }
   } catch {
     return null

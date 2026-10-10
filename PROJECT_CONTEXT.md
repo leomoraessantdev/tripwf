@@ -2,7 +2,25 @@
 
 > **Para o Claude (e quem mais reabrir o projeto):** **leia este arquivo antes de qualquer alteração futura.** Ele resume o que o TripWF é, como está montado e quais decisões já foram tomadas. Atualize-o sempre que algo estrutural mudar.
 
-Última atualização: 2026-07-13 (Expansão de catálogo em 6 cidades, CardEconomia com gráfico de cenários + tempo economizado, favoritos, busca/filtros, 404, SEO por rota, skeleton, code splitting)
+Última atualização: 2026-10-09 (Milão + Porto, hotéis Accor, trem/ônibus via Omio, bate e volta com links da opção mais barata)
+
+## Novidades de 2026-10-09 — parte 2 (custos reais + datas nos links)
+
+- **Transporte escolhível** (`utils/trechos.js` — fonte única): `calcularTrechos(dadosViagem, viajantes)` gera os trechos; data do trecho = `dataInicio` da cidade seguinte (ida 22, Lisboa 1 dia → Lisboa→Porto em 23). Estado novo `transportesEscolhidos: { 'lisboa>porto': 'trem' }` (normalizado em `estadoViagem.js`, vai no link compartilhado (`t`) e nos roteiros salvos). Sem escolha = modal recomendado. `totais.transport` = soma de `precoEstimado` do modal escolhido × viajantes (carro é por veículo). O antigo €80/trecho fixo saiu.
+- **Rotas reais** (`ROTAS_CONHECIDAS` em `transportes.js`): duração/preço reais e modais inexistentes (Porto/Lisboa ↔ Madri sem trem direto). Demais pares usam a fórmula por km. Badge "rota real".
+- **Links com data**: Omio via `GET /growth/search-trigger/search` com `departure_fk`/`arrival_fk` (IDs em `OMIO_ID`), `departure_date=DD/MM/AAAA`, `passengerages[i]` por viajante e `user_id` (obrigatório) → redireciona aos resultados do dia. Google Flights com data. Bate e volta: Omio no 1º dia inteiro na cidade-base.
+- **Painel de custo** (`BudgetSummary`) agora também fixo na página do roteiro (fora do PDF) e atualiza ao escolher transporte.
+- **Custos para o grupo**: ingressos × viajantes; hospedagem = preço × multiplicador de temporada × noites × unidades (`utils/hospedagem.js`: hotel 2/quarto, apto 4, hostel por cama).
+- **Accor revisada** (`data/hoteisAccor.js`): 67 hotéis com **código oficial** (validados em out/2026: página `all.accor.com/hotel/<codigo>/` responde 200), incluindo ibis budget e JO&JOE. Preços recalibrados para tarifa pública real (ibis Porto ≈ €55). `linkHotelAccor(codigo, {dataInicio, dataFim, viajantes})` abre a reserva DO HOTEL com check-in/noites; sem datas, a página do hotel.
+- **Ingressos oficiais** (`data/ingressosOficiais.js` → `a.linkCompra`): museus/monumentos compram no site oficial (mais barato que revenda; alguns só vendem lá). GetYourGuide fica como "Comparar" e para tours/shows.
+
+## Novidades de 2026-10-09 (resumo)
+
+- **18 cidades**: entraram **Milão** (`milao`) e **Porto** (`porto`) com atrações, hospedagens, coords, época, scores, perfil de deslocamento e moeda.
+- **Trem e ônibus pela Omio** (`utils/transportes.js → linkOmio`): páginas de rota `omio.com/trains|buses/<a>/<b>` com nome da cidade em inglês (`NOME_OMIO`). Substituíram Trainline/FlixBus nos trechos entre cidades. Rome2Rio segue como segundo link.
+- **Hotéis Accor** (`data/hoteisAccor.js`): 2–3 hotéis reais por cidade (ibis → Sofitel), mesclados em `cidade.hospedagens` com `rede: 'Accor'` e listados primeiro. Reserva via `linkReservaAccor(destino, {dataInicio, dataFim, viajantes})` → `all.accor.com/booking/pt-br/accor/hotels/<destino>?dateIn&nights&compositions`. Botão secundário "Comparar preço no Booking" (`h.linkComparar`). Preço = estimativa.
+- **Bate e volta** (`data/bateVolta.js` + `components/cidade/BateVoltaCard.jsx`): Madri → Toledo, Milão → Lugano e Milão → Bernina Express. Entram em `cidade.atracoes` com `categoria: 'Bate e volta'` + campo `bateVolta` (opções de transporte com preço ida e volta e links de operadoras oficiais + Omio). `preco` = opção mais barata + entrada principal (testado). Seção própria na PaginaCidade (fora do grid de atrações); no roteiro o link aponta para a opção mais barata (`opcaoMaisBarata`). Não entram na auto-sugestão. Moeda CHF entra no checklist.
+- Imagens novas baixadas por `scripts/baixar-imagens-milao-porto-accor.mjs` (Wikimedia só aceita larguras padrão 500/960/1280 — outras retornam 400). Hotéis Accor usam foto do bairro/marco próximo.
 
 > **2026-07-13 — atualização de posicionamento:** o projeto deixou de ser apresentado como TCC e agora é peça de **portfólio profissional**. Onde este documento diz "TCC/banca", leia "portfólio/recrutadores". As regras técnicas continuam valendo.
 

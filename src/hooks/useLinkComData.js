@@ -4,7 +4,7 @@
 // segue funcionando sem datas como um link de busca genérico.
 
 import { useViagem } from '../context/ViagemContext.jsx'
-import { linkIngresso, linkReserva } from '../utils/links.js'
+import { linkIngresso, linkReserva, linkReservaAccor, linkHotelAccor } from '../utils/links.js'
 
 function somarUmDia(data) {
   if (!data) return null
@@ -16,6 +16,8 @@ function somarUmDia(data) {
 export function useLinkIngressoComData(atracao) {
   const { dadosViagem } = useViagem()
   if (!atracao) return ''
+  // Bate e volta aponta para a operadora mais barata — sem parâmetro de data.
+  if (atracao.bateVolta) return atracao.linkIngresso
   const noRoteiro = dadosViagem.find((d) => d.cidade?.nome === atracao.cidade)
   if (!noRoteiro?.dataInicio) return atracao.linkIngresso
   return linkIngresso(atracao.nome, atracao.cidade, {
@@ -30,9 +32,15 @@ export function useLinkReservaComData(hospedagem) {
   const noRoteiro = dadosViagem.find((d) => d.cidade?.nome === hospedagem.cidade)
   if (!noRoteiro?.dataInicio) return hospedagem.linkReserva
   // Checkout = dia seguinte ao último dia na cidade (sai pela manhã).
-  return linkReserva(hospedagem.nome, hospedagem.cidade, {
+  const opts = {
     dataInicio: noRoteiro.dataInicio,
     dataFim: somarUmDia(noRoteiro.dataFim),
     viajantes
-  })
+  }
+  if (hospedagem.rede === 'Accor') {
+    return hospedagem.codigo
+      ? linkHotelAccor(hospedagem.codigo, opts)
+      : linkReservaAccor(noRoteiro.cidade.accorDestino, opts)
+  }
+  return linkReserva(hospedagem.nome, hospedagem.cidade, opts)
 }

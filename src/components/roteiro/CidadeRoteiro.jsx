@@ -1,5 +1,8 @@
 import clsx from 'clsx'
-import { MapPin, BedDouble, Camera, Wallet, CalendarDays, Thermometer } from 'lucide-react'
+import { MapPin, BedDouble, Camera, Wallet, CalendarDays, Thermometer, ExternalLink } from 'lucide-react'
+import { opcaoMaisBarata } from '../../data/cidades.js'
+import { rotuloUnidade } from '../../utils/hospedagem.js'
+import BuscaHoteisDatas from '../ui/BuscaHoteisDatas.jsx'
 import Imagem from '../ui/Imagem.jsx'
 import Avaliacao from '../ui/Avaliacao.jsx'
 import { formatarEUR, formatarBRL, formatarPreco } from '../../utils/formatadores.js'
@@ -8,7 +11,7 @@ import { detectarTemporada, mensagemImpactoTemporada } from '../../utils/tempora
 
 export default function CidadeRoteiro({ dados, indice }) {
   const {
-    cidade, dias, atracoes, hospedagem,
+    cidade, dias, atracoes, hospedagem, unidadesHospedagem, precoNoiteAjustado,
     custoTotal, custoAtracoes, custoHospedagem, custoAlimentacao,
     dataInicio, dataFim
   } = dados
@@ -112,7 +115,9 @@ export default function CidadeRoteiro({ dados, indice }) {
                     {formatarEUR(custoHospedagem)}
                   </div>
                   <div className="text-xs text-primary-500 dark:text-ink-300 mt-1">
-                    {formatarBRL(custoHospedagem)} · {formatarEUR(hospedagem.precoNoite)} × {dias} {dias === 1 ? 'noite' : 'noites'}
+                    {formatarBRL(custoHospedagem)} · {formatarEUR(precoNoiteAjustado)} × {dias} {dias === 1 ? 'noite' : 'noites'}
+                    {unidadesHospedagem > 1 && ` × ${unidadesHospedagem} ${rotuloUnidade(hospedagem.tipo, unidadesHospedagem)}`}
+                    {precoNoiteAjustado !== hospedagem.precoNoite && ' (ajuste de temporada)'}
                   </div>
                 </div>
               </div>
@@ -122,6 +127,9 @@ export default function CidadeRoteiro({ dados, indice }) {
               Nenhuma hospedagem selecionada
             </div>
           )}
+          <div className="mt-3">
+            <BuscaHoteisDatas cidade={cidade} compacto />
+          </div>
         </section>
 
         <section>
@@ -143,6 +151,7 @@ export default function CidadeRoteiro({ dados, indice }) {
                       {a.nome}
                     </div>
                     <div className="text-xs text-primary-500 dark:text-ink-300">{a.duracao} · {a.categoria}</div>
+                    {a.bateVolta && <LinkBateVolta bateVolta={a.bateVolta} />}
                   </div>
                   <div className="text-right flex-shrink-0 self-center">
                     <div className="text-sm font-bold text-accent-600 dark:text-accent-300 leading-none">
@@ -188,5 +197,21 @@ function Custinho({ label, valor }) {
         <div className="text-[10px] text-primary-500 dark:text-ink-300">{formatarBRL(valor)}</div>
       )}
     </div>
+  )
+}
+
+function LinkBateVolta({ bateVolta }) {
+  const opcao = opcaoMaisBarata(bateVolta)
+  const link = opcao.links[0]
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold text-success hover:underline"
+    >
+      Mais barato: {opcao.titulo} · {link.label}
+      <ExternalLink className="w-3 h-3" aria-hidden="true" />
+    </a>
   )
 }
